@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Super Jump World - Paula Otero Paños</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F6F2;
+    --surface: #FFFFFF;
+    --text: #161616;
+    --muted: #5E5E5E;
+    --subtle: #E4E3DE;
+    --accent: #1B3FAB;
+    --accent-light: #ECF0FB;
+    --accent-mid: #C5CEEF;
+    --green: #0E6E56;
+    --green-light: #E1F5EE;
+    --amber: #7A4A0A;
+    --amber-light: #FDF3E3;
+    --amber-mid: #F0C97A;
+    --coral: #8B2A10;
+    --coral-light: #FDEEE9;
+    --coral-mid: #F0A080;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.7; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(247,246,242,0.92); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--subtle);
+    padding: 0 2.5rem; height: 58px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--text); text-decoration: none; }
+  .nav-back { font-size: 0.82rem; color: var(--muted); text-decoration: none; letter-spacing: 0.03em; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
+  .nav-back:hover { color: var(--accent); }
+
+  .page { max-width: 760px; margin: 0 auto; padding: 6rem 2rem 5rem; }
+  hr.divider { border: none; border-top: 1px solid var(--subtle); margin: 3rem 0; }
+
+  .label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.5rem; }
+  .label-blue { color: var(--accent); }
+  .label-green { color: var(--green); }
+  .label-amber { color: var(--amber); }
+  .label-coral { color: var(--coral); }
+
+  /* HERO */
+  .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 2px; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.02em; }
+  .badge-blue { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+  .badge-green { background: var(--green-light); color: var(--green); }
+  .badge-grade { background: #1B3FAB; color: white; }
+  .badge-amber { background: var(--amber-light); color: var(--amber); border: 1px solid var(--amber-mid); }
+
+  .project-eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .project-title { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 1.25rem; }
+  .project-title em { font-style: italic; color: var(--accent); }
+  .project-subtitle { font-size: 1.05rem; color: var(--muted); font-weight: 300; line-height: 1.8; max-width: 580px; margin-bottom: 2rem; }
+
+  .meta-row { display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.82rem; color: var(--muted); border-top: 1px solid var(--subtle); padding-top: 1.25rem; }
+  .meta-item { display: flex; flex-direction: column; gap: 0.15rem; }
+  .meta-key { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); opacity: 0.7; }
+  .meta-val { color: var(--text); font-weight: 400; }
+
+  /* SUBJECT CARDS */
+  .subject-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--subtle); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; margin: 2rem 0; }
+  .subject-card { background: var(--surface); padding: 1.5rem; }
+  .subject-icon { font-size: 1.4rem; margin-bottom: 0.75rem; }
+  .subject-name { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.3rem; }
+  .subject-name-blue { color: var(--accent); }
+  .subject-name-green { color: var(--green); }
+  .subject-name-amber { color: var(--amber); }
+  .subject-name-coral { color: var(--coral); }
+  .subject-title { font-family: 'DM Serif Display', serif; font-size: 1.05rem; margin-bottom: 0.4rem; }
+  .subject-desc { font-size: 0.85rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+
+  /* SCREENSHOT BLOCK */
+  .screenshot-block { background: var(--surface); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; margin: 2rem 0; }
+  .screenshot-label { padding: 0.6rem 1.25rem; border-bottom: 1px solid var(--subtle); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .screenshot-img { width: 100%; min-height: 200px; background: #111; display: flex; align-items: center; justify-content: center; font-size: 0.78rem; color: #666; letter-spacing: 0.08em; text-transform: uppercase; flex-direction: column; gap: 0.5rem; padding: 2rem; }
+  .screenshot-img.amber { background: var(--amber-light); color: var(--amber); }
+  .screenshot-img.green { background: var(--green-light); color: var(--green); }
+  .screenshot-img.blue { background: var(--accent-light); color: var(--accent); }
+  .screenshot-img.dark { background: #1A1A1A; color: #888; }
+  .screenshot-caption { padding: 0.75rem 1.25rem; font-size: 0.82rem; color: var(--muted); font-weight: 300; }
+
+  /* PROSE */
+  .prose h3 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; letter-spacing: -0.01em; margin: 2.5rem 0 0.75rem; }
+  .prose h3:first-child { margin-top: 0; }
+  .prose p { font-size: 0.975rem; color: var(--muted); font-weight: 300; line-height: 1.85; margin-bottom: 0.9rem; }
+  .prose p strong { color: var(--text); font-weight: 500; }
+  .prose ul { padding-left: 1.25rem; margin-bottom: 0.9rem; }
+  .prose ul li { font-size: 0.975rem; color: var(--muted); font-weight: 300; line-height: 1.75; margin-bottom: 0.3rem; }
+  .prose ul li strong { color: var(--text); font-weight: 500; }
+
+  /* MODULE TABLE */
+  .module-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin: 1.5rem 0; }
+  .module-table th { text-align: left; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; padding: 0.6rem 1rem; border-bottom: 1px solid var(--subtle); }
+  .module-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--subtle); color: var(--muted); font-weight: 300; line-height: 1.6; vertical-align: top; }
+  .module-table td:first-child { font-family: 'DM Mono', 'Fira Mono', monospace; font-size: 0.82rem; color: var(--accent); font-weight: 400; white-space: nowrap; }
+  .module-table tr:last-child td { border-bottom: none; }
+
+  /* RESULTS GRID */
+  .results-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0; }
+  .result-card { background: var(--surface); border: 1px solid var(--subtle); border-radius: 2px; padding: 1.25rem; }
+  .result-card-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+  .result-card-val { font-family: 'DM Serif Display', serif; font-size: 1.5rem; letter-spacing: -0.01em; margin-bottom: 0.2rem; }
+  .result-card-sub { font-size: 0.82rem; color: var(--muted); font-weight: 300; }
+
+  /* TECH TAGS */
+  .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0; }
+  .tag { padding: 0.28rem 0.75rem; border-radius: 2px; font-size: 0.78rem; }
+  .tag-tech { background: #EFEFEF; color: #2A2A2A; }
+  .tag-blue { background: var(--accent-light); color: var(--accent); }
+  .tag-green { background: var(--green-light); color: var(--green); }
+  .tag-amber { background: var(--amber-light); color: var(--amber); }
+  .tag-coral { background: var(--coral-light); color: var(--coral); }
+
+  /* ACTIONS */
+  .action-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .btn-primary { background: var(--accent); color: white; padding: 0.7rem 1.6rem; border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.02em; transition: opacity 0.2s; }
+  .btn-primary:hover { opacity: 0.82; }
+  .btn-secondary { background: transparent; color: var(--text); padding: 0.7rem 1.6rem; border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 500; border: 1px solid var(--subtle); transition: border-color 0.2s; }
+  .btn-secondary:hover { border-color: var(--text); }
+
+  .team-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .team-chip { background: #F0F0F0; color: #2A2A2A; padding: 0.3rem 0.85rem; border-radius: 2px; font-size: 0.82rem; }
+  .team-chip.me { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+
+  footer { border-top: 1px solid var(--subtle); padding: 2rem; text-align: center; font-size: 0.78rem; color: var(--muted); letter-spacing: 0.04em; }
+
+  @media (max-width: 560px) {
+    .subject-grid { grid-template-columns: 1fr; }
+    .results-row { grid-template-columns: 1fr; }
+    .meta-row { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Paula Otero</a>
+  <a href="index.html#proyectos" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg>
+    Back to portfolio
+  </a>
+</nav>
+
+<main class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="project-eyebrow">
+      <span class="badge badge-blue">Interdisciplinary project</span>
+      <span class="badge badge-amber">4 subjects · 1 system</span>
+      <span class="badge badge-grade">1st year · UPV</span>
+    </div>
+    <h1 class="project-title">Super Jump World -<br><em>Physics meets Python</em></h1>
+    <p class="project-subtitle">
+      An interdisciplinary first-year project (PROMU) integrating programming, network architecture, 
+      mathematics, and physics into a single desktop application: a jump analyser that 
+      measures real human jumps using a smartphone accelerometer, processes the data with 
+      numerical methods, and syncs results across a custom TCP network.
+    </p>
+    <div class="meta-row">
+      <div class="meta-item">
+        <span class="meta-key">Programme</span>
+        <span class="meta-val">PROMU - Proyecto Interdisciplinar</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Institution</span>
+        <span class="meta-val">UPV - ETSI Telecomunicación</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Year</span>
+        <span class="meta-val">2022–23 · 1st year</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Team</span>
+        <span class="meta-val">4 people</span>
+      </div>
+    </div>
+  </header>
+
+  <hr class="divider">
+
+  <!-- WHAT IS PROMU -->
+  <section class="prose">
+    <h3>What PROMU is</h3>
+    <p>
+      PROMU is UPV's first-year interdisciplinary project format, where four independent subjects 
+      - Programming, Network Architecture, Mathematics and Physics - converge into a single 
+      shared deliverable. Each module contributes a real technical component; the challenge is 
+      making them work together as one coherent system. <strong>Our project was called 
+      Super Jump World</strong>: a desktop application that analyses human vertical jumps 
+      using real accelerometer data collected from a phone.
+    </p>
+  </section>
+
+  <!-- SUBJECT OVERVIEW -->
+  <div class="subject-grid">
+    <div class="subject-card">
+      <div class="subject-icon">💻</div>
+      <p class="subject-name subject-name-blue">Programming</p>
+      <p class="subject-title">Desktop GUI application</p>
+      <p class="subject-desc">Built primarily as a desktop application using Python + GUIzero. We also explored an early UI prototype in Kivy to understand how a cross-platform mobile version could be structured, although it remained at the design and experimentation stage since mobile development had not yet been covered in the curriculum.</p>
+    </div>
+    <div class="subject-card">
+      <div class="subject-icon">🌐</div>
+      <p class="subject-name subject-name-green">Network Architecture</p>
+      <p class="subject-title">Custom TCP protocol</p>
+      <p class="subject-desc">Designed and implemented a client-server TCP protocol from scratch. Clients authenticate with USER/PASS, send measurement data, and retrieve the global leaderboard via GET_LEADERBOARD.</p>
+    </div>
+    <div class="subject-card">
+      <div class="subject-icon">📐</div>
+      <p class="subject-name subject-name-amber">Mathematics</p>
+      <p class="subject-title">Numerical integration</p>
+      <p class="subject-desc">Derived velocity and position from raw accelerometer data using numerical integration (primitiva_numerica). Applied signal smoothing and correction to filter gravity offset and sensor noise.</p>
+    </div>
+    <div class="subject-card">
+      <div class="subject-icon">⚡</div>
+      <p class="subject-name subject-name-coral">Physics</p>
+      <p class="subject-title">Jump biomechanics</p>
+      <p class="subject-desc">Computed maximum force, velocity, power, and jump height from the processed signal. Identified key instants (S, TO, L, TIA) and validated results against Tracker video analysis (50.9 cm vs 49.4 cm).</p>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PROGRAMMING -->
+  <section>
+    <p class="label label-blue">Subject 1 - Programming</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">Two GUIs, one application</h2>
+
+    <div class="screenshot-block">
+      <div class="screenshot-label">Application - GUIzero desktop version (Python)</div>
+      <div class="screenshot-img dark">
+        <img src="images/desktop_guizero.png" alt="Desktop guizero ovreview"
+        style="width:50%; height:50%; object-fit:cover;">
+      </div>
+      <p class="screenshot-caption">Main menu of the GUIzero version with Statistics, Leaderboard, and Exit options. Mario-themed interface styled with a custom RetroMario font and pixel-accurate assets.</p>
+    </div>
+
+    <div class="prose">
+    <p>
+    The main implementation was developed as a desktop application using <strong>GUIzero + Tkinter</strong>, enabling rapid prototyping of the full data processing and networking pipeline. In parallel, we experimented with an early interface prototype in <strong>Kivy</strong> to explore how the system could be adapted to mobile environments. This exploratory version focused on layout structure and navigation concepts rather than full functionality, as mobile development and Java-based tooling were introduced later in the degree.
+    </p>
+      <p>
+        The call graph (shown in the function diagram) maps the full dependency tree from <code style="font-size:0.88em;background:#F0F0F0;padding:0.1rem 0.35rem;border-radius:2px">main</code> through 
+        <code style="font-size:0.88em;background:#F0F0F0;padding:0.1rem 0.35rem;border-radius:2px">estadisticas</code>, <code style="font-size:0.88em;background:#F0F0F0;padding:0.1rem 0.35rem;border-radius:2px">clasificacion</code>, and <code style="font-size:0.88em;background:#F0F0F0;padding:0.1rem 0.35rem;border-radius:2px">ajustes</code> 
+        down to the physics computation functions - clearly separating UI, data, networking, and signal processing layers.
+      </p>
+    </div>
+
+    <table class="module-table">
+      <thead><tr><th>Python module</th><th>Role in the application</th></tr></thead>
+      <tbody>
+        <tr><td>guizero</td><td>GUI framework for the desktop version. Provides Window, Text, PushButton, Box, Picture, Slider, Combo, TextBox.</td></tr>
+        <tr><td>kivy</td><td>Cross-platform GUI for the mobile-ready version. Runs on all major desktop OSes, Android, iOS, and Raspberry Pi.</td></tr>
+        <tr><td>pygame</td><td>Audio playback. Loads and plays background music and sound effects (pipe.wav).</td></tr>
+        <tr><td>tkinter</td><td>File picker dialog via <code style="font-size:0.85em">filedialog.askopenfilename</code> for loading JSON measurement files.</td></tr>
+        <tr><td>matplotlib.pyplot</td><td>Generates all physics and signal charts: force, velocity, power, acceleration module.</td></tr>
+        <tr><td>PIL</td><td>Temporarily saves matplotlib figures as images for embedding in the GUIzero interface.</td></tr>
+        <tr><td>sys / os</td><td>Application exit and opening external links.</td></tr>
+      </tbody>
+    </table>
+
+    <div class="tag-row">
+      <span class="tag tag-tech">Python 3</span>
+      <span class="tag tag-blue">GUIzero</span>
+      <span class="tag tag-blue">Kivy</span>
+      <span class="tag tag-tech">Tkinter</span>
+      <span class="tag tag-tech">Pygame</span>
+      <span class="tag tag-tech">Matplotlib</span>
+      <span class="tag tag-tech">PIL</span>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- NETWORKS -->
+  <section>
+    <p class="label label-green">Subject 2 - Network Architecture</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">A custom TCP protocol for the leaderboard</h2>
+
+    <div class="screenshot-block">
+      <div class="screenshot-label">TCP protocol - client/server message exchange</div>
+      <div class="screenshot-img green">
+        <img src="images/tcp_protocol.png" alt="TCP protocol scheme"
+        style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <p class="screenshot-caption">Full message sequence: HELLO handshake → USER/PASS authentication → GET_LEADERBOARD → streaming JSON records → 201 NO MORE LEADERBOARD terminator.</p>
+    </div>
+
+    <div class="prose">
+      <p>
+        We designed a custom application-layer protocol over TCP for synchronising jump scores 
+        across clients. A client connects with <code style="font-size:0.88em;background:#F0F0F0;padding:0.1rem 0.35rem;border-radius:2px">socket(AF_INET, SOCK_STREAM)</code>, 
+        performs a <strong>HELLO + local_IP handshake</strong>, authenticates with USER/PASS, 
+        and can then issue commands including <code style="font-size:0.88em;background:#F0F0F0;padding:0.1rem 0.35rem;border-radius:2px">GET_LEADERBOARD</code> 
+        and <code style="font-size:0.88em;background:#F0F0F0;padding:0.1rem 0.35rem;border-radius:2px">enviar_medida</code> (submit measurement).
+      </p>
+      <p>
+        The server streams leaderboard entries as individual JSON records and signals the end 
+        with a <code style="font-size:0.88em;background:#F0F0F0;padding:0.1rem 0.35rem;border-radius:2px">201 NO MORE LEADERBOARD</code> message - 
+        a deliberate design choice that avoids sending the entire dataset at once, 
+        making the protocol lightweight and streaming-friendly. 
+        A secondary server (<strong>arqred1</strong>) handles measurement submission separately from 
+        the leaderboard server (<strong>arqred2</strong>), keeping the two concerns decoupled.
+      </p>
+    </div>
+
+    <div class="tag-row">
+      <span class="tag tag-tech">Python socket</span>
+      <span class="tag tag-green">TCP / AF_INET</span>
+      <span class="tag tag-green">Custom protocol</span>
+      <span class="tag tag-green">JSON streaming</span>
+      <span class="tag tag-tech">Client-server</span>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- MATHS + PHYSICS -->
+  <section>
+    <p class="label label-amber">Subjects 3 & 4 - Mathematics and Physics</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">From raw accelerometer data to jump height</h2>
+
+    <div class="screenshot-block">
+      <div class="screenshot-label">Data collection - AcelMov app + jump measurement setup</div>
+      <div class="screenshot-img amber">
+        <img src="images/tracker.png" alt="Tracker"
+        style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <p class="screenshot-caption">Smartphone (AcelMov app) strapped to the subject's hip, sampling 3-axis acceleration at ~50 Hz during a countermovement vertical jump. Centre of mass height measured at 43.0 cm.</p>
+    </div>
+
+    <div class="prose">
+      <p>
+        Raw data comes from a smartphone accelerometer recording a vertical countermovement jump 
+        in JSON format via the <strong>AcelMov app</strong>. The signal processing pipeline 
+        involves four steps: gravity offset correction, signal smoothing 
+        (<code style="font-size:0.88em;background:#F0F0F0;padding:0.1rem 0.35rem;border-radius:2px">recortar_corregir_suavizar</code>), 
+        numerical integration to obtain velocity and position 
+        (<code style="font-size:0.88em;background:#F0F0F0;padding:0.1rem 0.35rem;border-radius:2px">primitiva_numerica</code>), 
+        and identification of the four critical instants.
+      </p>
+      <p>
+        The mathematics module uses a <strong>trapezoidal numerical integration</strong> approach 
+        (S_TO_L_TIA method) to derive velocity from acceleration and position from velocity. 
+        This avoids the need for analytical integration, making the method generalizable to any 
+        JSON accelerometer file - not just vertical jumps.
+      </p>
+    </div>
+
+    <div class="screenshot-block">
+      <div class="screenshot-label">Output charts - force, power, velocity, acceleration</div>
+      <div class="screenshot-img blue">
+        <img src="images/charts.png" alt="charts"
+        style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <p class="screenshot-caption">Left: Force exercised by the legs during the jump (peak ~5,200 N at takeoff). Right: Points of interest (t1, t2, t3) on the acceleration signal used to identify squat, takeoff, and landing phases.</p>
+    </div>
+
+    <div class="prose">
+      <p>
+        The four instants we identify are: <strong>S</strong> (start of squat), 
+        <strong>TO</strong> (takeoff - when feet leave the ground), 
+        <strong>L</strong> (landing), and <strong>TIA</strong> (time in the air). 
+        From these, the system computes jump height, maximum force, maximum velocity, 
+        and peak power, and renders them as matplotlib charts embedded in the GUI.
+      </p>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="results-row">
+      <div class="result-card">
+        <p class="result-card-label">Jump height - our program</p>
+        <p class="result-card-val">50.9 cm</p>
+        <p class="result-card-sub">Computed from accelerometer via numerical integration</p>
+      </div>
+      <div class="result-card">
+        <p class="result-card-label">Jump height - Tracker validation</p>
+        <p class="result-card-val">49.4 cm</p>
+        <p class="result-card-sub">Video analysis via Tracker (position tracking frame by frame)</p>
+      </div>
+    </div>
+
+    <div class="prose">
+      <p>
+        The 1.5 cm discrepancy between our computed result and the Tracker video reference 
+        is a <strong>3% relative error</strong> - well within the margin expected from 
+        smartphone sensor noise, sensor placement variability, and the trapezoidal integration 
+        approximation. We considered this a successful validation of the pipeline.
+      </p>
+    </div>
+
+    <div class="tag-row">
+      <span class="tag tag-tech">Numerical integration</span>
+      <span class="tag tag-amber">Signal processing</span>
+      <span class="tag tag-amber">Biomechanics</span>
+      <span class="tag tag-tech">AcelMov</span>
+      <span class="tag tag-tech">Tracker validation</span>
+      <span class="tag tag-tech">JSON data</span>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ARCHITECTURE -->
+  <section>
+    <p class="label label-blue">System design</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">How the four modules connect</h2>
+
+    <div class="screenshot-block">
+      <div class="screenshot-label">Call graph - full function dependency tree</div>
+      <div class="screenshot-img dark">
+        <img src="images/arqgraph.png" alt="Architecture scheme"
+        style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <p class="screenshot-caption">main → [ajustes, update_date, qapage, estadisticas, clasificacion, salir]. The estadisticas branch calls into mates_fisica (physics/maths module) which calls calcular_altura, calcular_potencia_max, calcular_fuerza_max, calcular_velocidad_max - all via primitiva_numerica. The clasificacion branch communicates with arqred2 (leaderboard server) and arqred1 (submission server).</p>
+    </div>
+
+    <div class="prose">
+      <p>
+        The architecture cleanly separates the four academic contributions as Python modules with 
+        well-defined interfaces. <strong>Interfaz.py</strong> (GUIzero) or <strong>Interfaz_Kivy.py</strong> 
+        imports <code style="font-size:0.88em;background:#F0F0F0;padding:0.1rem 0.35rem;border-radius:2px">Fisica_Matematicas</code> for all signal processing 
+        and <code style="font-size:0.88em;background:#F0F0F0;padding:0.1rem 0.35rem;border-radius:2px">Arquitectura_Redes</code> for all networking - 
+        meaning each team member could develop and test their module independently 
+        before integration.
+      </p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- TEAM + LINKS -->
+  <section>
+    <p class="label label-blue">Team and resources</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1rem;">The GTDM crew</h2>
+
+    <p style="font-size:0.9rem;color:var(--muted);font-weight:300;margin-bottom:1.5rem;">
+      Source code is in a private shared repository. The full technical presentation is available below.
+    </p>
+    
+    <div class="action-row">
+      <a href="presentations/PROMU_presentation.pdf" target="_blank" class="btn-primary">Download presentation (PDF)</a>
+      <a href="index.html#proyectos" class="btn-secondary">Back to all projects</a>
+    </div>
+    
+    <p style="font-size:0.82rem;color:var(--muted);font-weight:300;margin-top:2rem;margin-bottom:0.6rem;">Built with</p>
+    <div class="team-row">
+      <span class="team-chip me">Paula Otero Paños</span>
+      <span class="team-chip">Estela Martínez Palanca</span>
+      <span class="team-chip">Daniel Emilio Martín Ferres</span>
+      <span class="team-chip">Anna Reig Borrás</span>
+    </div>
+    <p style="font-size:0.78rem;color:var(--muted);font-weight:300;margin-top:0.75rem;">
+      UPV - ETSI Telecomunicación · PROMU · 2022–23
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  Paula Otero Paños · <a href="index.html" style="color:inherit;text-decoration:none;">Back to portfolio</a>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>X-Ray Object Detection - Paula Otero Paños</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F6F2;
+    --surface: #FFFFFF;
+    --text: #161616;
+    --muted: #5E5E5E;
+    --subtle: #E4E3DE;
+    --accent: #1B3FAB;
+    --accent-light: #ECF0FB;
+    --accent-mid: #C5CEEF;
+    --green: #0E6E56;
+    --green-light: #E1F5EE;
+    --green-mid: #9FE1CB;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.7; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(247,246,242,0.92); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--subtle);
+    padding: 0 2.5rem; height: 58px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--text); text-decoration: none; }
+  .nav-back { font-size: 0.82rem; color: var(--muted); text-decoration: none; letter-spacing: 0.03em; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
+  .nav-back:hover { color: var(--accent); }
+
+  .page { max-width: 760px; margin: 0 auto; padding: 6rem 2rem 5rem; }
+  hr.divider { border: none; border-top: 1px solid var(--subtle); margin: 3rem 0; }
+
+  .label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.5rem; }
+  .label-blue { color: var(--accent); }
+  .label-green { color: var(--green); }
+
+  /* HERO */
+  .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 2px; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.02em; }
+  .badge-blue { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+  .badge-green { background: var(--green-light); color: var(--green); border: 1px solid var(--green-mid); }
+  .badge-dark { background: var(--text); color: white; }
+
+  .project-eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .project-title { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 1.25rem; }
+  .project-title em { font-style: italic; color: var(--accent); }
+  .project-subtitle { font-size: 1.05rem; color: var(--muted); font-weight: 300; line-height: 1.8; max-width: 580px; margin-bottom: 2rem; }
+
+  .meta-row { display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.82rem; border-top: 1px solid var(--subtle); padding-top: 1.25rem; }
+  .meta-item { display: flex; flex-direction: column; gap: 0.15rem; }
+  .meta-key { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); opacity: 0.7; }
+  .meta-val { color: var(--text); font-weight: 400; }
+
+  /* HEADLINE RESULT */
+  .result-hero {
+    background: var(--text); color: white;
+    border-radius: 2px; padding: 2.5rem;
+    margin: 2rem 0;
+    display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem;
+  }
+  .result-hero-item { display: flex; flex-direction: column; gap: 0.25rem; }
+  .result-hero-key { font-size: 0.66rem; letter-spacing: 0.16em; text-transform: uppercase; opacity: 0.5; }
+  .result-hero-val { font-family: 'DM Serif Display', serif; font-size: 2.2rem; letter-spacing: -0.02em; line-height: 1; }
+  .result-hero-val.green { color: #6EE7B7; }
+  .result-hero-sub { font-size: 0.78rem; opacity: 0.6; font-weight: 300; }
+
+  /* SCREENSHOT */
+  .screenshot-block { background: var(--surface); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; margin: 2rem 0; }
+  .screenshot-label { padding: 0.6rem 1.25rem; border-bottom: 1px solid var(--subtle); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .screenshot-img { width: 100%; min-height: 200px; display: flex; align-items: center; justify-content: center; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; flex-direction: column; gap: 0.5rem; padding: 2rem; }
+  .screenshot-img.blue { background: var(--accent-light); color: var(--accent); }
+  .screenshot-img.green { background: var(--green-light); color: var(--green); }
+  .screenshot-img.dark { background: #1A1A1A; color: #888; }
+  .screenshot-img.gray { background: #F0EFEB; color: var(--muted); }
+  .screenshot-caption { padding: 0.75rem 1.25rem; font-size: 0.82rem; color: var(--muted); font-weight: 300; line-height: 1.6; }
+
+  /* PROSE */
+  .prose h3 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; letter-spacing: -0.01em; margin: 2.5rem 0 0.75rem; }
+  .prose h3:first-child { margin-top: 0; }
+  .prose p { font-size: 0.975rem; color: var(--muted); font-weight: 300; line-height: 1.85; margin-bottom: 0.9rem; }
+  .prose p strong { color: var(--text); font-weight: 500; }
+  code { font-size: 0.88em; background: #F0F0F0; padding: 0.1rem 0.35rem; border-radius: 2px; font-family: 'DM Mono', 'Fira Mono', monospace; }
+
+  /* PIPELINE STEPS */
+  .pipeline { display: flex; flex-direction: column; gap: 0; margin: 1.5rem 0; }
+  .pipeline-step { padding: 1.25rem 0; border-bottom: 1px solid var(--subtle); display: grid; grid-template-columns: 2.5rem 1fr; gap: 1rem; align-items: start; }
+  .pipeline-step:first-child { padding-top: 0; }
+  .pipeline-num { font-family: 'DM Serif Display', serif; font-size: 1.3rem; color: var(--accent); line-height: 1; padding-top: 0.1rem; }
+  .pipeline-title { font-weight: 500; font-size: 0.95rem; margin-bottom: 0.25rem; }
+  .pipeline-desc { font-size: 0.875rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+  .pipeline-desc strong { color: var(--text); font-weight: 500; }
+
+  /* COMPARISON TABLE */
+  .comparison-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin: 1.5rem 0; }
+  .comparison-table th { text-align: left; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; padding: 0.6rem 1rem; border-bottom: 1px solid var(--subtle); }
+  .comparison-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--subtle); color: var(--muted); font-weight: 300; vertical-align: middle; }
+  .comparison-table td:first-child { font-weight: 500; color: var(--text); }
+  .comparison-table td:last-child { font-weight: 500; }
+  .comparison-table tr:last-child td { border-bottom: none; }
+  .comparison-table tr.highlight td { background: var(--green-light); }
+  .comparison-table tr.highlight td:first-child { color: var(--green); }
+  .comparison-table tr.highlight td:last-child { color: var(--green); }
+
+  /* METRICS GRID */
+  .metrics-grid { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 1px; background: var(--subtle); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; margin: 1.5rem 0; }
+  .metric-card { background: var(--surface); padding: 1.25rem 1rem; text-align: center; }
+  .metric-key { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+  .metric-val { font-family: 'DM Serif Display', serif; font-size: 1.6rem; letter-spacing: -0.01em; color: var(--text); }
+  .metric-val.green { color: var(--green); }
+  .metric-sub { font-size: 0.75rem; color: var(--muted); font-weight: 300; margin-top: 0.15rem; }
+
+  /* TAG ROW */
+  .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0; }
+  .tag { padding: 0.28rem 0.75rem; border-radius: 2px; font-size: 0.78rem; }
+  .tag-tech { background: #EFEFEF; color: #2A2A2A; }
+  .tag-blue { background: var(--accent-light); color: var(--accent); }
+  .tag-green { background: var(--green-light); color: var(--green); }
+
+  /* ACTIONS */
+  .action-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .btn-primary { background: var(--accent); color: white; padding: 0.7rem 1.6rem; border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.02em; transition: opacity 0.2s; }
+  .btn-primary:hover { opacity: 0.82; }
+  .btn-secondary { background: transparent; color: var(--text); padding: 0.7rem 1.6rem; border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 500; border: 1px solid var(--subtle); transition: border-color 0.2s; }
+  .btn-secondary:hover { border-color: var(--text); }
+
+  .team-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .team-chip { background: #F0F0F0; color: #2A2A2A; padding: 0.3rem 0.85rem; border-radius: 2px; font-size: 0.82rem; }
+  .team-chip.me { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+
+  footer { border-top: 1px solid var(--subtle); padding: 2rem; text-align: center; font-size: 0.78rem; color: var(--muted); letter-spacing: 0.04em; }
+
+  @media (max-width: 580px) {
+    .result-hero { grid-template-columns: 1fr; }
+    .metrics-grid { grid-template-columns: 1fr 1fr; }
+    .meta-row { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Paula Otero</a>
+  <a href="index.html#proyectos" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg>
+    Back to portfolio
+  </a>
+</nav>
+
+<main class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="project-eyebrow">
+      <span class="badge badge-blue">Computer Vision</span>
+      <span class="badge badge-blue">Deep Learning</span>
+      <span class="badge badge-green">90.8% mAP@0.5</span>
+    </div>
+    <h1 class="project-title">X-Ray Baggage<br><em>Object Detection</em></h1>
+    <p class="project-subtitle">
+      Preprocessing pipeline and comparative evaluation of YOLOv11 models (n, m, l, x) 
+      on the HiXray dataset for security screening - achieving 90.8% mAP@0.5, 
+      outperforming all prior HiXray-specific baselines including SSD, FPN, PANet, and MuBo.
+    </p>
+    <div class="meta-row">
+      <div class="meta-item">
+        <span class="meta-key">Course</span>
+        <span class="meta-val">Visual Computing</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Dataset</span>
+        <span class="meta-val">HiXray (102,928 images)</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Institution</span>
+        <span class="meta-val">UPV - ETSI Telecomunicación</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Year</span>
+        <span class="meta-val">2024–25</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- HEADLINE RESULTS -->
+  <div class="result-hero">
+    <div class="result-hero-item">
+      <span class="result-hero-key">Best model</span>
+      <span class="result-hero-val green">90.8%</span>
+      <span class="result-hero-sub">YOLOv11m · mAP@0.5</span>
+    </div>
+    <div class="result-hero-item">
+      <span class="result-hero-key">vs best prior baseline</span>
+      <span class="result-hero-val">+17.7pp</span>
+      <span class="result-hero-sub">MuBo achieved 73.1%</span>
+    </div>
+    <div class="result-hero-item">
+      <span class="result-hero-key">Dataset size</span>
+      <span class="result-hero-val">102K</span>
+      <span class="result-hero-sub">images · 8 object classes</span>
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- CONTEXT -->
+  <section class="prose">
+    <h3>What this project is</h3>
+    <p>
+      Airport security scanners produce X-ray images where threat objects - laptops, chargers, 
+      lighters, cosmetics - appear as overlapping, semi-transparent shapes with unusual colour 
+      encodings. Automated detection in this domain is genuinely hard: the <strong>HiXray dataset</strong> 
+      has over 102,000 training and test images across 8 classes, but is severely imbalanced 
+      (Mobile Phone accounts for 53,835 instances; Nonmetallic Lighter has only 883).
+    </p>
+    <p>
+      Our work had two distinct phases: building a <strong>preprocessing and dataset balancing pipeline</strong> 
+      from scratch using custom Python scripts, then training and comparing the full YOLOv11 
+      model family (n, m, l, x) with Weights & Biases for experiment tracking. The results 
+      substantially exceeded the published HiXray baselines.
+    </p>
+  </section>
+
+  <div class="screenshot-block">
+    <div class="screenshot-label">HiXray dataset - 8 object classes in X-ray</div>
+    <div class="screenshot-img gray">
+      <img src="images/dataset.png" alt="Dataset"
+        style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    <p class="screenshot-caption">8 classes: Portable Charger 1, Portable Charger 2, Water, Laptop, Mobile Phone, Tablet, Cosmetic, Nonmetallic Lighter. Total: 102,928 annotated images. Mobile Phone dominates with 53,835 training instances vs 706 for Nonmetallic Lighter - a 76× imbalance.</p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- PREPROCESSING -->
+  <section>
+    <p class="label label-blue">Phase 1 - Preprocessing</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">Building a clean, balanced dataset</h2>
+
+    <div class="prose">
+      <p>
+        Before training a single model, we spent significant effort cleaning and rebalancing 
+        the dataset. Raw HiXray cannot be fed to YOLO directly - it requires format conversion, 
+        class balancing, and image quality improvement. We wrote two diagnostic scripts and 
+        a full 6-step image processing pipeline.
+      </p>
+    </div>
+
+    <div class="pipeline">
+      <div class="pipeline-step">
+        <span class="pipeline-num">1</span>
+        <div>
+          <p class="pipeline-title">Dataset consistency check</p>
+          <p class="pipeline-desc"><code>numero_de_archivos_igual.py</code> - verifies that every image has a corresponding label file. <code>contar_elementos_clases.py</code> - counts instances per class and images per class to quantify the imbalance before any intervention.</p>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <span class="pipeline-num">2</span>
+        <div>
+          <p class="pipeline-title">Class balancing - Mobile Phone (90% reduction)</p>
+          <p class="pipeline-desc">Mobile Phone appeared in <strong>53,835 training images</strong> - over 52% of the dataset. We randomly removed 90% of images where Mobile Phone was the only label, retaining a random 10%. This reduced dominance without losing samples that co-occurred with rarer classes.</p>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <span class="pipeline-num">3</span>
+        <div>
+          <p class="pipeline-title">Data augmentation - Nonmetallic Lighter (class 7)</p>
+          <p class="pipeline-desc">With only 706 training instances, Nonmetallic Lighter needed synthetic expansion. We applied: <strong>horizontal flip</strong>, rotations ±5°, brightness/contrast variation, Gaussian noise, horizontal/vertical shifts, and zoom crops - generating new samples while preserving label alignment.</p>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <span class="pipeline-num">4</span>
+        <div>
+          <p class="pipeline-title">Resize to 1000×520</p>
+          <p class="pipeline-desc">All images resized to a consistent 1000×520 resolution. YOLO internally resizes to 640×640 during training, but consistent input dimensions stabilise the preprocessing pipeline and reduce I/O variability.</p>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <span class="pipeline-num">5</span>
+        <div>
+          <p class="pipeline-title">Noise reduction - bilateral filter selected</p>
+          <p class="pipeline-desc">We evaluated three filters: Gaussian (kernel 5×5), Bilateral (diameter=9, σ=75), and Mean Blur (kernel 5×5). Bilateral won on both <strong>PSNR (34.17 vs 31.11)</strong> and <strong>SSIM (0.944 vs 0.934)</strong> against Gaussian, while preserving edges - critical for detecting object boundaries in X-ray images.</p>
+        </div>
+      </div>
+      <div class="pipeline-step">
+        <span class="pipeline-num">6</span>
+        <div>
+          <p class="pipeline-title">Normalisation + CLAHE contrast enhancement</p>
+          <p class="pipeline-desc">Pixel values normalised to [0, 1] by casting to float32 and dividing by 255. Contrast enhanced with <strong>CLAHE applied per colour channel</strong> (not grayscale-converted) - preserving the colour encoding used by X-ray scanners to differentiate material density, which is essential for distinguishing object types.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="screenshot-block">
+      <div class="screenshot-label">Noise reduction comparison - bilateral filter wins on PSNR and SSIM</div>
+      <div class="screenshot-img gray">
+        <img src="images/redruido2.png" alt="Noise"
+        style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <p class="screenshot-caption">Left to right: Original · Gaussian (PSNR 31.11, SSIM 0.934) · Bilateral (PSNR 34.17, SSIM 0.944) · Mean Blur (PSNR 28.37, SSIM 0.881). Bilateral filter selected: highest fidelity, best edge preservation.</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- YOLO -->
+  <section>
+    <p class="label label-blue">Phase 2 - Model training</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">YOLOv11 - four sizes, one winner</h2>
+
+    <div class="prose">
+      <p>
+        We trained all four YOLOv11 variants (n, s/m, l, x) on the preprocessed dataset, 
+        tracking every run with <strong>Weights & Biases</strong> for real-time loss curves, 
+        precision/recall plots, and overfitting detection. Models were compared across 
+        Precision(B), Recall(B), mAP@0.5, and mAP@0.5:0.95.
+      </p>
+      <p>
+        <strong>YOLOv11m emerged as the best trade-off</strong>: it matched or exceeded 
+        the larger models (l, x) on most metrics while being significantly faster. 
+        The nano model (n) underperformed across the board, confirming that this task 
+        requires sufficient model capacity to handle 8 visually similar, overlapping classes.
+      </p>
+    </div>
+
+    <div class="metrics-grid">
+      <div class="metric-card">
+        <p class="metric-key">mAP@0.5</p>
+        <p class="metric-val green">90.8%</p>
+        <p class="metric-sub">YOLOv11m</p>
+      </div>
+      <div class="metric-card">
+        <p class="metric-key">mAP@0.5:0.95</p>
+        <p class="metric-val">~55%</p>
+        <p class="metric-sub">YOLOv11x</p>
+      </div>
+      <div class="metric-card">
+        <p class="metric-key">Precision(B)</p>
+        <p class="metric-val">~90%</p>
+        <p class="metric-sub">Best models</p>
+      </div>
+      <div class="metric-card">
+        <p class="metric-key">Recall(B)</p>
+        <p class="metric-val">~87%</p>
+        <p class="metric-sub">Best models</p>
+      </div>
+    </div>
+
+    <div class="screenshot-block">
+      <div class="screenshot-label">W&B - model comparison across precision, recall, mAP@0.5, mAP@0.5:0.95</div>
+      <div class="screenshot-img blue">
+        <img src="images/comparativayolo.png" alt="Comparativa"
+        style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <p class="screenshot-caption">4 metrics × 5 runs tracked in Weights & Biases: finetune_yolo11n, baseline_yolo11n, baseline_yolo11m, baseline_yolo11l, baseline_yolo11x. YOLOv11m converges fastest and achieves the best mAP@0.5.</p>
+    </div>
+
+    <div class="screenshot-block">
+      <div class="screenshot-label">Confusion matrix + training curves - YOLOv11m</div>
+      <div class="screenshot-img blue">
+        <img src="images/matrix.png" alt="Confussion Matrix"
+        style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <p class="screenshot-caption">Confusion matrix shows strong diagonal for Laptop (645), Mobile Phone (2,176), Tablet (323), and Portable Charger 1 (764). Main weakness: Cosmetic class (535 correct, 314 misclassified as background) - consistent with visual ambiguity and remaining class imbalance.</p>
+    </div>
+
+    <div class="screenshot-block">
+      <div class="screenshot-label">Model predictions - YOLOv11m on test images (original + augmented)</div>
+      <div class="screenshot-img dark">
+        <img src="images/gridresults.png" alt="Grid results"
+        style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <p class="screenshot-caption">Grid of test predictions showing bounding boxes and confidence scores. Mobile Phone (0.8), Laptop (0.7–0.8), Portable Charger (0.8), Tablet (0.7–0.8) detected across original and augmented images (brightness, noise, shift, rotation variants).</p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- COMPARISON WITH BASELINES -->
+  <section>
+    <p class="label label-green">Key result</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">Outperforming domain-specific models</h2>
+
+    <div class="prose">
+      <p>
+        The HiXray paper ships with four published baselines - SSD, +FPN, +PANet, and +MuBo - 
+        all trained and tuned specifically for this X-ray domain. Our off-the-shelf 
+        YOLOv11m, after preprocessing and hyperparameter comparison, exceeded all of them 
+        by a wide margin.
+      </p>
+    </div>
+
+    <table class="comparison-table">
+      <thead>
+        <tr>
+          <th>Model</th>
+          <th>Type</th>
+          <th>AVG mAP@0.5 (%)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>SSD</td><td>HiXray baseline</td><td>71.4%</td></tr>
+        <tr><td>+FPN</td><td>HiXray baseline</td><td>72.0%</td></tr>
+        <tr><td>+PANet</td><td>HiXray baseline</td><td>72.0%</td></tr>
+        <tr><td>+MuBo</td><td>HiXray baseline (best prior)</td><td>73.1%</td></tr>
+        <tr class="highlight"><td>YOLOv11m (ours)</td><td>General-purpose, fine-tuned</td><td>90.8%</td></tr>
+      </tbody>
+    </table>
+
+    <div class="prose">
+      <p>
+        The +17.7 percentage point gap over MuBo - a model custom-built for HiXray with 
+        multi-scale structures - is substantial. The key factors were the preprocessing 
+        pipeline (bilateral filtering + CLAHE + class balancing) and the inherent architectural 
+        strength of YOLOv11's anchor-free detection head and C3k2 blocks, which handle 
+        overlapping objects better than earlier YOLO generations.
+      </p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- KNOWN WEAKNESSES -->
+  <section>
+    <p class="label label-blue">Honest assessment</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">What still needs work</h2>
+
+    <div class="prose">
+      <p>
+        The <strong>Cosmetic class remains the weakest link</strong>: 314 out of 849 instances 
+        were misclassified as background. Cosmetics are visually ambiguous in X-ray - 
+        glass/liquid containers can resemble water bottles or portable chargers - and 
+        the class is still underrepresented even after augmentation. A more targeted 
+        augmentation strategy or additional synthetic data generation (e.g. copy-paste 
+        augmentation from annotated instances) would likely close this gap.
+      </p>
+      <p>
+        Our training was capped at roughly 20–70 epochs depending on the model size 
+        due to compute constraints. The loss curves suggest most models had not fully 
+        converged, particularly on the mAP@0.5:0.95 metric - extended training with 
+        a learning rate schedule would likely improve absolute scores further.
+      </p>
+    </div>
+
+    <div class="tag-row">
+      <span class="tag tag-tech">Python</span>
+      <span class="tag tag-tech">YOLOv11</span>
+      <span class="tag tag-tech">Ultralytics</span>
+      <span class="tag tag-tech">OpenCV</span>
+      <span class="tag tag-blue">Weights & Biases</span>
+      <span class="tag tag-blue">CLAHE</span>
+      <span class="tag tag-blue">Bilateral filter</span>
+      <span class="tag tag-green">HiXray dataset</span>
+      <span class="tag tag-green">Data augmentation</span>
+      <span class="tag tag-tech">PSNR / SSIM</span>
+      <span class="tag tag-tech">Confusion matrix</span>
+      <span class="tag tag-tech">mAP@0.5</span>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- LINKS & TEAM -->
+  <section>
+    <p class="label label-blue">Resources and team</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1rem;">Documentation</h2>
+    
+    <p style="font-size:0.9rem;color:var(--muted);font-weight:300;margin-bottom:1.5rem;">
+      Source code and model weights are in a private repository. 
+    </p>
+    
+    <div class="action-row">
+      <a href="presentations/XRAY_presentation.pdf" target="_blank" class="btn-primary">Download presentation (PDF)</a>
+      <a href="index.html#proyectos" class="btn-secondary">Back to all projects</a>
+    </div>
+    
+    <p style="font-size:0.82rem;color:var(--muted);font-weight:300;margin-top:2rem;margin-bottom:0.6rem;">Built with</p>
+    <div class="team-row">
+      <span class="team-chip me">Paula Otero Paños</span>
+      <span class="team-chip">Daniel Emilio Martín Ferres</span>
+    </div>
+    <p style="font-size:0.78rem;color:var(--muted);font-weight:300;margin-top:0.75rem;">
+      UPV - ETSI Telecomunicación · Visual Computing · 2024–25
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  Paula Otero Paños · <a href="index.html" style="color:inherit;text-decoration:none;">Back to portfolio</a>
+</footer>
+
+</body>
+</html>
