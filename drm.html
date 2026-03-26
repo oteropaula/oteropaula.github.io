@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DRM System - Paula Otero Paños</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F6F2;
+    --surface: #FFFFFF;
+    --text: #161616;
+    --muted: #5E5E5E;
+    --subtle: #E4E3DE;
+    --accent: #1B3FAB;
+    --accent-light: #ECF0FB;
+    --accent-mid: #C5CEEF;
+    --green: #0E6E56;
+    --green-light: #E1F5EE;
+    --mono: 'DM Mono', 'Fira Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.7; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(247,246,242,0.92); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--subtle);
+    padding: 0 2.5rem; height: 58px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--text); text-decoration: none; }
+  .nav-back { font-size: 0.82rem; color: var(--muted); text-decoration: none; letter-spacing: 0.03em; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
+  .nav-back:hover { color: var(--accent); }
+
+  /* LAYOUT */
+  .page { max-width: 760px; margin: 0 auto; padding: 6rem 2rem 5rem; }
+  hr.divider { border: none; border-top: 1px solid var(--subtle); margin: 3rem 0; }
+
+  /* LABELS & TITLES */
+  .label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 0.5rem; }
+  .label.green { color: var(--green); }
+
+  /* HERO BLOCK */
+  .project-header { margin-bottom: 0; }
+  .project-eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 2px; font-size: 0.75rem; font-weight: 500; letter-spacing: 0.02em; }
+  .badge-blue { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+  .badge-green { background: var(--green-light); color: var(--green); }
+  .badge-grade { background: #1B3FAB; color: white; }
+  .project-title { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 1.25rem; }
+  .project-title em { font-style: italic; color: var(--accent); }
+  .project-subtitle { font-size: 1.05rem; color: var(--muted); font-weight: 300; line-height: 1.8; max-width: 580px; margin-bottom: 2rem; }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 1.5rem; font-size: 0.82rem; color: var(--muted); border-top: 1px solid var(--subtle); padding-top: 1.25rem; }
+  .meta-item { display: flex; flex-direction: column; gap: 0.15rem; }
+  .meta-key { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); opacity: 0.7; }
+  .meta-val { color: var(--text); font-weight: 400; }
+
+  /* DIAGRAM PLACEHOLDER */
+  .diagram-block {
+    background: var(--surface); border: 1px solid var(--subtle); border-radius: 2px;
+    overflow: hidden; margin: 2rem 0;
+  }
+  .diagram-label {
+    padding: 0.6rem 1.25rem; border-bottom: 1px solid var(--subtle);
+    font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); display: flex; align-items: center; justify-content: space-between;
+  }
+  .diagram-img {
+    width: 100%; display: block;
+    background: var(--accent-light);
+    min-height: 220px; display: flex; align-items: center; justify-content: center;
+    font-size: 0.8rem; color: var(--accent); letter-spacing: 0.08em; text-transform: uppercase;
+    flex-direction: column; gap: 0.5rem; padding: 2rem;
+  }
+  .diagram-img.green { background: var(--green-light); color: var(--green); }
+  .diagram-caption { padding: 0.75rem 1.25rem; font-size: 0.82rem; color: var(--muted); font-weight: 300; }
+
+  /* PROSE */
+  .prose h3 {
+    font-family: 'DM Serif Display', serif; font-size: 1.3rem;
+    letter-spacing: -0.01em; margin: 2.5rem 0 0.75rem;
+  }
+  .prose h3:first-child { margin-top: 0; }
+  .prose p { font-size: 0.975rem; color: var(--muted); font-weight: 300; line-height: 1.85; margin-bottom: 0.9rem; }
+  .prose p strong { color: var(--text); font-weight: 500; }
+  .prose ul { padding-left: 1.25rem; margin-bottom: 0.9rem; }
+  .prose ul li { font-size: 0.975rem; color: var(--muted); font-weight: 300; line-height: 1.75; margin-bottom: 0.3rem; }
+  .prose ul li strong { color: var(--text); font-weight: 500; }
+
+  /* PROTOCOL TABLE */
+  .protocol-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.875rem; }
+  .protocol-table th { text-align: left; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; padding: 0.6rem 1rem; border-bottom: 1px solid var(--subtle); }
+  .protocol-table td { padding: 0.75rem 1rem; border-bottom: 1px solid var(--subtle); vertical-align: top; color: var(--muted); font-weight: 300; line-height: 1.6; }
+  .protocol-table td:first-child { font-weight: 500; color: var(--accent); font-size: 0.8rem; white-space: nowrap; }
+  .protocol-table tr:last-child td { border-bottom: none; }
+
+  /* TECH STACK TABLE */
+  .stack-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0; border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; margin: 1.5rem 0; }
+  .stack-item { padding: 0.9rem 1.25rem; border-bottom: 1px solid var(--subtle); border-right: 1px solid var(--subtle); }
+  .stack-item:nth-child(even) { border-right: none; }
+  .stack-item:nth-last-child(-n+2) { border-bottom: none; }
+  .stack-key { font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.2rem; }
+  .stack-val { font-size: 0.875rem; color: var(--text); font-weight: 400; }
+
+  /* DECISION CARDS */
+  .decisions { display: flex; flex-direction: column; gap: 0; }
+  .decision-item { padding: 1.5rem 0; border-bottom: 1px solid var(--subtle); }
+  .decision-item:first-child { padding-top: 0; }
+  .decision-q { font-family: 'DM Serif Display', serif; font-size: 1.05rem; margin-bottom: 0.5rem; }
+  .decision-a { font-size: 0.9rem; color: var(--muted); font-weight: 300; line-height: 1.8; }
+  .decision-a strong { color: var(--text); font-weight: 500; }
+
+  /* LIMITATIONS */
+  .limitation-card {
+    background: var(--surface); border-left: 3px solid var(--accent-mid);
+    padding: 1.25rem 1.5rem; margin: 1.5rem 0;
+    font-size: 0.9rem; color: var(--muted); font-weight: 300; line-height: 1.8;
+  }
+  .limitation-card strong { color: var(--text); font-weight: 500; display: block; margin-bottom: 0.25rem; font-size: 0.875rem; }
+
+  /* ACTIONS */
+  .action-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .btn-primary { background: var(--accent); color: white; padding: 0.7rem 1.6rem; border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.02em; transition: opacity 0.2s; }
+  .btn-primary:hover { opacity: 0.82; }
+  .btn-secondary { background: transparent; color: var(--text); padding: 0.7rem 1.6rem; border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 500; border: 1px solid var(--subtle); transition: border-color 0.2s; }
+  .btn-secondary:hover { border-color: var(--text); }
+
+  /* TEAM */
+  .team-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .team-chip { background: #F0F0F0; color: #2A2A2A; padding: 0.3rem 0.85rem; border-radius: 2px; font-size: 0.82rem; }
+  .team-chip.me { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+
+  footer { border-top: 1px solid var(--subtle); padding: 2rem; text-align: center; font-size: 0.78rem; color: var(--muted); letter-spacing: 0.04em; }
+
+  @media (max-width: 580px) {
+    .stack-grid { grid-template-columns: 1fr; }
+    .stack-item { border-right: none; }
+    .stack-item:nth-last-child(-n+2) { border-bottom: 1px solid var(--subtle); }
+    .stack-item:last-child { border-bottom: none; }
+    .meta-row { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Paula Otero</a>
+  <a href="index.html#proyectos" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg>
+    Back to portfolio
+  </a>
+</nav>
+
+<main class="page">
+
+  <!-- HEADER -->
+  <header class="project-header">
+    <div class="project-eyebrow">
+      <span class="badge badge-blue">Cybersecurity</span>
+      <span class="badge badge-blue">Academic project</span>
+      <span class="badge badge-grade">Grade: 10 / 10</span>
+    </div>
+    <h1 class="project-title">DRM System -<br><em>Secure Multimedia Distribution</em></h1>
+    <p class="project-subtitle">
+      A full-stack Digital Rights Management platform built in Python, featuring hybrid RSA+AES encryption, 
+      license server architecture, client-side watermarking, and a three-tier content delivery pipeline 
+      designed around a realistic DRM threat model.
+    </p>
+    <div class="meta-row">
+      <div class="meta-item">
+        <span class="meta-key">Institution</span>
+        <span class="meta-val">UPV - ETSI Telecomunicación</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Course</span>
+        <span class="meta-val">Security & Digital Rights Management</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Year</span>
+        <span class="meta-val">2024–25</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Team</span>
+        <span class="meta-val">4 people</span>
+      </div>
+    </div>
+  </header>
+
+  <hr class="divider">
+
+  <!-- OVERVIEW -->
+  <section class="prose">
+    <h3>What we built</h3>
+    <p>
+      A complete DRM system for secure distribution of heterogeneous multimedia content (MP4, BMP, PNG, WAV, PDF, JPG). 
+      The system enforces access control through a <strong>three-tier architecture</strong>: a content server that stores 
+      encrypted and unencrypted assets, a license server that generates and delivers decryption credentials, 
+      and a client application with an embedded <strong>Content Decryption Module (CDM)</strong> that handles 
+      the full request-decrypt-watermark pipeline.
+    </p>
+    <p>
+      The design mirrors the trust model of real-world DRM deployments - content is never transmitted in plaintext, 
+      licenses are always encrypted in transit, and watermarking is applied at the point of consumption rather than at the source.
+    </p>
+  </section>
+
+  <!-- ARCH DIAGRAM P1 -->
+  <div class="diagram-block">
+    <div class="diagram-label">
+      <span>System architecture - Part I: content encryption & basic retrieval</span>
+    </div>
+    <div class="diagram-img">
+        <img src="images/system-overview-p1.png" alt="CDM flow diagram"
+        style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    <p class="diagram-caption">Original files → multimedia encryptor (AES with 5 modes) → content server. Encrypted JSON metadata with key+IV stored separately.</p>
+  </div>
+
+  <section class="prose">
+    <h3>Part I - Content encryption and basic retrieval</h3>
+    <p>
+      Original files are processed by a <strong>multimedia encryptor</strong> that applies AES-128 in one of five 
+      configurable modes: ECB, CBC, CFB, CTR, or OFB. For each encrypted file, a companion 
+      <strong>JSON metadata file</strong> is generated and independently encrypted using AES-CBC. 
+      This metadata bundle holds the AES key, IV, filename, extension, and a timestamp - 
+      it is the only artifact the license server needs to reconstruct decryption credentials.
+    </p>
+    <p>
+      The content server stores both encrypted and unencrypted versions. The client communicates over TCP sockets: 
+      if a requested file is unencrypted, it is delivered directly; if encrypted, the client must negotiate a license first.
+    </p>
+  </section>
+
+  <!-- ARCH DIAGRAM P2 -->
+  <div class="diagram-block">
+    <div class="diagram-label">
+      <span>AES128-RSA key exchange - server (Alice) ↔ client (Bob)</span>
+    </div>
+    <div class="diagram-img">
+        <img src="images/aes128-rsa-exchange.png" alt="CDM flow diagram"
+        style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    <p class="diagram-caption">Server publishes RSA public key → client generates AES key+IV with os.urandom(16), encrypts with KpbA → server decrypts with KprA → shared AES session established.</p>
+  </div>
+
+  <section class="prose">
+    <h3>Part II - Hybrid encryption channel and watermarking</h3>
+    <p>
+      Secure key exchange uses a <strong>hybrid AES128-RSA protocol</strong>. The server generates an RSA key pair 
+      and publishes the public key <code>KpbA = (n, e)</code>. The client generates a 16-byte AES session key 
+      and IV using <code>os.urandom(16)</code>, encrypts them with KpbA, and returns the ciphertext. 
+      The server decrypts with its private key (KprA) - both parties now share a symmetric AES key 
+      for all subsequent communication.
+    </p>
+    <p>
+      <strong>Watermarking is applied conditionally at the client:</strong> only unencrypted image files 
+      (BMP, JPG, PNG) receive a watermark upon delivery. Encrypted files cannot be watermarked before 
+      decryption, and non-image formats (MP4, WAV, PDF) are not watermarked. 
+      This keeps the security boundary intact - the server never needs to handle decrypted content.
+    </p>
+  </section>
+
+  <!-- ARCH DIAGRAM P3 -->
+  <div class="diagram-block">
+    <div class="diagram-label">
+      <span>CDM pipeline - Part III: full license lifecycle</span>
+    </div>
+    <div class="diagram-img green">
+      <img src="images/cdm-flow-p3.png" alt="CDM flow diagram"
+     style="width:100%; height:100%; object-fit:cover;">
+    </div>
+    <p class="diagram-caption">UA → CDM → License Server → Content Server → License Server → CDM (decrypt license) → Content Server → UA (decrypted file + optional watermark).</p>
+  </div>
+
+  <section class="prose">
+    <h3>Part III - CDM integration and license lifecycle</h3>
+    <p>
+      The final architecture introduces a <strong>Content Decryption Module (CDM)</strong> as a dedicated 
+      intermediary layer inside the client. The CDM handles all license negotiation and decryption 
+      independently from the user-facing application (UA).
+    </p>
+  </section>
+
+  <table class="protocol-table">
+    <thead>
+      <tr>
+        <th>Step</th>
+        <th>Actor</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1</td><td>UA → CDM</td><td>Request file by name</td></tr>
+      <tr><td>2</td><td>CDM → License Server</td><td>Send encrypted license request</td></tr>
+      <tr><td>3</td><td>License Server → Content Server</td><td>Forward request, retrieve encrypted license</td></tr>
+      <tr><td>4</td><td>Content Server → License Server</td><td>Return encrypted license (AES128-RSA)</td></tr>
+      <tr><td>5</td><td>License Server → CDM</td><td>Deliver encrypted license</td></tr>
+      <tr><td>6</td><td>CDM</td><td>Decrypt license, extract AES key + IV</td></tr>
+      <tr><td>7</td><td>Content Server → UA</td><td>Deliver decrypted file (+ watermark if image)</td></tr>
+    </tbody>
+  </table>
+
+  <hr class="divider">
+
+  <!-- CRYPTO DECISIONS -->
+  <section>
+    <p class="label">Design decisions</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:2rem;">Why we made the cryptographic choices we did</h2>
+
+    <div class="decisions">
+      <div class="decision-item">
+        <p class="decision-q">Why hybrid encryption (RSA + AES) instead of pure RSA?</p>
+        <p class="decision-a">RSA is computationally expensive and has a hard message size limit tied to the key length - it cannot encrypt arbitrary-length content. <strong>AES-128 handles bulk data efficiently; RSA is used only for the key encapsulation step</strong>, which is a single 16-byte payload. This is the approach used in TLS and every major real-world secure channel. It gives us asymmetric trust establishment with symmetric throughput.</p>
+      </div>
+      <div class="decision-item">
+        <p class="decision-q">Why AES-CBC for the JSON metadata file, and not ECB?</p>
+        <p class="decision-a">CBC provides semantic security: identical plaintext blocks produce different ciphertext when given different IVs. <strong>ECB was explicitly ruled out</strong> because it leaks block-level repetition patterns - a known vulnerability that is especially dangerous for structured data like JSON files, where field names and short values repeat predictably.</p>
+      </div>
+      <div class="decision-item">
+        <p class="decision-q">Why <code style="font-size:0.88em;background:#F0F0F0;padding:0.1rem 0.35rem;border-radius:2px">os.urandom(16)</code> for key and IV generation?</p>
+        <p class="decision-a"><code style="font-size:0.88em;background:#F0F0F0;padding:0.1rem 0.35rem;border-radius:2px">os.urandom</code> draws from the operating system's cryptographic entropy pool, making it suitable for key material. <strong>Using Python's <code style="font-size:0.88em;background:#F0F0F0;padding:0.1rem 0.35rem;border-radius:2px">random</code> module or any seeded PRNG would be a critical vulnerability</strong> in a key exchange protocol, as the output is statistically predictable.</p>
+      </div>
+      <div class="decision-item">
+        <p class="decision-q">Why watermark at the client, not at the server?</p>
+        <p class="decision-a">Server-side watermarking would require the server to decrypt content before embedding - temporarily exposing plaintext on the server, which breaks the security boundary. <strong>Client-side watermarking after decryption means the server never needs to touch decrypted content.</strong> The tradeoff is that the server cannot verify the watermark was applied, but this is acceptable for a course project scope.</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- TECH STACK -->
+  <section>
+    <p class="label">Technical stack</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">Implementation details</h2>
+    <div class="stack-grid">
+      <div class="stack-item"><p class="stack-key">Language</p><p class="stack-val">Python 3</p></div>
+      <div class="stack-item"><p class="stack-key">Symmetric encryption</p><p class="stack-val">AES-128 (ECB, CBC, CFB, CTR, OFB)</p></div>
+      <div class="stack-item"><p class="stack-key">Asymmetric encryption</p><p class="stack-val">RSA (key encapsulation)</p></div>
+      <div class="stack-item"><p class="stack-key">Key generation</p><p class="stack-val">os.urandom(16)</p></div>
+      <div class="stack-item"><p class="stack-key">Transport</p><p class="stack-val">Python socket (TCP)</p></div>
+      <div class="stack-item"><p class="stack-key">Metadata format</p><p class="stack-val">JSON + TXT key file</p></div>
+      <div class="stack-item"><p class="stack-key">Watermarking</p><p class="stack-val">Image-only, client-side (post-decrypt)</p></div>
+      <div class="stack-item"><p class="stack-key">Supported content</p><p class="stack-val">MP4, BMP, PNG, WAV, PDF, JPG</p></div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- LIMITATIONS -->
+  <section>
+    <p class="label">Honest assessment</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">What we would do differently</h2>
+
+    <div class="limitation-card">
+      <strong>Key storage</strong>
+      The AES key and IV are stored in a plaintext <code style="font-size:0.88em;background:#F0F0F0;padding:0.1rem 0.35rem;border-radius:2px">.txt</code> file on the license server. In production, this material would live in a Hardware Security Module (HSM) or an encrypted key store with access controls. The key file is the single most sensitive artifact in the system.
+    </div>
+    <div class="limitation-card">
+      <strong>Watermark traceability</strong>
+      Watermarks are applied uniformly rather than embedding a unique user identifier per license. A more robust approach would encode the recipient's identity into the watermark during license issuance, enabling forensic tracing if content is leaked.
+    </div>
+    <div class="limitation-card">
+      <strong>Server identity verification</strong>
+      RSA key pairs are generated fresh per session rather than from a persistent certificate. Adding even a self-signed PKI layer would allow clients to verify server identity and prevent impersonation attacks - a real gap in the current threat model.
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- LINKS & TEAM -->
+  <section>
+    <p class="label">Resources</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1rem;">Documentation and team</h2>
+
+    <p style="font-size:0.9rem;color:var(--muted);font-weight:300;margin-bottom:1.5rem;">
+      The source code lives in a private repository shared with the team. 
+      Architecture documentation, diagrams, and the full technical presentation are available below.
+    </p>
+    <!-- 
+    <div class="action-row">
+      <a href="https://github.com/oteropaula/drm-system-docs" target="_blank" class="btn-primary">Documentation repo</a>
+      <a href="assets/presentation.pdf" target="_blank" class="btn-secondary">Download presentation (PDF)</a>
+    </div>
+    -->
+
+    <p style="font-size:0.82rem;color:var(--muted);font-weight:300;margin-top:2rem;margin-bottom:0.6rem;">Built with</p>
+    <div class="team-row">
+      <span class="team-chip me">Paula Otero Paños</span>
+      <span class="team-chip">Daniel Emilio Martín Ferres</span>
+      <span class="team-chip">Estela Martínez Palanca</span>
+      <span class="team-chip">Anna Reig Borrás</span>
+    </div>
+    <p style="font-size:0.78rem;color:var(--muted);font-weight:300;margin-top:0.75rem;">
+      UPV - ETSI Telecomunicación · Seguridad y Gestión de Derechos Digitales · 2024–25
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  Paula Otero Paños · <a href="index.html" style="color:inherit;text-decoration:none;">Back to portfolio</a>
+</footer>
+
+</body>
+</html>
