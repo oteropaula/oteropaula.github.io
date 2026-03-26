@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Blender Controller with M5Stack &amp; OSC - Paula Otero Paños</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F6F2;
+    --surface: #FFFFFF;
+    --text: #161616;
+    --muted: #5E5E5E;
+    --subtle: #E4E3DE;
+    --accent: #1B3FAB;
+    --accent-light: #ECF0FB;
+    --accent-mid: #C5CEEF;
+    --green: #0E6E56;
+    --green-light: #E1F5EE;
+    --green-mid: #A3D9C8;
+    --sys: #2A2A2A;
+    --sys-light: #F0EFEB;
+    --sys-mid: #CDCCC7;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.7; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(247,246,242,0.92); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--subtle);
+    padding: 0 2.5rem; height: 58px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--text); text-decoration: none; }
+  .nav-back { font-size: 0.82rem; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
+  .nav-back:hover { color: var(--accent); }
+
+  .page { max-width: 760px; margin: 0 auto; padding: 6rem 2rem 5rem; }
+  hr.divider { border: none; border-top: 1px solid var(--subtle); margin: 3rem 0; }
+
+  .label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.5rem; color: var(--accent); }
+
+  .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 2px; font-size: 0.75rem; font-weight: 500; }
+  .badge-blue  { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+  .badge-green { background: var(--green-light); color: var(--green); border: 1px solid var(--green-mid); }
+  .badge-sys   { background: var(--sys-light); color: var(--sys); border: 1px solid var(--sys-mid); }
+  .badge-dark  { background: var(--text); color: white; }
+
+  .project-eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .project-title { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 1.25rem; }
+  .project-title em { font-style: italic; color: var(--accent); }
+  .project-subtitle { font-size: 1.05rem; color: var(--muted); font-weight: 300; line-height: 1.8; max-width: 580px; margin-bottom: 2rem; }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 1.5rem; border-top: 1px solid var(--subtle); padding-top: 1.25rem; }
+  .meta-item { display: flex; flex-direction: column; gap: 0.15rem; }
+  .meta-key { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); opacity: 0.7; }
+  .meta-val { color: var(--text); font-weight: 400; font-size: 0.875rem; }
+
+  /* SCREENSHOT BLOCKS */
+  .screenshot-block { background: var(--surface); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; margin: 2rem 0; }
+  .screenshot-label { padding: 0.6rem 1.25rem; border-bottom: 1px solid var(--subtle); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .screenshot-img { width: 100%; min-height: 180px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; padding: 1.5rem; }
+  .screenshot-img.dark { background: #111; color: #666; padding: 0; }
+  .screenshot-img.sys  { background: var(--sys-light); color: var(--muted); }
+  .screenshot-img.blue { background: var(--accent-light); color: var(--accent); }
+  .screenshot-caption { padding: 0.75rem 1.25rem; font-size: 0.82rem; color: var(--muted); font-weight: 300; line-height: 1.6; }
+
+  /* ARCHITECTURE DIAGRAM */
+  .arch-row { display: flex; align-items: center; justify-content: center; gap: 0; margin: 2rem 0; flex-wrap: wrap; }
+  .arch-node { background: var(--surface); border: 1px solid var(--subtle); border-radius: 2px; padding: 1rem 1.25rem; text-align: center; min-width: 120px; }
+  .arch-node-label { font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+  .arch-node-name { font-weight: 500; font-size: 0.9rem; }
+  .arch-node.accent { background: var(--accent-light); border-color: var(--accent-mid); }
+  .arch-node.accent .arch-node-label { color: var(--accent); }
+  .arch-node.green { background: var(--green-light); border-color: var(--green-mid); }
+  .arch-node.green .arch-node-label { color: var(--green); }
+  .arch-arrow { font-size: 0.9rem; color: var(--muted); padding: 0 0.5rem; flex-shrink: 0; }
+
+  /* PHASES */
+  .phases { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--subtle); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; margin: 2rem 0; }
+  .phase-card { background: var(--surface); padding: 1.5rem; }
+  .phase-num { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; color: var(--accent); margin-bottom: 0.4rem; }
+  .phase-title { font-family: 'DM Serif Display', serif; font-size: 1.05rem; margin-bottom: 0.4rem; }
+  .phase-desc { font-size: 0.85rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+
+  /* FEATURE LIST */
+  .features { display: flex; flex-direction: column; }
+  .feature-item { padding: 1.25rem 0; border-bottom: 1px solid var(--subtle); display: grid; grid-template-columns: 2rem 1fr; gap: 1rem; align-items: start; }
+  .feature-item:first-child { padding-top: 0; }
+  .feature-icon { font-size: 1rem; padding-top: 0.15rem; }
+  .feature-title { font-weight: 500; font-size: 0.95rem; margin-bottom: 0.2rem; }
+  .feature-desc { font-size: 0.875rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+
+  /* PROSE */
+  .prose p { font-size: 0.975rem; color: var(--muted); font-weight: 300; line-height: 1.85; margin-bottom: 0.9rem; }
+  .prose p strong { color: var(--text); font-weight: 500; }
+  code { font-size: 0.85em; background: #F0F0F0; padding: 0.1rem 0.4rem; border-radius: 2px; font-family: 'DM Mono', 'Fira Mono', monospace; }
+
+  /* OSC MESSAGE TABLE */
+  .osc-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.875rem; }
+  .osc-table th { text-align: left; font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--subtle); font-weight: 500; }
+  .osc-table td { padding: 0.75rem 0.75rem; border-bottom: 1px solid var(--subtle); color: var(--muted); font-weight: 300; vertical-align: top; }
+  .osc-table td:first-child { font-family: 'DM Mono', 'Fira Mono', monospace; color: var(--accent); font-size: 0.85em; font-weight: 400; }
+  .osc-table tr:last-child td { border-bottom: none; }
+
+  /* PROBLEM/SOLUTION */
+  .problems { display: flex; flex-direction: column; gap: 1px; background: var(--subtle); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; margin: 2rem 0; }
+  .problem-card { background: var(--surface); padding: 1.25rem 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .problem-col-label { font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.4rem; }
+  .problem-col-label.red { color: #8B2A10; }
+  .problem-col-label.green { color: var(--green); }
+  .problem-col-text { font-size: 0.85rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+
+  /* TAG ROW */
+  .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0; }
+  .tag { padding: 0.28rem 0.75rem; border-radius: 2px; font-size: 0.78rem; }
+  .tag-tech  { background: #EFEFEF; color: #2A2A2A; }
+  .tag-blue  { background: var(--accent-light); color: var(--accent); }
+  .tag-green { background: var(--green-light); color: var(--green); }
+
+  /* ACTIONS */
+  .action-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .btn-primary { background: var(--accent); color: white; padding: 0.7rem 1.6rem; border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: opacity 0.2s; }
+  .btn-primary:hover { opacity: 0.82; }
+  .btn-secondary { background: transparent; color: var(--text); padding: 0.7rem 1.6rem; border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 500; border: 1px solid var(--subtle); transition: border-color 0.2s; }
+  .btn-secondary:hover { border-color: var(--text); }
+
+  .team-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .team-chip { background: #F0F0F0; color: #2A2A2A; padding: 0.3rem 0.85rem; border-radius: 2px; font-size: 0.82rem; }
+  .team-chip.me { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+
+  footer { border-top: 1px solid var(--subtle); padding: 2rem; text-align: center; font-size: 0.78rem; color: var(--muted); }
+
+  @media (max-width: 580px) {
+    .phases { grid-template-columns: 1fr; }
+    .problem-card { grid-template-columns: 1fr; gap: 0.75rem; }
+    .arch-row { flex-direction: column; }
+    .arch-arrow { transform: rotate(90deg); }
+    .meta-row { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Paula Otero</a>
+  <a href="index.html#proyectos" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg>
+    Back to portfolio
+  </a>
+</nav>
+
+<main class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="project-eyebrow">
+      <span class="badge badge-sys">Embedded Systems</span>
+      <span class="badge badge-blue">MicroPython</span>
+      <span class="badge badge-green">Blender · OSC</span>
+      <span class="badge badge-dark">UPV · 2024/25</span>
+    </div>
+    <h1 class="project-title">Blender Object Controller<br><em>with M5Stack &amp; OSC</em></h1>
+    <p class="project-subtitle">
+      A hardware-software interactive system that uses the M5Stack-FIRE's gyroscope and
+      physical buttons to control a Blender 3D object in real time. Tilting the device
+      changes the object's colour, size, or rotation - streamed live over OSC, with
+      TouchOSC acting as a visual feedback dashboard.
+    </p>
+    <div class="meta-row">
+      <div class="meta-item">
+        <span class="meta-key">Course</span>
+        <span class="meta-val">Interaction, Sensors &amp; Transducers - BSc Digital &amp; Multimedia Technology</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Tools</span>
+        <span class="meta-val">M5Stack-FIRE · MicroPython · Blender · NodeOSC · TouchOSC</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Institution</span>
+        <span class="meta-val">UPV - ETSI Telecomunicación</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Year</span>
+        <span class="meta-val">2024/25</span>
+      </div>
+    </div>
+  </header>
+
+  <hr class="divider">
+
+  <!-- OVERVIEW -->
+  <section>
+    <p class="label">Overview</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">Controlling 3D space with a physical device</h2>
+
+    <div class="prose">
+      <p>
+        The project was inspired by character customisation screens in video games - that
+        moment before you start playing where you adjust your character's appearance in
+        real time. The goal was to build a reduced but functional version of that concept:
+        a physical controller that lets you modify a 3D object without ever touching the
+        computer.
+      </p>
+      <p>
+        The <strong>M5Stack-FIRE</strong> acts as the controller. Its three buttons select the active mode
+        (colour, size, or rotation), and its built-in <strong>IMU gyroscope</strong> (yaw, pitch, roll) drives
+        the transformation continuously. Messages are sent over <strong>UDP via OSC</strong> to Blender,
+        which runs a Python listener script using the <strong>NodeOSC add-on</strong>. A <strong>TouchOSC</strong>
+        interface on the same machine visualises the incoming values in real time.
+      </p>
+    </div>
+
+    <!-- Architecture -->
+    <div class="arch-row">
+      <div class="arch-node accent">
+        <p class="arch-node-label">Hardware</p>
+        <p class="arch-node-name">M5Stack-FIRE</p>
+      </div>
+      <span class="arch-arrow">→ OSC/UDP →</span>
+      <div class="arch-node">
+        <p class="arch-node-label">Visualisation</p>
+        <p class="arch-node-name">TouchOSC</p>
+      </div>
+      <span class="arch-arrow">+</span>
+      <div class="arch-node green">
+        <p class="arch-node-label">3D Engine</p>
+        <p class="arch-node-name">Blender + NodeOSC</p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- M5STACK -->
+  <section>
+    <p class="label">Component - M5Stack</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">The physical controller</h2>
+
+    <div class="prose">
+      <p>
+        The M5Stack-FIRE runs a MicroPython script connecting to a local Wi-Fi network and
+        opening a UDP socket. Three physical buttons select the active mode; once a mode
+        is active, the IMU's gyroscope streams values continuously at 10 Hz.
+      </p>
+    </div>
+
+    <div class="screenshot-block">
+      <div class="screenshot-label">M5Stack display - button mode guide</div>
+      <div class="screenshot-img sys" style="padding:0; min-height:220px;">
+        <img src="images/m5stack_display.png" alt="M5Stack display interface" style="width:40%;height:40%;object-fit:cover;display:block;">
+      </div>
+      <p class="screenshot-caption">
+        The device screen shows the active mode for each button. A <code>/reset</code> message fires
+        automatically every time a button is pressed, returning the Blender object to its
+        default state before applying new transformations.
+      </p>
+    </div>
+
+    <div class="features">
+      <div class="feature-item">
+        <span class="feature-icon">🅐</span>
+        <div>
+          <p class="feature-title">Button A - Colour mode</p>
+          <p class="feature-desc">Activates colour mode. The gyroscope's <strong>yaw</strong> axis drives dynamic colour changes on Blender's Suzanne object. Sends <code>/color</code> OSC messages with the raw yaw value, plus a normalised (0–1) version to TouchOSC.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🅑</span>
+        <div>
+          <p class="feature-title">Button B - Size mode</p>
+          <p class="feature-desc">Activates size mode. The <strong>roll</strong> axis scales the object up or down. At larger scales, a Subdivision Surface modifier is automatically added to smooth the mesh; it is removed when the object shrinks below baseline. Sends <code>/size</code>.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🅒</span>
+        <div>
+          <p class="feature-title">Button C - Rotation mode</p>
+          <p class="feature-desc">Activates rotation mode. The <strong>pitch</strong> axis rotates the object on its Y axis in real time. Sends <code>/rotate</code>. Smooth, continuous rotation follows the physical tilt of the device.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🔄</span>
+        <div>
+          <p class="feature-title">Gyroscope normalisation</p>
+          <p class="feature-desc">Raw yaw, pitch and roll values (spanning negative to positive ranges) are normalised to a 0–1 interval before being forwarded to TouchOSC. This eliminates abrupt jumps when the sign changes and keeps the fader visuals smooth.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- OSC MESSAGES -->
+  <section>
+    <p class="label">Protocol</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.25rem;">OSC message map</h2>
+
+    <table class="osc-table">
+      <thead>
+        <tr>
+          <th>Address</th>
+          <th>Trigger</th>
+          <th>IMU axis</th>
+          <th>Effect in Blender</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>/color</td>
+          <td>Button A pressed, then continuous</td>
+          <td>Yaw</td>
+          <td>Changes the colour of Suzanne's eyes, nose and mouth materials randomly based on the incoming value</td>
+        </tr>
+        <tr>
+          <td>/size</td>
+          <td>Button B pressed, then continuous</td>
+          <td>Roll</td>
+          <td>Scales the object; adds Subdivision Surface modifier when scale &gt; 1, removes it when below</td>
+        </tr>
+        <tr>
+          <td>/rotate</td>
+          <td>Button C pressed, then continuous</td>
+          <td>Pitch</td>
+          <td>Rotates the object on the Y axis using <code>rotation_euler</code></td>
+        </tr>
+        <tr>
+          <td>/reset</td>
+          <td>Any button press</td>
+          <td>-</td>
+          <td>Resets position, scale, rotation, materials and modifiers to default state</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <hr class="divider">
+
+  <!-- BLENDER -->
+  <section>
+    <p class="label">Component - Blender</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">The Suzanne object</h2>
+
+    <div class="prose">
+      <p>
+        Blender runs a Python script using the <strong>NodeOSC add-on</strong> (installed manually into
+        the Blender addons folder) to listen on a UDP port. The listener runs on a
+        daemon thread so it doesn't block Blender's main loop. Messages are decoded and
+        dispatched to a handler function that reads the OSC address and modifies
+        Blender's scene accordingly.
+      </p>
+      <p>
+        Rather than using a plain sphere, the object is Blender's iconic <strong>Suzanne</strong> monkey
+        head. Multiple materials are assigned to specific face groups - body, eyes, nose,
+        mouth - so that the <code>/color</code> command only changes the facial features, not the
+        entire mesh. This makes the colour interaction far more expressive.
+      </p>
+    </div>
+
+    <div class="phases">
+      <div class="phase-card">
+        <p class="phase-num">Colour mode</p>
+        <p class="phase-title">/color</p>
+        <p class="phase-desc">Eyes, nose and mouth materials change colour based on the yaw value. The rest of the mesh stays untouched. Random colour components derived from the incoming float create varied, unexpected results.</p>
+      </div>
+      <div class="phase-card">
+        <p class="phase-num">Size mode</p>
+        <p class="phase-title">/size</p>
+        <p class="phase-desc">Scale clamped between 0.1× and 3×. When the object grows above baseline, a Subdivision Surface modifier is created on the fly, smoothing the mesh. It is deleted automatically when the object shrinks back.</p>
+      </div>
+      <div class="phase-card">
+        <p class="phase-num">Rotation mode</p>
+        <p class="phase-title">/rotate</p>
+        <p class="phase-desc">Pitch value maps directly to <code>rotation_euler[1]</code> (Y axis). One key lesson: Blender requires <code>rotation_euler</code> for programmatic rotation assignment - not <code>rotation</code>, which silently fails.</p>
+      </div>
+      <div class="phase-card">
+        <p class="phase-num">Reset</p>
+        <p class="phase-title">/reset</p>
+        <p class="phase-desc">Restores the object to origin, default scale (1,1,1), zero rotation, original material colours, and removes any dynamically added modifiers. Fires before every mode switch to guarantee a clean starting state.</p>
+      </div>
+    </div>
+
+    <div class="screenshot-block">
+      <div class="screenshot-label">Blender - /color command active (eyes, nose, mouth recoloured)</div>
+      <div class="screenshot-img dark" style="min-height:220px;">
+        <img src="images/suzanne_color.png" alt="Suzanne colour mode" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <p class="screenshot-caption">
+        Multiple materials assigned to specific face groups. Only the eyes, nose and mouth respond to <code>/color</code>, preserving the base skin tone while producing a vivid visual change.
+      </p>
+    </div>
+
+    <div class="screenshot-block">
+      <div class="screenshot-label">Blender - /size command (enlarged, Subdivision Surface active)</div>
+      <div class="screenshot-img dark" style="min-height:220px;">
+        <img src="images/suzanne_size.png" alt="Suzanne size mode enlarged" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <p class="screenshot-caption">
+        At scales above 1, a Subdivision Surface modifier is added programmatically, smoothing the geometry. Below baseline scale the modifier is removed automatically, keeping the polygonal look for small sizes.
+      </p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- TOUCHOSC -->
+  <section>
+    <p class="label">Component - TouchOSC</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">Visual feedback dashboard</h2>
+
+    <div class="prose">
+      <p>
+        TouchOSC was originally planned as an intermediary between the M5Stack and
+        Blender. After several failed attempts to make it bridge the two reliably, the role
+        was redefined: TouchOSC became a <strong>read-only visualisation panel</strong>, receiving the
+        same normalised OSC values the M5Stack sends to Blender.
+      </p>
+      <p>
+        Three vertical faders - <code>color</code>, <code>size</code>, <code>rotate</code> - display the live sensor
+        values. The connection uses UDP on localhost (<code>127.0.0.1</code>, port 22200); the send
+        port is left empty since TouchOSC only receives in this setup.
+      </p>
+    </div>
+
+    <div class="screenshot-block">
+      <div class="screenshot-label">TouchOSC interface - three faders representing active sensor values</div>
+      <div class="screenshot-img dark" style="min-height:200px;">
+        <img src="images/touchosc.png" alt="TouchOSC fader interface" style="width:100%;height:100%;object-fit:cover;display:block;">
+      </div>
+      <p class="screenshot-caption">
+        Red, green and blue faders correspond to colour, size and rotation modes. One known limitation: yaw values are unbounded and wrap around unpredictably, so the colour fader can show discontinuous jumps.
+      </p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- PROBLEMS & SOLUTIONS -->
+  <section>
+    <p class="label">Engineering challenges</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">Problems encountered &amp; how we solved them</h2>
+
+    <div class="problems">
+      <div class="problem-card">
+        <div>
+          <p class="problem-col-label red">Problem</p>
+          <p class="problem-col-text">M5Stack incompatible with the latest <code>uosc</code> library version from GitHub. Firmware downgrade also failed.</p>
+        </div>
+        <div>
+          <p class="problem-col-label green">Solution</p>
+          <p class="problem-col-text">Used an older version of <code>uosc</code> provided in the course resources on PoliformaT, which was compatible with the device's MicroPython runtime.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div>
+          <p class="problem-col-label red">Problem</p>
+          <p class="problem-col-text">M5Stack MicroPython does not support f-strings, causing syntax errors at runtime.</p>
+        </div>
+        <div>
+          <p class="problem-col-label green">Solution</p>
+          <p class="problem-col-text">Replaced all f-strings with <code>"{} {}".format(a, b)</code> throughout the script.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div>
+          <p class="problem-col-label red">Problem</p>
+          <p class="problem-col-text">Port conflict error in Blender: <em>WinError 10048 - address already in use</em> when re-running the OSC listener script.</p>
+        </div>
+        <div>
+          <p class="problem-col-label green">Solution</p>
+          <p class="problem-col-text">Changed the OSC port in both the M5Stack script and the Blender listener to a free port, resolving the binding conflict.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div>
+          <p class="problem-col-label red">Problem</p>
+          <p class="problem-col-text">Blender rotation assignment via <code>suzanne.rotation = (0,0,0)</code> silently failed - the object didn't reset.</p>
+        </div>
+        <div>
+          <p class="problem-col-label green">Solution</p>
+          <p class="problem-col-text">Discovered that Blender requires <code>suzanne.rotation_euler = (0,0,0)</code> for Euler rotation mode. Correcting the attribute name fixed the reset and rotation behaviours.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div>
+          <p class="problem-col-label red">Problem</p>
+          <p class="problem-col-text">IMU value read via private method <code>mpu._get_ypr</code> caused errors on the physical device.</p>
+        </div>
+        <div>
+          <p class="problem-col-label green">Solution</p>
+          <p class="problem-col-text">Switched to the public property <code>mpu.ypr</code>, which is the correct API for reading yaw/pitch/roll on the M5Stack-FIRE.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div>
+          <p class="problem-col-label red">Problem</p>
+          <p class="problem-col-text">In the physical lab environment, OSC messages didn't reach Blender because the host was still set to <code>127.0.0.1</code> (loopback only).</p>
+        </div>
+        <div>
+          <p class="problem-col-label green">Solution</p>
+          <p class="problem-col-text">Changed the Blender listener host and TouchOSC host to <code>0.0.0.0</code> to accept connections on any network interface, and updated the M5Stack IP to the lab machine's IPv4 address obtained via <code>ipconfig</code>.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- REFLECTION -->
+  <section>
+    <p class="label">Reflection</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1rem;">What we learned</h2>
+    <div class="prose">
+      <p>
+        The biggest technical challenge was working with the OSC protocol without having
+        completed the planned course practice on it first. That gap pushed us to explore
+        documentation and debug the full communication stack independently - which turned
+        out to be a more valuable learning experience than following a guided exercise.
+      </p>
+      <p>
+        Getting the <strong>gyroscope to stream continuously</strong> and have Blender respond fluidly
+        was the hardest part. It required careful normalisation, choosing the right IMU
+        axes for each mode, and accepting some inherent limitations (yaw wraps around
+        without a clean upper bound, which made the colour fader inconsistent in TouchOSC).
+      </p>
+      <p>
+        The project also reinforced an important lesson about flexible planning: TouchOSC
+        was originally designed to be a full intermediary. When that didn't work, pivoting
+        it to a visualisation-only role was the right call - it simplified the system and
+        made the communication more reliable.
+      </p>
+    </div>
+
+    <div class="tag-row">
+      <span class="tag tag-tech">MicroPython</span>
+      <span class="tag tag-tech">M5Stack-FIRE</span>
+      <span class="tag tag-tech">IMU / Gyroscope</span>
+      <span class="tag tag-tech">OSC Protocol</span>
+      <span class="tag tag-tech">UDP sockets</span>
+      <span class="tag tag-blue">Blender scripting</span>
+      <span class="tag tag-blue">NodeOSC add-on</span>
+      <span class="tag tag-blue">Python threading</span>
+      <span class="tag tag-green">TouchOSC</span>
+      <span class="tag tag-green">Real-time control</span>
+      <span class="tag tag-green">Hardware-software integration</span>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- RESOURCES -->
+  <section>
+    <p class="label">Resources</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1rem;">Files &amp; documentation</h2>
+    <p style="font-size:0.9rem;color:var(--muted);font-weight:300;margin-bottom:1.5rem;">
+      Full project report (25 pages), source files and TouchOSC layout available below.
+    </p>
+    <div class="action-row">
+      <a href="presentations/OSC_presentation.pdf" target="_blank" class="btn-primary">Download report (PDF)</a>
+      <a href="scripts/suzanne_controller.py" target="_blank" class="btn-secondary">MicroPython source (.py)</a>
+      <a href="scripts/suzanne.blend" target="_blank" class="btn-secondary">Blender file (.blend)</a>
+      <a href="scripts/faders.tosc" target="_blank" class="btn-secondary">TouchOSC layout (.tosc)</a>
+      <a href="index.html#proyectos" class="btn-secondary">Back to all projects</a>
+    </div>
+    <p style="font-size:0.82rem;color:var(--muted);font-weight:300;margin-top:2rem;margin-bottom:0.5rem;">Team</p>
+    <div class="team-row">
+      <span class="team-chip me">Paula Otero Paños</span>
+      <span class="team-chip">Anna Reig Borrás</span>
+    </div>
+    <p style="font-size:0.78rem;color:var(--muted);font-weight:300;margin-top:0.75rem;">
+      UPV - ETSI Telecomunicación · Interaction, Sensors &amp; Transducers · 2024/25
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  Paula Otero Paños · <a href="index.html" style="color:inherit;text-decoration:none;">Back to portfolio</a>
+</footer>
+
+</body>
+</html>

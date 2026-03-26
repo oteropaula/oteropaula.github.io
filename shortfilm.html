@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Polireto Short Film - Paula Otero Paños</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F6F2;
+    --surface: #FFFFFF;
+    --text: #161616;
+    --muted: #5E5E5E;
+    --subtle: #E4E3DE;
+    --accent: #1B3FAB;
+    --accent-light: #ECF0FB;
+    --accent-mid: #C5CEEF;
+    --film: #1A1A2E;
+    --film-mid: #3B3B5C;
+    --film-light: #EEEEF6;
+    --film-border: #C8C8E0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.7; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(247,246,242,0.92); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--subtle);
+    padding: 0 2.5rem; height: 58px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--text); text-decoration: none; }
+  .nav-back { font-size: 0.82rem; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
+  .nav-back:hover { color: var(--accent); }
+
+  .page { max-width: 760px; margin: 0 auto; padding: 6rem 2rem 5rem; }
+  hr.divider { border: none; border-top: 1px solid var(--subtle); margin: 3rem 0; }
+
+  .label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.5rem; color: var(--accent); }
+  .label-film { color: var(--film-mid); }
+
+  .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 2px; font-size: 0.75rem; font-weight: 500; }
+  .badge-blue { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+  .badge-film { background: var(--film-light); color: var(--film-mid); border: 1px solid var(--film-border); }
+  .badge-dark { background: var(--text); color: white; }
+
+  .project-eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .project-title { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 1.25rem; }
+  .project-title em { font-style: italic; color: var(--accent); }
+  .project-subtitle { font-size: 1.05rem; color: var(--muted); font-weight: 300; line-height: 1.8; max-width: 580px; margin-bottom: 2rem; }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 1.5rem; border-top: 1px solid var(--subtle); padding-top: 1.25rem; }
+  .meta-item { display: flex; flex-direction: column; gap: 0.15rem; }
+  .meta-key { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); opacity: 0.7; }
+  .meta-val { color: var(--text); font-weight: 400; font-size: 0.875rem; }
+
+  /* SCREENSHOT BLOCKS */
+  .screenshot-block { background: var(--surface); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; margin: 2rem 0; }
+  .screenshot-label { padding: 0.6rem 1.25rem; border-bottom: 1px solid var(--subtle); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .screenshot-img { width: 100%; min-height: 200px; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; padding: 2rem; }
+  .screenshot-img.dark { background: #1A1A2E; color: #888; }
+  .screenshot-caption { padding: 0.75rem 1.25rem; font-size: 0.82rem; color: var(--muted); font-weight: 300; line-height: 1.6; }
+
+  /* ROLE BREAKDOWN */
+  .roles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--subtle); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; margin: 2rem 0; }
+  .role-card { background: var(--surface); padding: 1.5rem; }
+  .role-person { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 0.3rem; }
+  .role-name { font-family: 'DM Serif Display', serif; font-size: 1rem; margin-bottom: 0.35rem; }
+  .role-desc { font-size: 0.85rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+  .role-tag { display: inline-block; margin-top: 0.5rem; background: var(--film-light); color: var(--film-mid); border: 1px solid var(--film-border); font-size: 0.7rem; padding: 0.15rem 0.55rem; border-radius: 2px; }
+
+  /* FEATURE LIST */
+  .features { display: flex; flex-direction: column; }
+  .feature-item { padding: 1.25rem 0; border-bottom: 1px solid var(--subtle); display: grid; grid-template-columns: 2rem 1fr; gap: 1rem; align-items: start; }
+  .feature-item:first-child { padding-top: 0; }
+  .feature-icon { font-size: 1rem; padding-top: 0.15rem; }
+  .feature-title { font-weight: 500; font-size: 0.95rem; margin-bottom: 0.2rem; }
+  .feature-desc { font-size: 0.875rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+
+  /* PROSE */
+  .prose p { font-size: 0.975rem; color: var(--muted); font-weight: 300; line-height: 1.85; margin-bottom: 0.9rem; }
+  .prose p strong { color: var(--text); font-weight: 500; }
+
+  /* POLIGALA CONTEXT BOX */
+  .context-box { background: var(--film-light); border: 1px solid var(--film-border); border-radius: 2px; padding: 1.5rem; margin: 2rem 0; }
+  .context-box-label { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--film-mid); font-weight: 500; margin-bottom: 0.6rem; }
+  .context-box p { font-size: 0.9rem; color: var(--muted); font-weight: 300; line-height: 1.8; }
+  .context-box p strong { color: var(--text); font-weight: 500; }
+
+  /* TAG ROW */
+  .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0; }
+  .tag { padding: 0.28rem 0.75rem; border-radius: 2px; font-size: 0.78rem; }
+  .tag-tech { background: #EFEFEF; color: #2A2A2A; }
+  .tag-blue { background: var(--accent-light); color: var(--accent); }
+  .tag-film { background: var(--film-light); color: var(--film-mid); }
+
+  /* ACTIONS */
+  .action-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .btn-primary { background: var(--accent); color: white; padding: 0.7rem 1.6rem; border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: opacity 0.2s; }
+  .btn-primary:hover { opacity: 0.82; }
+  .btn-secondary { background: transparent; color: var(--text); padding: 0.7rem 1.6rem; border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 500; border: 1px solid var(--subtle); transition: border-color 0.2s; }
+  .btn-secondary:hover { border-color: var(--text); }
+
+  .team-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .team-chip { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); padding: 0.3rem 0.85rem; border-radius: 2px; font-size: 0.82rem; }
+  .team-chip.film { background: var(--film-light); color: var(--film-mid); border-color: var(--film-border); }
+
+  footer { border-top: 1px solid var(--subtle); padding: 2rem; text-align: center; font-size: 0.78rem; color: var(--muted); }
+
+  @media (max-width: 580px) {
+    .roles-grid { grid-template-columns: 1fr; }
+    .meta-row { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Paula Otero</a>
+  <a href="index.html#proyectos" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg>
+    Back to portfolio
+  </a>
+</nav>
+
+<main class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="project-eyebrow">
+      <span class="badge badge-film">Filmmaking</span>
+      <span class="badge badge-blue">Scriptwriting</span>
+      <span class="badge badge-film">Video Editing</span>
+      <span class="badge badge-dark">POLIWOOD UPV</span>
+    </div>
+    <h1 class="project-title">Polireto Short Film -<br><em>Script, edit &amp; Poligala</em></h1>
+    <p class="project-subtitle">
+      First short film made as part of POLIWOOD UPV's internal filmmaking competition.
+      Responsible for the script and full video edit; premiered at the Poligala ceremony
+      in the ETSIT auditorium in Valencia.
+    </p>
+    <div class="meta-row">
+      <div class="meta-item">
+        <span class="meta-key">Competition</span>
+        <span class="meta-val">Polireto - POLIWOOD UPV</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Role</span>
+        <span class="meta-val">Script · Video editing</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Premiered at</span>
+        <span class="meta-val">Poligala · ETSIT Auditorium, UPV</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Year</span>
+        <span class="meta-val">2024-2025</span>
+      </div>
+    </div>
+  </header>
+
+  <hr class="divider">
+
+  <!-- CONTEXT -->
+  <section>
+    <p class="label">Context</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">What is the Polireto?</h2>
+
+    <div class="context-box">
+      <p class="context-box-label">About POLIWOOD &amp; the Polireto</p>
+      <p>
+        <strong>POLIWOOD</strong> is UPV's audiovisual post-production group, a space to develop as an
+        artist across specialisations including video, image and audio editing, digital music composition,
+        VFX and 3D design, with the aim of building a platform that bridges entertainment and knowledge.
+        The <strong>Polireto</strong> is its internal short film competition: teams have a set window of weeks
+        to write, shoot, and edit a complete short film, culminating in the <strong>Poligala</strong> -
+        a public screening ceremony held in the ETSIT auditorium where teams present their films
+        and take the stage to discuss their work.
+      </p>
+    </div>
+
+    <div class="prose">
+      <p>
+        This was my <strong>first time participating</strong> in the Polireto. I joined POLIWOOD during my
+        third year at UPV and this project pushed me to develop skills I hadn't had the chance to
+        apply seriously before: structuring a story under a tight brief, making editing decisions that
+        serve a narrative rather than just assembling footage, and coordinating with teammates across
+        different technical disciplines.
+      </p>
+      <p>
+        At the Poligala, my teammate Jordi and I went on stage to present the film and speak about
+        our process - a moment that was as much about communication and public presentation as it
+        was about the filmmaking itself.
+      </p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- FILM -->
+  <section>
+    <p class="label label-film">The short film</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">Watch the film</h2>
+
+    <div class="screenshot-block">
+      <div class="screenshot-label">Short film - Polireto, POLIWOOD UPV</div>
+      <div class="screenshot-img dark" style="padding:0;">
+        <video
+          src="videos/polireto_short_film_2025.mp4"
+          style="width:100%; height:100%; object-fit:cover;"
+          autoplay
+          muted
+          loop
+          playsinline
+          controls>
+        </video>
+      </div>
+      <p class="screenshot-caption">
+        Premiered at the Poligala ceremony, ETSIT auditorium, UPV. Script and editing by Paula Otero Paños. VFX by Jordi Cayuela Penalva. Sound and performance by Daniel Díez Lafuente.
+      </p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- MY ROLE -->
+  <section>
+    <p class="label">My role</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">Script &amp; editing</h2>
+
+    <div class="features">
+      <div class="feature-item">
+        <span class="feature-icon">✍️</span>
+        <div>
+          <p class="feature-title">Scriptwriting</p>
+          <p class="feature-desc">Responsible for the full screenplay: story concept, scene structure, dialogue, and pacing. The script had to be both producible within the team's constraints and engaging enough to hold up at a public screening.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🎬</span>
+        <div>
+          <p class="feature-title">Video editing</p>
+          <p class="feature-desc">End-to-end edit: assembly cut through fine cut, pacing decisions, colour treatment, and integrating the VFX shots delivered by Jordi. Synchronised the final audio mix provided by Daniel with the picture cut.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🎤</span>
+        <div>
+          <p class="feature-title">Stage presentation at the Poligala</p>
+          <p class="feature-desc">Took the stage at the ETSIT auditorium alongside Jordi to introduce the film and talk through the creative process in front of the full POLIWOOD audience.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- TEAM -->
+  <section>
+    <p class="label">The team</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">Who made it</h2>
+
+    <div class="roles-grid">
+      <div class="role-card">
+        <p class="role-person">Script &amp; editing</p>
+        <p class="role-name">Paula Otero Paños</p>
+        <p class="role-desc">Wrote the screenplay and handled the full video edit from assembly to final delivery. Also co-presented the film at the Poligala.</p>
+        <span class="role-tag">Script · Editing · Adobe Premiere </span>
+      </div>
+      <div class="role-card">
+        <p class="role-person">VFX &amp; stage</p>
+        <p class="role-name">Jordi Cayuela Penalva</p>
+        <p class="role-desc">Responsible for the visual effects work and co-presented with Paula at the Poligala ceremony.</p>
+        <span class="role-tag">VFX</span>
+      </div>
+      <div class="role-card">
+        <p class="role-person">Sound &amp; performance</p>
+        <p class="role-name">Daniel Díez Lafuente</p>
+        <p class="role-desc">In charge of sound design and on-screen performance, along with other fundamental parts of the production like direction.</p>
+        <span class="role-tag">Sound · Actor</span>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- POLIGALA PHOTOS -->
+  <section>
+    <p class="label">Poligala</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">The screening night</h2>
+
+    <div class="screenshot-block">
+      <div class="screenshot-label">Poligala ceremony - ETSIT auditorium, UPV</div>
+      <div class="screenshot-img dark" style="padding:0; min-height:280px;">
+        <img src="images/poligala.jpg" alt="Paula at the Poligala ceremony" style="width:100%; height:100%; object-fit:cover; display:block;">
+        <img src="images/poligala2.jpg" alt="Paula at the Poligala ceremony 2" style="width:100%; height:100%; object-fit:cover; display:block;">
+      </div>
+      <p class="screenshot-caption">
+        On stage at the ETSIT auditorium presenting the short film alongside Jordi. The Poligala is the annual ceremony where all Polireto entries are screened and teams take the stage to discuss their creative process.
+      </p>
+    </div>
+
+    <div class="prose">
+      <p>
+        The Poligala was a highlight of my year at POLIWOOD. Seeing the finished film on a proper
+        screen in the auditorium - having started from a blank page and a team of three - was
+        genuinely satisfying. The stage presentation pushed me to articulate creative decisions
+        clearly, which turned out to be a different kind of challenge to writing or editing.
+      </p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- REFLECTIONS -->
+  <section>
+    <p class="label">Reflection</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1rem;">What I took from it</h2>
+    <div class="prose">
+      <p>
+        The Polireto was my first serious experience with the full scriptwriting and editing pipeline -
+        from concept to screened film. The most interesting tension was between what the script
+        imagined and what the edit could actually deliver given the footage. Learning to make those
+        decisions quickly, and to trust the team on the parts that weren't mine (sound, VFX), was
+        the real takeaway.
+      </p>
+      <p>
+        It also confirmed something I already suspected: the skills that matter most in collaborative
+        creative work aren't purely technical. Keeping the scope realistic, communicating clearly
+        about what you need from teammates, and committing to a version rather than endlessly
+        reworking it - those are the things that get a project finished.
+      </p>
+    </div>
+
+    <div class="tag-row">
+      <span class="tag tag-film">Scriptwriting</span>
+      <span class="tag tag-film">Video editing</span>
+      <span class="tag tag-tech">VFX collaboration</span>
+      <span class="tag tag-tech">Sound sync</span>
+      <span class="tag tag-blue">Public presentation</span>
+      <span class="tag tag-blue">Team coordination</span>
+      <span class="tag tag-film">POLIWOOD UPV</span>
+      <span class="tag tag-tech">Narrative structure</span>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- RESOURCES -->
+  <section>
+    <p class="label">Resources</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1rem;">Watch &amp; download</h2>
+    <p style="font-size:0.9rem;color:var(--muted);font-weight:300;margin-bottom:1.5rem;">
+      The full short film is available to watch above or download below.
+    </p>
+    <div class="action-row">
+      <a href="videos/polireto_short_film_2025.mp4" target="_blank" class="btn-primary">Download short film (mp4)</a>
+      <a href="index.html#proyectos" class="btn-secondary">Back to all projects</a>
+    </div>
+    <p style="font-size:0.82rem;color:var(--muted);font-weight:300;margin-top:2rem;margin-bottom:0.5rem;">Team</p>
+    <div class="team-row">
+      <span class="team-chip">Paula Otero Paños - Script &amp; Editing</span>
+      <span class="team-chip film">Jordi Cayuela Penalva - VFX</span>
+      <span class="team-chip film">Daniel Díez Lafuente - Sound &amp; Performance</span>
+    </div>
+    <p style="font-size:0.78rem;color:var(--muted);font-weight:300;margin-top:0.75rem;">
+      POLIWOOD UPV · Polireto · 2024-2025
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  Paula Otero Paños · <a href="index.html" style="color:inherit;text-decoration:none;">Back to portfolio</a>
+</footer>
+
+</body>
+</html>

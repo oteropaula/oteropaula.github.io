@@ -111,6 +111,16 @@
 
   footer { border-top: 1px solid var(--subtle); padding: 2rem; text-align: center; font-size: 0.78rem; color: var(--muted); letter-spacing: 0.04em; }
 
+  /* CERTIFICATES */
+  .cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--subtle); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; margin-top: 2rem; }
+  .cert-card { background: var(--surface); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.2rem; }
+  .cert-issuer { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
+  .cert-name { font-weight: 500; font-size: 0.9rem; color: var(--text); line-height: 1.4; }
+  .cert-date { font-size: 0.78rem; color: var(--muted); font-weight: 300; }
+  .cert-badge { display: inline-block; margin-top: 0.35rem; background: var(--accent-light); color: var(--accent); font-size: 0.7rem; padding: 0.15rem 0.55rem; border-radius: 2px; width: fit-content; }
+  .cert-badge.green { background: var(--green-light); color: var(--green); }
+  @media (max-width: 560px) { .cert-grid { grid-template-columns: 1fr; } }
+
   @media (max-width: 620px) {
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     .about-photo { aspect-ratio: 1/1; max-width: 180px; }
@@ -131,6 +141,7 @@
     <li><a href="#experiencia">Experience</a></li>
     <li><a href="#proyectos">Projects</a></li>
     <li><a href="#educacion">Education</a></li>
+    <li><a href="#certificados">Certs</a></li>
     <li><a href="#contacto">Contact</a></li>
   </ul>
 </nav>
@@ -265,6 +276,7 @@
   <p class="label">Projects</p>
   <h2 class="section-title">Things I've built &amp; researched</h2>
   <div class="projects-grid">
+    <!-- 
     <a href="#" class="project-card">
       <div class="project-img green">
         <img src="images/methodology.png" alt="Energy consumption methodology" style="width:100%; height:100%; object-fit:cover;">
@@ -280,15 +292,14 @@
           <span class="tag-sm green">Linux</span><span class="tag-sm green">Intel RAPL</span><span class="tag-sm green">Energy profiling</span><span class="tag-sm green">Video codecs</span><span class="tag-sm green">Sustainability</span>
         </div>
       </div>
-    </a>
+    </a> -->
     <a href="drm.html" class="project-card">
     <div class="project-img">
         <img src="images/drm.png" alt="DRM system architecture" style="width:100%; height:100%; object-fit:cover;">
     </div>
     <div class="project-body">
-      <p class="project-cat">Security · University Project</p>
+      <p class="project-cat">Cybersecurity · DRM</p>
       <h3 class="project-title">Digital Rights Management System</h3>
-      <span class="project-badge">Final project</span>
       <p class="project-desc">
         Designed and implemented a secure DRM architecture from scratch including a content server,
         license server and management interface. Applied hybrid encryption (RSA + AES-128),
@@ -325,6 +336,52 @@
       </div>
     </a>
 
+    <a href="m5stack.html" class="project-card">
+      <div class="project-img" style="background:#1A1A2E;color:#9999BB;">
+        <img src="images/m5stack.png" alt="M5Stack Suzanne Controller" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="project-body">
+        <p class="project-cat">Embedded Systems · M5Stack-FIRE · OSC </p>
+        <h3 class="project-title">Blender Object Controller with M5Stack &amp; OSC</h3>
+        <p class="project-desc">
+          Interactive system that uses an M5Stack-FIRE's gyroscope and buttons to control
+          a Blender 3D object in real time via OSC messages. Three modes - colour, size,
+          and rotation - driven by live sensor data (yaw, pitch, roll), with TouchOSC
+          as a visual feedback interface.
+        </p>
+        <div class="tag-row-sm">
+          <span class="tag-sm">MicroPython</span>
+          <span class="tag-sm">OSC</span>
+          <span class="tag-sm">Blender</span>
+          <span class="tag-sm">M5Stack</span>
+          <span class="tag-sm">TouchOSC</span>
+          <span class="tag-sm">IMU</span>
+        </div>
+      </div>
+    </a>
+
+
+    <a href="shortfilm.html" class="project-card">
+      <div class="project-img" style="background:#1A1A2E;color:#9999BB;">
+        <img src="images/poligala.jpg" alt="Poligala short film presentation" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="project-body">
+        <p class="project-cat">Filmmaking · Adobe Premiere</p>
+        <h3 class="project-title">Polireto Short Film</h3>
+        <p class="project-desc">
+          Wrote and edited a short film for the Polireto competition, POLIWOOD UPV's internal filmmaking contest. 
+          The film premiered at the Poligala ceremony in the ETSIT auditorium. Worked with the VFX team, sound 
+          designers and on-screen talent throughout the production.
+        </p>
+        <div class="tag-row-sm">
+          <span class="tag-sm">Scriptwriting</span>
+          <span class="tag-sm">Video editing</span>
+          <span class="tag-sm">VFX collaboration</span>
+          <span class="tag-sm">POLIWOOD</span>
+        </div>
+      </div>
+    </a>
+
     <a href="#" class="project-card">
       <div class="project-img">
         <img src="images/acm.png" alt="ACM UPV Chapter Logo" style="width:100%; height:100%; object-fit:cover;">
@@ -341,12 +398,62 @@
       </div>
     </a>
 
+    <a href="blender.html" class="project-card">
+      <div class="project-img" style="background:#FDF3E3;color:#7A4A0A;">
+         <img src="images/cave_interior.png" alt="Blender cave" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="project-body">
+        <p class="project-cat" style="color:#7A4A0A;">3D Modelling · Animation · Graphic Design</p>
+        <h3 class="project-title">Secret Cave - Blender</h3>
+        <p class="project-desc">
+          Full pipeline from 2D character concept art (sketch → ink → digital painting → modelsheet)
+          to a fully animated Blender scene: a superhero's secret cave with walk cycles, 
+          cinematic camera paths, water simulation, procedural grass, and a laser beam that changes the 
+          cave's lighting in real time.
+        </p>
+        <div class="tag-row-sm">
+          <span class="tag-sm">Blender</span>
+          <span class="tag-sm">GIMP</span>
+          <span class="tag-sm">UV Mapping</span>
+          <span class="tag-sm">Cloth physics</span>
+          <span class="tag-sm">Character animation</span>
+        </div>
+      </div>
+    </a>
+
+    <a class="project-card">
+      <div class="project-img" style="background:#EEF2FF;color:#3730A3;">
+        <img src="images/embedded_music.png" alt="Embedded musical generator system" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="project-body">
+        <p class="project-cat" style="color:#3730A3;">Embedded Systems · Arduino · ESP32</p>
+        <h3 class="project-title">Wireless Embedded Musical Generator</h3>
+        <p class="project-desc">
+          Designed and implemented a dual-microcontroller embedded system for real-time melody creation,
+          storage and remote playback. An Arduino Mega handles user interaction via rotary encoder and LCD,
+          while an ESP32 hosts a WiFi access point and web server to control stored melodies remotely.
+          Implemented UART communication protocol, SPIFFS resource storage and low-level state logic to
+          ensure reliable playback and responsive interaction.
+        </p>
+        <div class="tag-row-sm">
+          <span class="tag-sm">Embedded C</span>
+          <span class="tag-sm">Arduino Mega</span>
+          <span class="tag-sm">ESP32</span>
+          <span class="tag-sm">UART</span>
+          <span class="tag-sm">WiFi Server</span>
+          <span class="tag-sm">SPIFFS</span>
+          <span class="tag-sm">LCD</span>
+          <span class="tag-sm">Rotary Encoder</span>
+        </div>
+      </div>
+    </a>
+
      <a href="promu.html" class="project-card">
       <div class="project-img" style="background:#FDF3E3;color:#7A4A0A;">
         <img src="images/guizero.png" alt="Desktop app" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
-        <p class="project-cat">Interdisciplinary · PROMU · 1st year</p>
+        <p class="project-cat">Interdisciplinary · Python · User interface</p>
         <h3 class="project-title">Super Jump World - Jump Analyser</h3>
         <p class="project-desc">
           4-subject interdisciplinary project integrating a Python desktop GUI, a custom TCP protocol, 
@@ -408,6 +515,88 @@
 </section>
 
 <hr class="divider">
+
+<!-- CERTIFICATES -->
+<section id="certificados">
+  <p class="label">Certifications</p>
+  <h2 class="section-title">Licences &amp; courses</h2>
+  <div class="cert-grid">
+
+    <div class="cert-card">
+      <span class="cert-issuer">Cambridge University Press &amp; Assessment</span>
+      <span class="cert-name">Cambridge English: Advanced (C1) - CAE</span>
+      <span class="cert-date">Aug 2024 · ID: C8324480</span>
+      <span class="cert-badge">English · C1</span>
+    </div>
+
+    <div class="cert-card">
+      <span class="cert-issuer">JQCV</span>
+      <span class="cert-name">Valencian C1 - Certificat de Nivell Mitjà</span>
+      <span class="cert-date">Oct 2024 · ID: CSV Z2Z44Z7I-TLHJ66Y6</span>
+      <span class="cert-badge">Valencian · C1</span>
+    </div>
+
+    <div class="cert-card">
+      <span class="cert-issuer">IBM</span>
+      <span class="cert-name">Getting started with cybersecurity</span>
+      <span class="cert-date">Mar 2026</span>
+      <span class="cert-badge green">Cybersecurity</span>
+    </div>
+
+    <div class="cert-card">
+      <span class="cert-issuer">IBM</span>
+      <span class="cert-name">Getting started with artificial intelligence</span>
+      <span class="cert-date">Mar 2026</span>
+      <span class="cert-badge green">AI</span>
+    </div>
+
+    <div class="cert-card">
+      <span class="cert-issuer">IBM</span>
+      <span class="cert-name">Data classification and summarization - IBM Granite</span>
+      <span class="cert-date">Mar 2026</span>
+      <span class="cert-badge green">AI · Data</span>
+    </div>
+
+    <div class="cert-card">
+      <span class="cert-issuer">edX</span>
+      <span class="cert-name">Introduction to SQL and relational databases</span>
+      <span class="cert-date">Oct 2024 · ID: a4ff6f20ed504c78a7ea355a110ef83a</span>
+      <span class="cert-badge">Databases</span>
+    </div>
+
+    <div class="cert-card">
+      <span class="cert-issuer">edX</span>
+      <span class="cert-name">Cybersecurity fundamentals for users</span>
+      <span class="cert-date">Sept 2024 · ID: 5dda7615857a47d190dda1e47eb0e012</span>
+      <span class="cert-badge green">Cybersecurity</span>
+    </div>
+
+    <div class="cert-card">
+      <span class="cert-issuer">Santander · Google</span>
+      <span class="cert-name">Artificial intelligence and productivity</span>
+      <span class="cert-date">Sept 2024 · ID: OA-2024-0911000553773</span>
+      <span class="cert-badge green">AI · Productivity</span>
+    </div>
+
+    <div class="cert-card">
+      <span class="cert-issuer">edX</span>
+      <span class="cert-name">Marketing digital in social media</span>
+      <span class="cert-date">Sept 2024 · ID: ad1719ac3d4e4f399c748b64b6f4b9d7</span>
+      <span class="cert-badge">Digital marketing</span>
+    </div>
+
+    <div class="cert-card">
+      <span class="cert-issuer">Adecco · Banco Sabadell</span>
+      <span class="cert-name">Banco Sabadell internal training certificate</span>
+      <span class="cert-date">May 2025</span>
+      <span class="cert-badge">Banking</span>
+    </div>
+
+  </div>
+</section>
+
+<hr class="divider">
+
 
 <!-- CONTACT -->
 <section id="contacto">
