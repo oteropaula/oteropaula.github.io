@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Wireless Embedded Musical Generator - Paula Otero Paños</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F6F2;
+    --surface: #FFFFFF;
+    --text: #161616;
+    --muted: #5E5E5E;
+    --subtle: #E4E3DE;
+    --accent: #1B3FAB;
+    --accent-light: #ECF0FB;
+    --accent-mid: #C5CEEF;
+    --indigo: #3730A3;
+    --indigo-light: #EEF2FF;
+    --indigo-mid: #C7D2FE;
+    --green: #0E6E56;
+    --green-light: #E1F5EE;
+    --green-mid: #A3D9C8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.7; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(247,246,242,0.92); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--subtle);
+    padding: 0 2.5rem; height: 58px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--text); text-decoration: none; }
+  .nav-back { font-size: 0.82rem; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
+  .nav-back:hover { color: var(--accent); }
+
+  .page { max-width: 760px; margin: 0 auto; padding: 6rem 2rem 5rem; }
+  hr.divider { border: none; border-top: 1px solid var(--subtle); margin: 3rem 0; }
+
+  .label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.5rem; color: var(--accent); }
+  .label-indigo { color: var(--indigo); }
+  .label-green  { color: var(--green); }
+
+  .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 2px; font-size: 0.75rem; font-weight: 500; }
+  .badge-indigo { background: var(--indigo-light); color: var(--indigo); border: 1px solid var(--indigo-mid); }
+  .badge-green  { background: var(--green-light);  color: var(--green);  border: 1px solid var(--green-mid); }
+  .badge-blue   { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+  .badge-dark   { background: var(--text); color: white; }
+
+  .project-eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .project-title { font-family: 'DM Serif Display', serif; font-size: clamp(2rem, 5vw, 3rem); letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 1.25rem; }
+  .project-title em { font-style: italic; color: var(--indigo); }
+  .project-subtitle { font-size: 1.05rem; color: var(--muted); font-weight: 300; line-height: 1.8; max-width: 580px; margin-bottom: 2rem; }
+  .meta-row { display: flex; flex-wrap: wrap; gap: 1.5rem; border-top: 1px solid var(--subtle); padding-top: 1.25rem; }
+  .meta-item { display: flex; flex-direction: column; gap: 0.15rem; }
+  .meta-key { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); opacity: 0.7; }
+  .meta-val { color: var(--text); font-weight: 400; font-size: 0.875rem; }
+
+  /* SCREENSHOT BLOCKS */
+  .screenshot-block { background: var(--surface); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; margin: 2rem 0; }
+  .screenshot-label { padding: 0.6rem 1.25rem; border-bottom: 1px solid var(--subtle); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .screenshot-img { width: 100%; display: flex; align-items: center; justify-content: center; flex-direction: column; min-height: 180px; }
+  .screenshot-img img { width: 100%; display: block; }
+  .screenshot-img.dark { background: #111; padding: 0; }
+  .screenshot-img.indigo { background: var(--indigo-light); color: var(--indigo); }
+  .screenshot-caption { padding: 0.75rem 1.25rem; font-size: 0.82rem; color: var(--muted); font-weight: 300; line-height: 1.6; }
+
+  /* VIDEO BLOCK */
+  .video-block { background: #111; border-radius: 12px; overflow: hidden; border: 1px solid var(--subtle); margin: 2rem auto; max-width: 480px; box-shadow: 0 4px 24px rgba(0,0,0,0.14); }
+  .video-block video { width: 100%; display: block; }
+  .video-caption { font-size: 0.78rem; color: var(--muted); font-weight: 300; text-align: center; margin-top: 0.75rem; }
+
+  /* ARCHITECTURE DIAGRAM */
+
+  .arch-row {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start; 
+    gap: 0.5rem;                 
+    flex-wrap: nowrap;            
+    overflow-x: auto;            
+    padding-bottom: 0.5rem;      
+  }
+  
+  /*.arch-row { display: flex; align-items: center; justify-content: center; gap: 0; margin: 2rem 0; flex-wrap: wrap; } */
+  .arch-node { background: var(--surface); border: 1px solid var(--subtle); border-radius: 2px; padding: 1rem 1.25rem; text-align: center; min-width: 110px; flex-shrink: 0; } 
+  .arch-node-label { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.3rem; }
+  .arch-node-name  { font-weight: 500; font-size: 0.875rem; }
+  .arch-node.indigo { background: var(--indigo-light); border-color: var(--indigo-mid); }
+  .arch-node.indigo .arch-node-label { color: var(--indigo); }
+  .arch-node.green  { background: var(--green-light); border-color: var(--green-mid); }
+  .arch-node.green  .arch-node-label { color: var(--green); }
+  .arch-arrow { color: var(--muted); padding: 0 0.5rem; font-size: 0.8rem; align-self: center; flex-shrink: 0; white-space: nowrap; } 
+
+  /* PHASES */
+  .phases { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--subtle); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; margin: 2rem 0; }
+  .phase-card { background: var(--surface); padding: 1.5rem; }
+  .phase-num { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; font-weight: 500; color: var(--indigo); margin-bottom: 0.4rem; }
+  .phase-title { font-family: 'DM Serif Display', serif; font-size: 1.05rem; margin-bottom: 0.4rem; }
+  .phase-desc { font-size: 0.85rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+
+  /* FEATURE LIST */
+  .features { display: flex; flex-direction: column; }
+  .feature-item { padding: 1.25rem 0; border-bottom: 1px solid var(--subtle); display: grid; grid-template-columns: 2rem 1fr; gap: 1rem; align-items: start; }
+  .feature-item:first-child { padding-top: 0; }
+  .feature-icon { font-size: 1rem; padding-top: 0.15rem; }
+  .feature-title { font-weight: 500; font-size: 0.95rem; margin-bottom: 0.2rem; }
+  .feature-desc { font-size: 0.875rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+
+  /* PROSE */
+  .prose p { font-size: 0.975rem; color: var(--muted); font-weight: 300; line-height: 1.85; margin-bottom: 0.9rem; }
+  .prose p strong { color: var(--text); font-weight: 500; }
+  code { font-size: 0.85em; background: #F0F0F0; padding: 0.1rem 0.4rem; border-radius: 2px; font-family: 'DM Mono', 'Fira Mono', monospace; }
+
+  /* PROBLEMS TABLE */
+  .problems { display: flex; flex-direction: column; gap: 1px; background: var(--subtle); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; margin: 2rem 0; }
+  .problem-card { background: var(--surface); padding: 1.25rem 1.5rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+  .problem-col-label { font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.4rem; }
+  .problem-col-label.red   { color: #8B2A10; }
+  .problem-col-label.green { color: var(--green); }
+  .problem-col-text { font-size: 0.85rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+
+  /* MELODY TABLE */
+  .melody-table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.875rem; }
+  .melody-table th { text-align: left; font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--subtle); font-weight: 500; }
+  .melody-table td { padding: 0.7rem 0.75rem; border-bottom: 1px solid var(--subtle); color: var(--muted); font-weight: 300; }
+  .melody-table td:first-child { font-family: 'DM Mono', 'Fira Mono', monospace; color: var(--indigo); font-size: 0.85em; font-weight: 400; }
+  .melody-table tr:last-child td { border-bottom: none; }
+
+  /* TAG ROW */
+  .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0; }
+  .tag { padding: 0.28rem 0.75rem; border-radius: 2px; font-size: 0.78rem; }
+  .tag-tech   { background: #EFEFEF; color: #2A2A2A; }
+  .tag-indigo { background: var(--indigo-light); color: var(--indigo); }
+  .tag-green  { background: var(--green-light);  color: var(--green); }
+
+  /* ACTIONS */
+  .action-row { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 2rem; }
+  .btn-primary { background: var(--accent); color: white; padding: 0.7rem 1.6rem; border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: opacity 0.2s; }
+  .btn-primary:hover { opacity: 0.82; }
+  .btn-secondary { background: transparent; color: var(--text); padding: 0.7rem 1.6rem; border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 500; border: 1px solid var(--subtle); transition: border-color 0.2s; }
+  .btn-secondary:hover { border-color: var(--text); }
+
+  .team-row { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+  .team-chip { background: #F0F0F0; color: #2A2A2A; padding: 0.3rem 0.85rem; border-radius: 2px; font-size: 0.82rem; }
+  .team-chip.me { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+
+  footer { border-top: 1px solid var(--subtle); padding: 2rem; text-align: center; font-size: 0.78rem; color: var(--muted); }
+
+  @media (max-width: 580px) {
+    .phases { grid-template-columns: 1fr; }
+    .problem-card { grid-template-columns: 1fr; gap: 0.75rem; }
+    .arch-row { flex-direction: column; }
+    .meta-row { gap: 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Paula Otero</a>
+  <a href="index.html#proyectos" class="nav-back">
+    <svg width="14" height="14" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg>
+    Back to portfolio
+  </a>
+</nav>
+
+<main class="page">
+
+  <!-- HEADER -->
+  <header>
+    <div class="project-eyebrow">
+      <span class="badge badge-indigo">Embedded Systems</span>
+      <span class="badge badge-indigo">Arduino · ESP32</span>
+      <span class="badge badge-green">WiFi · UART</span>
+      <span class="badge badge-dark">UPV · 2023/24</span>
+    </div>
+    <h1 class="project-title">Wireless Embedded<br><em>Musical Generator</em></h1>
+    <p class="project-subtitle">
+      A dual-microcontroller embedded system for real-time melody creation, storage and
+      remote playback. An Arduino Mega 2560 handles physical interaction via rotary encoder
+      and RGB LCD display, while an ESP32 hosts a WiFi access point and a web server that
+      lets users select and play stored melodies from any browser on the network.
+    </p>
+    <div class="meta-row">
+      <div class="meta-item">
+        <span class="meta-key">Course</span>
+        <span class="meta-val">Embedded Systems - BSc Digital &amp; Multimedia Technology</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Hardware</span>
+        <span class="meta-val">Arduino Mega 2560 · ESP32-DevKitV1</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Institution</span>
+        <span class="meta-val">UPV - ETSI Telecomunicación</span>
+      </div>
+      <div class="meta-item">
+        <span class="meta-key">Year</span>
+        <span class="meta-val">2023/24</span>
+      </div>
+    </div>
+  </header>
+
+  <hr class="divider">
+
+  <!-- OVERVIEW -->
+  <section>
+    <p class="label">Overview</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">Two microcontrollers, one instrument</h2>
+
+    <div class="prose">
+      <p>
+        The system lets a user <strong>create custom melodies</strong> using a rotary encoder and a buzzer
+        on the Arduino side, then <strong>select and play them remotely</strong> through a browser-based
+        web interface served by the ESP32 over its own WiFi access point. The two boards
+        communicate bidirectionally over <strong>UART</strong> - the Arduino sends newly created melody
+        names to the ESP32, and the ESP32 sends play commands back to the Arduino when a
+        user clicks a melody in the web UI.
+      </p>
+      <p>
+        The web server's HTML, icon and image assets are stored in the ESP32's flash using
+        <strong>SPIFFS</strong> (Serial Peripheral Interface Flash File System), served directly to
+        connected browsers without any external hosting.
+      </p>
+    </div>
+
+    <!-- Architecture -->
+    <div class="arch-row">
+      <div class="arch-node indigo">
+        <p class="arch-node-label">User interface</p>
+        <p class="arch-node-name">Browser / Web UI</p>
+      </div>
+      <span class="arch-arrow">↔ HTTP →</span>
+      <div class="arch-node indigo">
+        <p class="arch-node-label">WiFi AP + Web Server</p>
+        <p class="arch-node-name">ESP32-DevKitV1</p>
+      </div>
+      <span class="arch-arrow">↔ UART →</span>
+      <div class="arch-node green">
+        <p class="arch-node-label">Melody engine</p>
+        <p class="arch-node-name">Arduino Mega 2560</p>
+      </div>
+      <span class="arch-arrow">→</span>
+      <div class="arch-node">
+        <p class="arch-node-label">Output</p>
+        <p class="arch-node-name">Buzzer + LCD</p>
+      </div>
+    </div>
+
+    <div class="screenshot-block">
+      <div class="screenshot-label">Hardware setup - wiring diagram</div>
+      <div class="screenshot-img indigo" style="min-height:220px;">
+        <img src="images/embedded_music.png" alt="Embedded music system hardware" style="width:100%;display:block;">
+      </div>
+      <p class="screenshot-caption">
+        Arduino Mega 2560 connected to rotary encoder (CLK pin 2, DT pin 3, SW pin 4), RGB LCD display, and buzzer (pin 8). ESP32-DevKitV1 connected via UART on Serial1 / Serial2 at 115200 baud.
+      </p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ARDUINO SIDE -->
+  <section>
+    <p class="label label-green">Component - Arduino Mega 2560 (melodies.ino)</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">Creating and playing melodies</h2>
+
+    <div class="prose">
+      <p>
+        The Arduino code manages the full melody creation workflow through a single rotary
+        encoder and its push-button switch. Turning the encoder scrolls through eight
+        available notes (DO, RE, MI, FA, SOL, LA, SI, DO); the LCD shows the currently
+        selected note in real time. The switch button handles all editing actions through a
+        <strong>multi-tap detection system</strong> with debounce logic.
+      </p>
+    </div>
+
+    <div class="features">
+      <div class="feature-item">
+        <span class="feature-icon">1️⃣</span>
+        <div>
+          <p class="feature-title">1 press - Add note</p>
+          <p class="feature-desc">Appends the currently selected note (250 ms duration) to the melody being composed. The LCD updates with the current note count.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">2️⃣</span>
+        <div>
+          <p class="feature-title">2 presses - Save melody</p>
+          <p class="feature-desc">Saves the composed melody with an auto-generated name (<code>melodia1</code>, <code>melodia2</code>, …). The user is then asked via encoder whether to create another melody or stop. The melody name is sent to the ESP32 over <code>Serial1</code> with the <code>M:</code> prefix protocol.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">3️⃣</span>
+        <div>
+          <p class="feature-title">3 presses - Delete last note</p>
+          <p class="feature-desc">Removes the most recently added note from the current melody and decrements the note counter displayed on the LCD.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">4️⃣</span>
+        <div>
+          <p class="feature-title">4 presses - Clear all notes</p>
+          <p class="feature-desc">Resets the current melody to zero notes, letting the user start the composition over from scratch without saving.</p>
+        </div>
+      </div>
+      <div class="feature-item">
+        <span class="feature-icon">🎵</span>
+        <div>
+          <p class="feature-title">Remote playback via UART</p>
+          <p class="feature-desc">When the ESP32 forwards a play command (<code>M:melodyName</code>) over <code>Serial1</code>, the Arduino looks up the melody by name - first in predefined melodies, then in user-created ones - and plays each note on the buzzer using the <code>tone()</code> function at the specified frequency and duration.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Predefined melodies -->
+    <div style="margin-top:2rem;">
+      <p class="label label-green" style="margin-bottom:0.75rem;">Predefined melodies</p>
+      <table class="melody-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Title</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Melodia A</td>
+            <td>Star Wars - Main Theme</td>
+            <td>18 notes across two bars</td>
+          </tr>
+          <tr>
+            <td>Melodia B</td>
+            <td>Harry Potter - Hedwig's Theme</td>
+            <td>18 notes across two bars</td>
+          </tr>
+          <tr>
+            <td>Melodia C</td>
+            <td>Indiana Jones - Main Theme</td>
+            <td>16 notes across two bars</td>
+          </tr>
+          <tr>
+            <td>Melodia D</td>
+            <td>Pirates of the Caribbean - He's a Pirate</td>
+            <td>24 notes across three bars</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- ESP32 SIDE -->
+  <section>
+    <p class="label label-indigo">Component - ESP32-DevKitV1 (wifi.ino)</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">WiFi access point &amp; web server</h2>
+
+    <div class="prose">
+      <p>
+        The ESP32 creates its own WiFi access point (<strong>SSID: ESP32-AP04</strong>) rather than
+        joining an existing network. Any device that connects to it can open the web
+        interface in a browser. The web server runs on port 80 and serves all resources
+        from <strong>SPIFFS</strong> - the HTML page, an icon, and a decorative image are all stored in
+        the ESP32's flash and served with correct MIME types.
+      </p>
+      <p>
+        The melody list on the web page <strong>auto-refreshes every 5 seconds</strong> via a JavaScript
+        <code>setTimeout</code> loop, so newly created melodies appear without the user needing to
+        reload the page. When a melody is clicked, the JavaScript sends a
+        <code>GET /play?melody=name</code> request; the server strips whitespace, forwards the name
+        to the Arduino over <code>Serial2</code> with the <code>M:</code> prefix, and sets a
+        <code>melodyPlaying</code> flag with a short delay to prevent duplicate playback.
+      </p>
+    </div>
+
+    <div class="phases">
+      <div class="phase-card">
+        <p class="phase-num">Route - /</p>
+        <p class="phase-title">handleRoot()</p>
+        <p class="phase-desc">Opens <code>index.html</code> from SPIFFS and streams it to the browser. Returns HTTP 500 if the file cannot be opened.</p>
+      </div>
+      <div class="phase-card">
+        <p class="phase-num">Route - /melodies</p>
+        <p class="phase-title">handleMelodies()</p>
+        <p class="phase-desc">Builds an HTML list of all predefined melodies (A–D) and all user-created ones stored in <code>createdMelodies[]</code>. Returned as plain text; injected into the page by JavaScript.</p>
+      </div>
+      <div class="phase-card">
+        <p class="phase-num">Route - /play</p>
+        <p class="phase-title">handlePlay()</p>
+        <p class="phase-desc">Receives melody name as a query parameter, trims whitespace, forwards via <code>Serial2.println("M:" + name)</code> to the Arduino. Uses <code>melodyPlaying</code> flag to block duplicate requests.</p>
+      </div>
+      <div class="phase-card">
+        <p class="phase-num">Routes - /icono.jpg · /image.png</p>
+        <p class="phase-title">handleIcon() / handleImage()</p>
+        <p class="phase-desc">Streams static assets from SPIFFS with the correct MIME type (<code>image/jpg</code>, <code>image/png</code>). Returns HTTP 404 if not found.</p>
+      </div>
+    </div>
+
+    <div class="prose" style="margin-top:1rem;">
+      <p>
+        The <code>loop()</code> function also listens on <code>Serial2</code> for incoming <code>M:</code> messages
+        from the Arduino - when a new melody is created and saved, the Arduino sends its
+        name, and the ESP32 stores it in the <code>createdMelodies[]</code> array (up to 10 entries).
+        This is what makes the dynamically updated melody list in the web UI work.
+      </p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- SPIFFS -->
+  <section>
+    <p class="label">SPIFFS setup</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">Serving the web UI from flash</h2>
+
+    <div class="prose">
+      <p>
+        Rather than embedding HTML as a string in the C++ source, the web UI is stored as
+        a separate file in the ESP32's flash filesystem using <strong>SPIFFS</strong>. The deployment
+        process involves running a custom <code>deploy_spiffs.bat</code> script (provided by the
+        course) that uses <code>mkspiffs</code> and <code>esptool</code> to pack the <code>data/</code> folder contents
+        into a <code>spiffs.bin</code> binary and flash it to the device. The <code>data/</code> folder contains
+        <code>index.html</code>, <code>icono.jpg</code>, and <code>image.png</code>.
+      </p>
+      <p>
+        This separation means the web UI can be edited and reflashed independently of the
+        firmware - a clean architectural boundary that also keeps the Arduino sketch
+        readable.
+      </p>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- VIDEO -->
+  <section>
+    <p class="label">Demo</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">See it in action</h2>
+
+    <div class="prose">
+      <p>
+        Full system demo: creating a melody on the Arduino with the rotary encoder, saving
+        it, and then selecting and playing it from the browser web interface.
+      </p>
+    </div>
+
+    <div style="
+      background:#111;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid var(--subtle);
+      margin:2rem auto;
+      max-width:800px;      /* tamaño máximo más grande */
+      width:90%;            /* ancho relativo al contenedor */
+      box-shadow:0 4px 24px rgba(0,0,0,0.14);
+    ">
+      <video
+        src="videos/embeddedmusic_demo.mp4"
+        style="width:100%; height:auto; display:block;"
+        autoplay
+        muted
+        loop
+        playsinline
+        controls>
+      </video>
+    </div>
+    <p class="video-caption">Hardware demo - rotary encoder melody creation → UART → ESP32 web interface → remote playback</p>
+  </section>
+
+  <hr class="divider">
+
+  <!-- PROBLEMS & SOLUTIONS -->
+  <section>
+    <p class="label">Engineering challenges</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">Problems encountered &amp; how we solved them</h2>
+
+    <div class="problems">
+      <div class="problem-card">
+        <div>
+          <p class="problem-col-label red">Problem</p>
+          <p class="problem-col-text">Melodies selected in the browser weren't reaching the Arduino - no playback triggered.</p>
+        </div>
+        <div>
+          <p class="problem-col-label green">Solution</p>
+          <p class="problem-col-text">Both sides were missing the correct serial port initialisation. Added <code>Serial1.begin(115200)</code> on the Arduino side and <code>Serial2.begin(115200)</code> on the ESP32 side to establish the UART link.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div>
+          <p class="problem-col-label red">Problem</p>
+          <p class="problem-col-text">Every melody played twice in succession - the buzzer reproduced the same piece back-to-back.</p>
+        </div>
+        <div>
+          <p class="problem-col-label green">Solution</p>
+          <p class="problem-col-text">The melody name was being sent twice by the ESP32. Added a <code>melodyPlaying</code> boolean flag: set to <code>true</code> on play, a short <code>delay(1000)</code>, then back to <code>false</code>. Subsequent requests are rejected while the flag is active.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div>
+          <p class="problem-col-label red">Problem</p>
+          <p class="problem-col-text">LCD showed ghost characters - scrolling past "SOL" left the trailing "L" on screen; confirmation brackets displayed as "[Si] [No" instead of "[Si] No".</p>
+        </div>
+        <div>
+          <p class="problem-col-label green">Solution</p>
+          <p class="problem-col-text">Added <code>lcd.print("    ")</code> (spaces) before each display update to overwrite the previous content, effectively clearing residual characters without calling <code>lcd.clear()</code> for the whole screen.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div>
+          <p class="problem-col-label red">Problem</p>
+          <p class="problem-col-text">When deleting all notes with <code>currentNoteIndex ≥ 10</code>, the second digit of the count remained on the LCD.</p>
+        </div>
+        <div>
+          <p class="problem-col-label green">Solution</p>
+          <p class="problem-col-text">Extended the whitespace-clearing approach to cover the extra character position for two-digit numbers, ensuring both digits were wiped before the new count was printed.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div>
+          <p class="problem-col-label red">Problem</p>
+          <p class="problem-col-text">Created melody name was not being sent to the ESP32 - only an empty character arrived.</p>
+        </div>
+        <div>
+          <p class="problem-col-label green">Solution</p>
+          <p class="problem-col-text">The variable holding the melody name was being defined after <code>currentMelodyIndex</code> was incremented, capturing the wrong slot. Moving the variable definition to immediately after the name assignment fixed the ordering issue.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div>
+          <p class="problem-col-label red">Problem</p>
+          <p class="problem-col-text">Rotary encoder presses were frequently misdetected - double-counts or missed taps because the user had to press very fast.</p>
+        </div>
+        <div>
+          <p class="problem-col-label green">Solution</p>
+          <p class="problem-col-text">Added <code>delay()</code> calls at key points and a <code>debounceTime</code> variable (200 ms) checked via <code>millis()</code> to give the encoder time to settle between transitions.</p>
+        </div>
+      </div>
+      <div class="problem-card">
+        <div>
+          <p class="problem-col-label red">Problem</p>
+          <p class="problem-col-text">SPIFFS deployment script failed: <code>MKSPIFFS</code>, <code>ESPTOOL</code> and <code>PARTITION_FILE</code> paths were wrong for the local Arduino IDE installation version.</p>
+        </div>
+        <div>
+          <p class="problem-col-label green">Solution</p>
+          <p class="problem-col-text">Updated all three paths in the <code>.bat</code> script to match the installed versions. Additionally, the script must be run with Arduino IDE fully closed - the IDE holds the serial port open, blocking the flash operation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- REFLECTION -->
+  <section>
+    <p class="label">Reflection</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1rem;">What we learned</h2>
+    <div class="prose">
+      <p>
+        The most valuable lesson from this project was understanding the full stack of an
+        embedded IoT system - from raw hardware signals (encoder pulses, buzzer tones) up
+        through UART communication, WiFi networking, and a browser-facing HTTP server.
+        Each layer introduced its own failure modes, and debugging required reasoning about
+        multiple systems at once rather than a single codebase.
+      </p>
+      <p>
+        Working without the planned course practice on SPIFFS and WiFi meant we had to
+        read documentation and source examples independently, which made the learning
+        more durable. The ghost-character LCD problems in particular were a good reminder
+        that embedded displays have no concept of "refresh" - every pixel state must be
+        managed explicitly in code.
+      </p>
+      <p>
+        The dual-serial-port approach (<code>Serial1</code> on Arduino, <code>Serial2</code> on ESP32 for
+        the same UART line) is a pattern worth knowing: it keeps the debug console (<code>Serial</code>)
+        free while dedicating a hardware UART to inter-device communication.
+      </p>
+    </div>
+
+    <div class="tag-row">
+      <span class="tag tag-indigo">Embedded C / Arduino</span>
+      <span class="tag tag-indigo">Arduino Mega 2560</span>
+      <span class="tag tag-indigo">ESP32-DevKitV1</span>
+      <span class="tag tag-indigo">UART serial</span>
+      <span class="tag tag-green">WiFi access point</span>
+      <span class="tag tag-green">HTTP web server</span>
+      <span class="tag tag-green">SPIFFS</span>
+      <span class="tag tag-tech">Rotary encoder</span>
+      <span class="tag tag-tech">RGB LCD</span>
+      <span class="tag tag-tech">Buzzer / tone()</span>
+      <span class="tag tag-tech">Debounce logic</span>
+      <span class="tag tag-tech">Multi-tap detection</span>
+    </div>
+  </section>
+
+  <hr class="divider">
+
+  <!-- RESOURCES -->
+  <section>
+    <p class="label">Resources</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1rem;">Files &amp; documentation</h2>
+    <p style="font-size:0.9rem;color:var(--muted);font-weight:300;margin-bottom:1.5rem;">
+      Full project report (32 pages) including full source code for both <code>melodies.ino</code>,
+      <code>wifi.ino</code> and <code>index.html</code>.
+    </p>
+    <div class="action-row">
+      <a href="presentations/EMBEB_presentation.pdf" target="_blank" class="btn-primary">Download report (PDF)</a>
+      <a href="scripts/SPIFFS_data.zip" target="_blank" class="btn-secondary">Download files (.zip)</a>
+      <a href="index.html#proyectos" class="btn-secondary">Back to all projects</a>
+    </div>
+    <p style="font-size:0.82rem;color:var(--muted);font-weight:300;margin-top:2rem;margin-bottom:0.5rem;">Team</p>
+    <div class="team-row">
+      <span class="team-chip me">Paula Otero Paños</span>
+      <span class="team-chip">Anna Reig Borrás</span>
+    </div>
+    <p style="font-size:0.78rem;color:var(--muted);font-weight:300;margin-top:0.75rem;">
+      UPV - ETSI Telecomunicación · Embedded Systems · 2023/24
+    </p>
+  </section>
+
+</main>
+
+<footer>
+  Paula Otero Paños · <a href="index.html" style="color:inherit;text-decoration:none;">Back to portfolio</a>
+</footer>
+
+</body>
+</html>

@@ -249,7 +249,7 @@
     <div class="screenshot-block">
       <div class="screenshot-label">M5Stack display - button mode guide</div>
       <div class="screenshot-img sys" style="padding:0; min-height:220px;">
-        <img src="images/m5stack_display.png" alt="M5Stack display interface" style="width:40%;height:40%;object-fit:cover;display:block;">
+        <img src="images/m5stack_display.png" alt="M5Stack display interface" style="width:50%;height:50%;object-fit:cover;display:block;">
       </div>
       <p class="screenshot-caption">
         The device screen shows the active mode for each button. A <code>/reset</code> message fires
@@ -507,8 +507,41 @@
 
   <hr class="divider">
 
-  <!-- REFLECTION -->
+  <!-- VIDEO DEMO -->
   <section>
+    <p class="label">Demo</p>
+    <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1.5rem;">See it in action</h2>
+    <div class="prose">
+      <p>
+        Live demo of the full interaction loop: selecting a mode with the M5Stack buttons,
+        tilting the device to drive the gyroscope, and watching Blender's Suzanne respond
+        in real time. TouchOSC faders visible alongside.
+      </p>
+    </div>
+    <div style="
+      background:#111;
+      border-radius:18px;
+      overflow:hidden;
+      border:1px solid var(--subtle);
+      margin:2rem auto;
+      max-width:800px;      /* tamaño máximo más grande */
+      width:90%;            /* ancho relativo al contenedor */
+      box-shadow:0 4px 24px rgba(0,0,0,0.14);
+    ">
+      <video
+        src="videos/m5stack_demo.mp4"
+        style="width:100%; height:auto; display:block;"
+        autoplay
+        muted
+        loop
+        playsinline
+        controls>
+      </video>
+    </div>
+    <p style="font-size:0.78rem;color:var(--muted);font-weight:300;text-align:center;margin-top:0.5rem;">Screen + device recording - M5Stack → OSC → Blender real-time control</p>
+  </section>
+
+  
     <p class="label">Reflection</p>
     <h2 style="font-family:'DM Serif Display',serif;font-size:1.75rem;letter-spacing:-0.02em;margin-bottom:1rem;">What we learned</h2>
     <div class="prose">
