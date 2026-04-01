@@ -485,6 +485,30 @@
       </div>
     </a>
 
+    
+    <a href="passwordtool.html" class="project-card">
+      <div class="project-img" style="background:#EEF2F5;color:#2A3A4A;">
+        <img src="images/passwordtool.png" alt="Password Generator & Encryption Tool" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="project-body">
+        <p class="project-cat">Python · Security · UPV</p>
+        <h3 class="project-title">Password Generator &amp; File Encryption Tool</h3>
+        <p class="project-desc">
+          Python CLI application combining secure password generation, compliance validation,
+          and character-level ASCII file encryption and decryption. Fully tested with parametrised
+          pytest suites across all four modules.
+        </p>
+        <div class="tag-row-sm">
+          <span class="tag-sm">Python 3</span>
+          <span class="tag-sm">pytest</span>
+          <span class="tag-sm">ASCII encryption</span>
+          <span class="tag-sm">File I/O</span>
+          <span class="tag-sm">CLI</span>
+        </div>
+      </div>
+    </a>
+
+
      <a href="promu.html" class="project-card">
       <div class="project-img" style="background:#FDF3E3;color:#7A4A0A;">
         <img src="images/guizero.png" alt="Desktop app" style="width:100%; height:100%; object-fit:cover;">
@@ -648,47 +672,96 @@
   Paula Otero Paños · 2026 · Built with plain HTML &amp; CSS
 </footer>
 
-<!-- ANIMACIÓN — al final del body para que el DOM esté listo -->
+<!-- ANIMACIÓN -->
 <script>
 (function(){
   const canvas = document.getElementById('hero-rain');
   const ctx = canvas.getContext('2d');
   const CHARS = ['0','1'];
-  const ACCENT = '#1B3FAB';
-  const ACCENT_MID = '#C5CEEF';
-  const FS = 14;
-  let W, H, cols, drops, speeds;
+
+  const GREEN      = '#1B3FAB';
+  const GREEN_MID  = '#C5CEEF';
+
+  const FS = 16;
+  const REPEL_RADIUS = 100;
+  const REPEL_FORCE  = 5;
+
+  let W, H, cols, drops, speeds, offsets, offsetVels;
+  let mouseX = -999, mouseY = -999;
+
+  const section = document.getElementById('inicio');
+  section.addEventListener('mousemove', e => {
+    const rect = section.getBoundingClientRect();
+    mouseX = e.clientX - rect.left;
+    mouseY = e.clientY - rect.top;
+  });
+  section.addEventListener('mouseleave', () => { mouseX = -999; mouseY = -999; });
 
   function init() {
     W = window.innerWidth;
-    H = document.getElementById('inicio').offsetHeight;
+    H = section.offsetHeight;
     canvas.width = W;
     canvas.height = H;
     cols = Math.floor(W / FS);
-    drops = Array.from({length: cols}, () => -Math.random() * 40);
-    speeds = Array.from({length: cols}, () => 0.3 + Math.random() * 0.55);
+    drops   = Array.from({length: cols}, () => -Math.random() * 60);
+    speeds  = Array.from({length: cols}, () => 0.18 + Math.random() * 0.32);
+    offsets = new Float32Array(cols);      // offset X actual de cada columna
+    offsetVels = new Float32Array(cols);   // velocidad del offset (spring)
   }
 
   function draw() {
-    ctx.fillStyle = 'rgba(247,246,242,0.48)';
+    // Fade más fuerte para que los trails sean más cortos y sueltos
+    ctx.fillStyle = 'rgba(247,246,242,0.35)';
     ctx.fillRect(0, 0, W, H);
-    ctx.font = FS + 'px monospace';
+    ctx.font = `${FS}px monospace`;
+
     for (let i = 0; i < cols; i++) {
-      const x = i * FS;
-      const y = drops[i] * FS;
-      const trail = 10 + Math.floor(Math.random() * 6);
-      for (let t = trail; t >= 0; t--) {
-        const ty = y - t * FS;
+      const baseX = i * FS;
+      const headY = drops[i] * FS;
+
+      // Calcular target de repulsión para esta columna individualmente
+      const dx = baseX - mouseX;
+      const dy = headY - mouseY;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+
+      let targetOffset = 0;
+      if (dist < REPEL_RADIUS && dist > 0) {
+        const strength = (1 - dist / REPEL_RADIUS);
+        // Solo componente horizontal, suavizada
+        targetOffset = (dx / dist) * REPEL_FORCE * strength * 18;
+      }
+
+      // Spring physics: cada columna se mueve a su propio ritmo (orgánico)
+      const springK   = 0.06 + Math.random() * 0.04; // rigidez variable por columna
+      const damping   = 0.75;
+      offsetVels[i] = (offsetVels[i] + (targetOffset - offsets[i]) * springK) * damping;
+      offsets[i] += offsetVels[i];
+
+      // Solo pintar la cabeza y 2-3 caracteres de cola, con gaps
+      const trailLen = 3 + Math.floor(Math.random() * 3);
+      for (let t = 0; t <= trailLen; t++) {
+        // Gap aleatorio: saltamos algunos para que no parezca una línea continua
+        if (t > 0 && Math.random() < 0.35) continue;
+
+        const ty = headY - t * FS * (1.4 + Math.random() * 0.6);
         if (ty < 0 || ty > H) continue;
+
         const ch = CHARS[Math.floor(Math.random() * CHARS.length)];
-        if (t === 0)      { ctx.fillStyle = ACCENT;     ctx.globalAlpha = 0.55; }
-        else if (t === 1) { ctx.fillStyle = ACCENT_MID; ctx.globalAlpha = 0.35; }
-        else              { ctx.fillStyle = ACCENT;     ctx.globalAlpha = ((trail - t) / trail) * 0.15; }
-        ctx.fillText(ch, x, ty);
+        const tx = baseX + offsets[i];
+
+        if (t === 0) {
+          ctx.fillStyle = GREEN_MID;
+          ctx.globalAlpha = 0.9;
+        } else {
+          ctx.fillStyle = GREEN;
+          ctx.globalAlpha = Math.max(0, 0.45 - t * 0.12);
+        }
+        ctx.fillText(ch, tx, ty);
       }
       ctx.globalAlpha = 1;
+
       drops[i] += speeds[i];
-      if (drops[i] * FS > H + trail * FS) drops[i] = -Math.random() * 20;
+      if (drops[i] * FS > H + 200) drops[i] = -Math.random() * 40;
     }
   }
 
