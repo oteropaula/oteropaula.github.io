@@ -18,6 +18,7 @@
     --green: #0E6E56;
     --green-light: #E1F5EE;
   }
+
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.7; }
@@ -39,7 +40,18 @@
   .label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); font-weight: 500; margin-bottom: 0.65rem; }
   .section-title { font-family: 'DM Serif Display', serif; font-size: 2rem; letter-spacing: -0.02em; line-height: 1.2; margin-bottom: 2rem; }
 
-  #inicio { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; padding-top: 80px; }
+  /* HERO — ancho completo */
+  #inicio {
+    max-width: 100%;
+    padding: 0;
+    position: relative;
+    overflow: hidden;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
   .hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.16em; color: var(--muted); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
   .hero-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--muted); }
   .hero-name { font-family: 'DM Serif Display', serif; font-size: clamp(3rem, 8vw, 5rem); line-height: 1.05; letter-spacing: -0.025em; margin-bottom: 1.5rem; }
@@ -111,7 +123,6 @@
 
   footer { border-top: 1px solid var(--subtle); padding: 2rem; text-align: center; font-size: 0.78rem; color: var(--muted); letter-spacing: 0.04em; }
 
-  /* CERTIFICATES */
   .cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--subtle); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; margin-top: 2rem; }
   .cert-card { background: var(--surface); padding: 1.25rem; display: flex; flex-direction: column; gap: 0.2rem; }
   .cert-issuer { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; }
@@ -119,6 +130,7 @@
   .cert-date { font-size: 0.78rem; color: var(--muted); font-weight: 300; }
   .cert-badge { display: inline-block; margin-top: 0.35rem; background: var(--accent-light); color: var(--accent); font-size: 0.7rem; padding: 0.15rem 0.55rem; border-radius: 2px; width: fit-content; }
   .cert-badge.green { background: var(--green-light); color: var(--green); }
+
   @media (max-width: 560px) { .cert-grid { grid-template-columns: 1fr; } }
 
   @media (max-width: 620px) {
@@ -148,32 +160,36 @@
 
 <!-- HERO -->
 <section id="inicio">
-  <p class="hero-eyebrow">Portfolio · 2026</p>
-  <h1 class="hero-name">Paula<br><em>Otero Paños</em></h1>
-  <p class="hero-tagline">
-    Computer Science &amp; Digital Multimedia Technologies student with a passion for
-    cybersecurity, sustainable computing, and building things that actually work.
-  </p>
-  <p class="hero-location">
-    <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor" style="opacity:0.5"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
-    Currently in Ljubljana, Slovenia (Erasmus) · Originally from Valencia, Spain
-  </p>
-  <div class="hero-actions">
-    <a href="#proyectos" class="btn-primary">See my work</a>
-    <a href="#contacto" class="btn-secondary">Get in touch</a>
-  </div>
-  <div class="awards-strip">
-    <div class="award-pill">
-      <span style="margin-top:1px">★</span>
-      <div><strong>Best Academic Record</strong>Polytechnic University of Valencia</div>
+  <canvas id="hero-rain" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;"></canvas>
+
+  <div style="position:relative; z-index:2; max-width:780px; margin:0 auto; padding:5rem 2rem;">
+    <p class="hero-eyebrow">Portfolio · 2026</p>
+    <h1 class="hero-name">Paula<br><em>Otero Paños</em></h1>
+    <p class="hero-tagline">
+      Computer Science &amp; Digital Multimedia Technologies student with a passion for
+      cybersecurity, sustainable computing, and building things that actually work.
+    </p>
+    <p class="hero-location">
+      <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor" style="opacity:0.5"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
+      Currently in Ljubljana, Slovenia (Erasmus) · Originally from Valencia, Spain
+    </p>
+    <div class="hero-actions">
+      <a href="#proyectos" class="btn-primary">See my work</a>
+      <a href="#contacto" class="btn-secondary">Get in touch</a>
     </div>
-    <div class="award-pill">
-      <span style="margin-top:1px">★</span>
-      <div><strong>9.8 / 10 average grade</strong>Erasmus - University of Ljubljana</div>
-    </div>
-    <div class="award-pill">
-      <span style="margin-top:1px">★</span>
-      <div><strong>9 Honors Awards</strong>Polytechnic University of Valencia</div>
+    <div class="awards-strip">
+      <div class="award-pill">
+        <span style="margin-top:1px">★</span>
+        <div><strong>Best Academic Record</strong>Polytechnic University of Valencia</div>
+      </div>
+      <div class="award-pill">
+        <span style="margin-top:1px">★</span>
+        <div><strong>9.8 / 10 average grade</strong>Erasmus - University of Ljubljana</div>
+      </div>
+      <div class="award-pill">
+        <span style="margin-top:1px">★</span>
+        <div><strong>9 Honors Awards</strong>Polytechnic University of Valencia</div>
+      </div>
     </div>
   </div>
 </section>
@@ -205,7 +221,6 @@
           <span class="tag tag-tech">Visual computing</span>
         </div>
       </div>
-      
       <div class="skills-block" style="margin-top:1rem">
         <p class="skills-block-label">Academic interests</p>
         <div class="tag-row">
@@ -543,82 +558,70 @@
   <p class="label">Certifications</p>
   <h2 class="section-title">Licences &amp; courses</h2>
   <div class="cert-grid">
-
     <div class="cert-card">
       <span class="cert-issuer">Cambridge University Press &amp; Assessment</span>
       <span class="cert-name">Cambridge English: Advanced (C1) - CAE</span>
       <span class="cert-date">Aug 2024 · ID: C8324480</span>
       <span class="cert-badge">English · C1</span>
     </div>
-
     <div class="cert-card">
       <span class="cert-issuer">JQCV</span>
       <span class="cert-name">Valencian C1 - Certificat de Nivell Mitjà</span>
       <span class="cert-date">Oct 2024 · ID: CSV Z2Z44Z7I-TLHJ66Y6</span>
       <span class="cert-badge">Valencian · C1</span>
     </div>
-
     <div class="cert-card">
       <span class="cert-issuer">IBM</span>
       <span class="cert-name">Getting started with cybersecurity</span>
       <span class="cert-date">Mar 2026</span>
       <span class="cert-badge green">Cybersecurity</span>
     </div>
-
     <div class="cert-card">
       <span class="cert-issuer">IBM</span>
       <span class="cert-name">Getting started with artificial intelligence</span>
       <span class="cert-date">Mar 2026</span>
       <span class="cert-badge green">AI</span>
     </div>
-
     <div class="cert-card">
       <span class="cert-issuer">IBM</span>
       <span class="cert-name">Data classification and summarization - IBM Granite</span>
       <span class="cert-date">Mar 2026</span>
       <span class="cert-badge green">AI · Data</span>
     </div>
-
     <div class="cert-card">
       <span class="cert-issuer">edX</span>
       <span class="cert-name">Introduction to SQL and relational databases</span>
       <span class="cert-date">Oct 2024 · ID: a4ff6f20ed504c78a7ea355a110ef83a</span>
       <span class="cert-badge">Databases</span>
     </div>
-
     <div class="cert-card">
       <span class="cert-issuer">edX</span>
       <span class="cert-name">Cybersecurity fundamentals for users</span>
       <span class="cert-date">Sept 2024 · ID: 5dda7615857a47d190dda1e47eb0e012</span>
       <span class="cert-badge green">Cybersecurity</span>
     </div>
-
     <div class="cert-card">
       <span class="cert-issuer">Santander · Google</span>
       <span class="cert-name">Artificial intelligence and productivity</span>
       <span class="cert-date">Sept 2024 · ID: OA-2024-0911000553773</span>
       <span class="cert-badge green">AI · Productivity</span>
     </div>
-
     <div class="cert-card">
       <span class="cert-issuer">edX</span>
       <span class="cert-name">Marketing digital in social media</span>
       <span class="cert-date">Sept 2024 · ID: ad1719ac3d4e4f399c748b64b6f4b9d7</span>
       <span class="cert-badge">Digital marketing</span>
     </div>
-
     <div class="cert-card">
       <span class="cert-issuer">Adecco · Banco Sabadell</span>
       <span class="cert-name">Banco Sabadell internal training certificate</span>
       <span class="cert-date">May 2025</span>
       <span class="cert-badge">Banking</span>
     </div>
-
   </div>
 </section>
 
 <hr class="divider">
-
 
 <!-- CONTACT -->
 <section id="contacto">
@@ -628,26 +631,15 @@
     <p class="contact-intro">
       I'm open to internships, research collaborations and interesting projects, especially anything touching cybersecurity, sustainable computing and codec efficiency or multimedia systems. Drop me a message and I'll get back to you.
     </p>
-      <div class="contact-links">
-        <!-- Correo eliminado -->
-        <!-- <a href="mailto:oteropaula2002@gmail.com" class="contact-link">
-          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 4a2 2 0 012-2h12a2 2 0 012 2v12a2 2 0 01-2 2H4a2 2 0 01-2-2V4zm2 0l6 5.4L16 4H4zm12 2.6l-6 5.4L4 6.6V16h12V6.6z"/></svg>
-        </a> -->
-
-        <a href="https://github.com/oteropaula" target="_blank" class="contact-link">
-          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2C5.58 2 2 5.58 2 10c0 3.54 2.29 6.55 5.47 7.61.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 012-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0018 10c0-4.42-3.58-8-8-8z"/></svg>
-          github.com/oteropaula
-        </a>
-
-        <a href="https://linkedin.com/in/paulaoteropaños" target="_blank" class="contact-link">
-          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 6h2.5v9H3V6zm1.25-4a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM7.5 6H10v1.2C10.5 6.5 11.4 6 12.5 6 14.9 6 16 7.3 16 9.8V15h-2.5v-4.8c0-1.2-.4-2-1.4-2-1 0-1.6.7-1.6 2V15H8V6z"/></svg>
-          linkedin.com/in/paulaoteropaños
-        </a>
-
-        <!-- Teléfono eliminado -->
-        <!-- <a href="tel:+34633040953" class="contact-link">
-          <svg viewBox="0 0 20 20" fill="currentColor"><path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z"/></svg>
-        </a> -->
+    <div class="contact-links">
+      <a href="https://github.com/oteropaula" target="_blank" class="contact-link">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2C5.58 2 2 5.58 2 10c0 3.54 2.29 6.55 5.47 7.61.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 012-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0018 10c0-4.42-3.58-8-8-8z"/></svg>
+        github.com/oteropaula
+      </a>
+      <a href="https://linkedin.com/in/paulaoteropaños" target="_blank" class="contact-link">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 6h2.5v9H3V6zm1.25-4a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM7.5 6H10v1.2C10.5 6.5 11.4 6 12.5 6 14.9 6 16 7.3 16 9.8V15h-2.5v-4.8c0-1.2-.4-2-1.4-2-1 0-1.6.7-1.6 2V15H8V6z"/></svg>
+        linkedin.com/in/paulaoteropaños
+      </a>
     </div>
   </div>
 </section>
@@ -655,6 +647,56 @@
 <footer>
   Paula Otero Paños · 2026 · Built with plain HTML &amp; CSS
 </footer>
+
+<!-- ANIMACIÓN — al final del body para que el DOM esté listo -->
+<script>
+(function(){
+  const canvas = document.getElementById('hero-rain');
+  const ctx = canvas.getContext('2d');
+  const CHARS = ['0','1'];
+  const ACCENT = '#1B3FAB';
+  const ACCENT_MID = '#C5CEEF';
+  const FS = 14;
+  let W, H, cols, drops, speeds;
+
+  function init() {
+    W = window.innerWidth;
+    H = document.getElementById('inicio').offsetHeight;
+    canvas.width = W;
+    canvas.height = H;
+    cols = Math.floor(W / FS);
+    drops = Array.from({length: cols}, () => -Math.random() * 40);
+    speeds = Array.from({length: cols}, () => 0.3 + Math.random() * 0.55);
+  }
+
+  function draw() {
+    ctx.fillStyle = 'rgba(247,246,242,0.48)';
+    ctx.fillRect(0, 0, W, H);
+    ctx.font = FS + 'px monospace';
+    for (let i = 0; i < cols; i++) {
+      const x = i * FS;
+      const y = drops[i] * FS;
+      const trail = 10 + Math.floor(Math.random() * 6);
+      for (let t = trail; t >= 0; t--) {
+        const ty = y - t * FS;
+        if (ty < 0 || ty > H) continue;
+        const ch = CHARS[Math.floor(Math.random() * CHARS.length)];
+        if (t === 0)      { ctx.fillStyle = ACCENT;     ctx.globalAlpha = 0.55; }
+        else if (t === 1) { ctx.fillStyle = ACCENT_MID; ctx.globalAlpha = 0.35; }
+        else              { ctx.fillStyle = ACCENT;     ctx.globalAlpha = ((trail - t) / trail) * 0.15; }
+        ctx.fillText(ch, x, ty);
+      }
+      ctx.globalAlpha = 1;
+      drops[i] += speeds[i];
+      if (drops[i] * FS > H + trail * FS) drops[i] = -Math.random() * 20;
+    }
+  }
+
+  window.addEventListener('resize', init);
+  init();
+  setInterval(draw, 40);
+})();
+</script>
 
 </body>
 </html>
