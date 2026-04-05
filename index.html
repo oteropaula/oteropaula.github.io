@@ -93,11 +93,28 @@
   .exp-place { display: inline-block; background: #EFEFEF; color: #3A3A3A; padding: 0.15rem 0.55rem; border-radius: 2px; font-size: 0.72rem; }
 
   /* ─── PROJECT FILTER BAR ─────────────────────────────── */
+  .filter-wrap {
+    margin-bottom: 1.75rem;
+  }
+
+  /* Count label */
+  .filter-count {
+    font-size: 0.72rem;
+    color: var(--muted);
+    letter-spacing: 0.04em;
+    margin-bottom: 0.75rem;
+    font-weight: 300;
+  }
+  .filter-count span {
+    color: var(--text);
+    font-weight: 500;
+  }
+
+  /* Scrollable bar on mobile, wrapping on desktop */
   .filter-bar {
     display: flex;
     gap: 0.4rem;
     flex-wrap: wrap;
-    margin-bottom: 1.75rem;
   }
   .filter-btn {
     background: transparent;
@@ -111,6 +128,7 @@
     cursor: pointer;
     transition: background 0.15s, border-color 0.15s, color 0.15s;
     white-space: nowrap;
+    flex-shrink: 0;
   }
   .filter-btn:hover {
     border-color: var(--accent);
@@ -121,16 +139,72 @@
     border-color: var(--accent);
     color: white;
   }
+  .filter-btn .btn-count {
+    opacity: 0.65;
+    font-size: 0.7em;
+    margin-left: 0.25rem;
+  }
+  .filter-btn.active .btn-count {
+    opacity: 0.8;
+  }
 
-  /* Cards that don't match the active filter */
+  /* Mobile: horizontal scroll, no wrap */
+  @media (max-width: 620px) {
+    .filter-bar {
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      padding-bottom: 4px;
+    }
+    .filter-bar::-webkit-scrollbar { display: none; }
+  }
+
+  /* ─── CARD TRANSITIONS ───────────────────────────────── */
+  .projects-grid {
+    /* grid unchanged, but cards transition opacity */
+  }
+  .project-card {
+    transition: border-color 0.2s, transform 0.2s, opacity 0.2s;
+  }
   .project-card.hidden {
     display: none;
+    opacity: 0;
+    pointer-events: none;
+  }
+  .project-card.fading-out {
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(4px);
+  }
+  .project-card.fading-in {
+    animation: fadeInCard 0.22s ease forwards;
+  }
+  @keyframes fadeInCard {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── EMPTY STATE ────────────────────────────────────── */
+  .projects-empty {
+    display: none;
+    padding: 3rem 0;
+    text-align: center;
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 300;
+    border: 1px dashed var(--subtle);
+    border-radius: 2px;
+  }
+  .projects-empty.visible {
+    display: block;
   }
 
   /* ─── PROJECTS GRID ──────────────────────────────────── */
   .projects-grid { display: grid; gap: 1.25rem; }
-  .project-card { background: var(--surface); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; text-decoration: none; color: inherit; display: block; transition: border-color 0.2s, transform 0.2s; }
+  .project-card { background: var(--surface); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; text-decoration: none; color: inherit; display: block; }
   .project-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+  div.project-card:hover { border-color: var(--subtle); transform: none; }
   .project-img { height: 155px; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
   .project-img.green { background: var(--green-light); color: var(--green); }
   .project-body { padding: 1.25rem 1.5rem 1.5rem; }
@@ -331,14 +405,22 @@
   <h2 class="section-title">Things I've built &amp; researched</h2>
 
   <!-- FILTER BAR -->
-  <div class="filter-bar" role="group" aria-label="Filter projects by category">
-    <button class="filter-btn active" data-filter="all">All</button>
-    <button class="filter-btn" data-filter="security">Security</button>
-    <button class="filter-btn" data-filter="embedded">Embedded</button>
-    <button class="filter-btn" data-filter="ai">Computer vision</button>
-    <button class="filter-btn" data-filter="creative">Creative</button>
-    <button class="filter-btn" data-filter="python">Python</button>
-    <button class="filter-btn" data-filter="java">Java Android</button>
+  <div class="filter-wrap">
+    <p class="filter-count">Showing <span id="proj-count">10</span> projects</p>
+    <div class="filter-bar" role="group" aria-label="Filter projects by category">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="security">Security</button>
+      <button class="filter-btn" data-filter="embedded">Embedded</button>
+      <button class="filter-btn" data-filter="ai">Computer vision</button>
+      <button class="filter-btn" data-filter="creative">Creative</button>
+      <button class="filter-btn" data-filter="python">Python</button>
+      <button class="filter-btn" data-filter="java">Java Android</button>
+      <button class="filter-btn" data-filter="web">Web</button>
+    </div>
+  </div>
+
+  <div class="projects-empty" id="proj-empty">
+    No projects in this category yet.
   </div>
 
   <div class="projects-grid">
@@ -454,8 +536,8 @@
       </div>
     </a>
 
-    <!-- ACM - python -->
-    <a href="#" class="project-card" data-tags="all">
+    <!-- ACM - web (no link, site no longer live) -->
+    <div class="project-card" data-tags="web" style="cursor:default;">
       <div class="project-img">
         <img src="images/acm.png" alt="ACM UPV Chapter Logo" style="width:100%; height:100%; object-fit:cover;">
       </div>
@@ -469,7 +551,7 @@
           <span class="tag-sm">Web maintenance</span><span class="tag-sm">ACM UPV</span>
         </div>
       </div>
-    </a>
+    </div>
 
     <!-- Blender - creative -->
     <a href="blender.html" class="project-card" data-tags="creative">
@@ -711,28 +793,71 @@
 <!-- FILTER LOGIC -->
 <script>
 (function () {
-  const buttons = document.querySelectorAll('.filter-btn');
-  const cards   = document.querySelectorAll('.project-card[data-tags]');
+  const buttons   = document.querySelectorAll('.filter-btn');
+  const cards     = document.querySelectorAll('[data-tags]');
+  const countEl   = document.getElementById('proj-count');
+  const emptyEl   = document.getElementById('proj-empty');
 
+  // ── Count how many cards match each filter ──────────────
+  function countFor(filter) {
+    let n = 0;
+    cards.forEach(card => {
+      const tags = card.dataset.tags || '';
+      if (filter === 'all' || tags.split(' ').includes(filter)) n++;
+    });
+    return n;
+  }
+
+  // ── Inject per-category counts into button labels ───────
+  buttons.forEach(btn => {
+    const filter = btn.dataset.filter;
+    if (filter === 'all') return; // "All" shows total, handled live
+    const n = countFor(filter);
+    btn.innerHTML = `${btn.textContent.trim()} <span class="btn-count">(${n})</span>`;
+  });
+
+  // ── Apply a filter ───────────────────────────────────────
+  function applyFilter(filter) {
+    let visible = 0;
+
+    cards.forEach(card => {
+      const tags = card.dataset.tags || '';
+      const matches = filter === 'all' || tags.split(' ').includes(filter);
+
+      if (matches) {
+        card.classList.remove('hidden', 'fading-out');
+        card.classList.add('fading-in');
+        // Remove animation class once done so re-triggering works
+        card.addEventListener('animationend', () => card.classList.remove('fading-in'), { once: true });
+        visible++;
+      } else {
+        card.classList.add('hidden');
+        card.classList.remove('fading-in', 'fading-out');
+      }
+    });
+
+    // Update counter
+    countEl.textContent = visible;
+
+    // Update All button count
+    const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
+    if (allBtn) allBtn.innerHTML = `All`;
+
+    // Empty state
+    emptyEl.classList.toggle('visible', visible === 0);
+  }
+
+  // ── Wire up buttons ──────────────────────────────────────
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
-      const filter = btn.dataset.filter;
-
-      // Update active button
       buttons.forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
-
-      // Show / hide cards
-      cards.forEach(card => {
-        const tags = card.dataset.tags || '';
-        if (filter === 'all' || tags.split(' ').includes(filter)) {
-          card.classList.remove('hidden');
-        } else {
-          card.classList.add('hidden');
-        }
-      });
+      applyFilter(btn.dataset.filter);
     });
   });
+
+  // Initialise - show total count for "All"
+  applyFilter('all');
 })();
 </script>
 
