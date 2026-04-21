@@ -1,0 +1,526 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E2E-StreamCarbon - Paula Otero Paños</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F7F6F2;
+    --surface: #FFFFFF;
+    --text: #161616;
+    --muted: #5E5E5E;
+    --subtle: #E4E3DE;
+    --accent: #1B3FAB;
+    --accent-light: #ECF0FB;
+    --accent-mid: #C5CEEF;
+    --green: #0E6E56;
+    --green-light: #E1F5EE;
+    --green-mid: #A3D9C8;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.7; }
+
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(247,246,242,0.92); backdrop-filter: blur(14px);
+    border-bottom: 1px solid var(--subtle);
+    padding: 0 2.5rem; height: 58px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--text); text-decoration: none; }
+  .nav-back { font-size: 0.82rem; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
+  .nav-back:hover { color: var(--green); }
+  .nav-back svg { width: 14px; height: 14px; }
+
+  .page { max-width: 760px; margin: 0 auto; padding: 6rem 2rem 5rem; }
+  hr.divider { border: none; border-top: 1px solid var(--subtle); margin: 3rem 0; }
+
+  .label { font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; font-weight: 500; margin-bottom: 0.5rem; color: var(--green); }
+
+  .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 2px; font-size: 0.75rem; font-weight: 500; }
+  .badge-green  { background: var(--green-light); color: var(--green); border: 1px solid var(--green-mid); }
+  .badge-blue   { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
+  .badge-dark   { background: var(--text); color: white; }
+
+  .project-eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
+  .project-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 5vw, 2.8rem); letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 1.25rem; }
+  .project-title em { font-style: italic; color: var(--green); }
+  .project-subtitle { font-size: 1.05rem; color: var(--muted); font-weight: 300; line-height: 1.8; max-width: 600px; margin-bottom: 2rem; }
+
+  .meta-row { display: flex; flex-wrap: wrap; gap: 1.5rem; border-top: 1px solid var(--subtle); padding-top: 1.25rem; margin-bottom: 2rem; }
+  .meta-item { display: flex; flex-direction: column; gap: 0.15rem; }
+  .meta-key { font-size: 0.66rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); opacity: 0.7; }
+  .meta-val { color: var(--text); font-weight: 400; font-size: 0.875rem; }
+  .meta-val a { color: var(--green); text-decoration: none; }
+  .meta-val a:hover { text-decoration: underline; }
+
+  /* SCREENSHOT / FIGURE BLOCKS */
+  .screenshot-block { background: var(--surface); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; margin: 2rem 0; }
+  .screenshot-label { padding: 0.6rem 1.25rem; border-bottom: 1px solid var(--subtle); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+  .screenshot-img { width: 100%; }
+  .screenshot-img img { width: 100%; display: block; }
+  .screenshot-caption { padding: 0.85rem 1.25rem; font-size: 0.82rem; color: var(--muted); font-weight: 300; line-height: 1.65; }
+
+  /* PIPELINE DIAGRAM */
+  .pipeline { display: flex; align-items: stretch; gap: 0; margin: 2rem 0; overflow-x: auto; padding-bottom: 4px; }
+  .pipeline-step {
+    flex: 1; min-width: 140px; background: var(--surface);
+    border: 1px solid var(--subtle); padding: 1.1rem 1rem;
+    display: flex; flex-direction: column; gap: 0.35rem;
+  }
+  .pipeline-step:not(:first-child) { border-left: none; }
+  .pipeline-step.active { background: var(--green-light); border-color: var(--green-mid); }
+  .pipeline-step-icon { font-size: 1.2rem; margin-bottom: 0.1rem; }
+  .pipeline-step-label { font-size: 0.62rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--green); font-weight: 500; }
+  .pipeline-step-name { font-weight: 500; font-size: 0.88rem; line-height: 1.3; }
+  .pipeline-step-tool { font-size: 0.78rem; color: var(--muted); font-weight: 300; margin-top: 0.2rem; }
+
+  /* RESULTS GRID */
+  .results-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1px; background: var(--subtle); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; margin: 2rem 0; }
+  .result-card { background: var(--surface); padding: 1.25rem 1.5rem; }
+  .result-codec { font-size: 0.7rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); font-weight: 500; margin-bottom: 0.3rem; }
+  .result-verdict { font-family: 'DM Serif Display', serif; font-size: 1rem; margin-bottom: 0.4rem; line-height: 1.25; }
+  .result-verdict.good { color: var(--green); }
+  .result-verdict.bad  { color: #B45309; }
+  .result-desc { font-size: 0.82rem; color: var(--muted); font-weight: 300; line-height: 1.6; }
+
+  /* DATA TABLE */
+  .data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin: 1.5rem 0; }
+  .data-table th { text-align: left; font-size: 0.66rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); padding: 0.5rem 0.75rem; border-bottom: 1px solid var(--subtle); font-weight: 500; }
+  .data-table td { padding: 0.7rem 0.75rem; border-bottom: 1px solid var(--subtle); color: var(--muted); font-weight: 300; vertical-align: top; }
+  .data-table td:first-child { color: var(--text); font-weight: 500; }
+  .data-table tr:last-child td { border-bottom: none; }
+  .data-table .highlight { color: var(--green); font-weight: 500; }
+
+  /* CO2 BAR */
+  .co2-scenarios { display: flex; flex-direction: column; gap: 1px; background: var(--subtle); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; margin: 2rem 0; }
+  .co2-row { background: var(--surface); padding: 0.9rem 1.25rem; display: grid; grid-template-columns: 140px 1fr auto; gap: 1rem; align-items: center; }
+  .co2-label { font-size: 0.82rem; font-weight: 500; }
+  .co2-bar-wrap { height: 6px; background: var(--subtle); border-radius: 3px; overflow: hidden; }
+  .co2-bar { height: 100%; border-radius: 3px; background: var(--green); }
+  .co2-val { font-size: 0.82rem; color: var(--muted); font-weight: 300; white-space: nowrap; }
+
+  /* EXTENSION BLOCK */
+  .ext-block { background: var(--green-light); border: 1px solid var(--green-mid); border-radius: 2px; padding: 1.75rem; margin: 2rem 0; display: grid; grid-template-columns: 1fr auto; gap: 2rem; align-items: start; }
+  .ext-block-text h3 { font-family: 'DM Serif Display', serif; font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--green); }
+  .ext-block-text p { font-size: 0.88rem; color: var(--muted); font-weight: 300; line-height: 1.7; }
+  .ext-block-link { display: inline-flex; align-items: center; gap: 0.4rem; margin-top: 0.85rem; font-size: 0.82rem; color: var(--green); text-decoration: none; font-weight: 500; border: 1px solid var(--green-mid); padding: 0.35rem 0.85rem; border-radius: 2px; transition: background 0.15s; }
+  .ext-block-link:hover { background: white; }
+  .ext-block-link svg { width: 13px; height: 13px; }
+  .ext-qr { width: 80px; height: 80px; background: white; border: 1px solid var(--green-mid); border-radius: 2px; display: flex; align-items: center; justify-content: center; font-size: 0.65rem; color: var(--green); text-align: center; flex-shrink: 0; padding: 0.4rem; }
+  .ext-qr img { width: 100%; height: 100%; object-fit: contain; }
+
+  /* PROSE */
+  .prose p { font-size: 0.975rem; color: var(--muted); font-weight: 300; line-height: 1.85; margin-bottom: 0.9rem; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose p strong { color: var(--text); font-weight: 500; }
+
+  /* CONTRIBUTORS */
+  .contrib-list { display: flex; flex-direction: column; gap: 0; }
+  .contrib-item { display: grid; grid-template-columns: 1fr auto; gap: 1rem; padding: 0.85rem 0; border-bottom: 1px solid var(--subtle); align-items: center; font-size: 0.88rem; }
+  .contrib-item:first-child { padding-top: 0; }
+  .contrib-name { font-weight: 500; }
+  .contrib-role { color: var(--muted); font-weight: 300; font-size: 0.82rem; }
+  .contrib-inst { color: var(--muted); font-size: 0.78rem; font-weight: 300; }
+  .contrib-badge { font-size: 0.68rem; background: var(--green-light); color: var(--green); padding: 0.18rem 0.55rem; border-radius: 2px; white-space: nowrap; font-weight: 500; }
+
+  /* TAG ROW */
+  .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; margin: 1rem 0; }
+  .tag { padding: 0.28rem 0.75rem; border-radius: 2px; font-size: 0.78rem; }
+  .tag-tech  { background: #EFEFEF; color: #2A2A2A; }
+  .tag-green { background: var(--green-light); color: var(--green); }
+
+  /* BACK LINK */
+  .back-section { margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--subtle); }
+  .back-link { display: inline-flex; align-items: center; gap: 0.5rem; font-size: 0.85rem; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .back-link:hover { color: var(--green); }
+  .back-link svg { width: 14px; height: 14px; }
+
+  @media (max-width: 580px) {
+    .results-grid { grid-template-columns: 1fr; }
+    .ext-block { grid-template-columns: 1fr; }
+    .ext-qr { display: none; }
+    .co2-row { grid-template-columns: 100px 1fr auto; }
+    .pipeline-step { min-width: 110px; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="index.html" class="nav-logo">Paula Otero</a>
+  <a href="index.html" class="nav-back">
+    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg>
+    Back to portfolio
+  </a>
+</nav>
+
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="project-eyebrow">
+    <span class="badge badge-green">Published · ICT4S 2026</span>
+    <span class="badge badge-blue">Research</span>
+    <span class="badge badge-blue">Sustainable Computing</span>
+  </div>
+
+  <h1 class="project-title"><em>E2E-StreamCarbon:</em><br>Measuring the Carbon Footprint of Video Streaming</h1>
+
+  <p class="project-subtitle">
+    An end-to-end measurement framework for evaluating the energy consumption and
+    carbon footprint of video streaming - from server transcoding to client playback -
+    with a browser extension that makes this impact visible to everyday users.
+  </p>
+
+  <div class="meta-row">
+    <div class="meta-item">
+      <span class="meta-key">Conference</span>
+      <span class="meta-val">ICT4S 2026 - Bern, Switzerland</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-key">Dates</span>
+      <span class="meta-val">June 8–12, 2026</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-key">Role</span>
+      <span class="meta-val">Corresponding author</span>
+    </div>
+    <div class="meta-item">
+      <span class="meta-key">Code</span>
+      <span class="meta-val"><a href="https://github.com/oteropaula/E2E-StreamCarbon" target="_blank">github.com/oteropaula/E2E-StreamCarbon</a></span>
+    </div>
+  </div>
+
+  <!-- POSTER IMAGE -->
+  <div class="screenshot-block">
+    <div class="screenshot-label">Conference poster · ICT4S 2026</div>
+    <div class="screenshot-img">
+      <img src="images/poster.png" alt="E2E-StreamCarbon conference poster"
+           onerror="this.parentElement.style.display='none'; this.parentElement.nextElementSibling.style.display='block'">
+    </div>
+    <div class="screenshot-caption" style="display:none;">
+      Poster that will be presented at ICT4S 2026 in Bern, Switzerland.
+    </div>
+    <div class="screenshot-caption">
+      The poster presents the full measurement pipeline, codec comparison results, CO₂ estimation model,
+      and the browser extension for real-time streaming emissions visualisation.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- MOTIVATION -->
+  <p class="label">Context</p>
+  <h2 style="font-family:'DM Serif Display',serif;font-size:1.5rem;letter-spacing:-0.02em;margin-bottom:1.25rem;font-weight:400;">Why this matters</h2>
+
+  <div class="prose">
+    <p>
+      Online video streaming accounted for over <strong>60% of global Internet traffic</strong> in 2023.
+      While the environmental impact of digital services has become a growing concern, most existing
+      estimates are based on isolated components - the network, the server, or the device - and vary
+      widely depending on the assumptions they make.
+    </p>
+    <p>
+      This work fills that gap with a <strong>transparent, end-to-end measurement approach</strong> that
+      captures all three layers of the streaming pipeline simultaneously: server-side transcoding,
+      network data transfer, and client-side playback. We also ask a question that most studies ignore:
+      does codec choice actually change the total environmental cost, from encoding all the way to the
+      screen?
+    </p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- METHODOLOGY -->
+  <p class="label">Methodology</p>
+  <h2 style="font-family:'DM Serif Display',serif;font-size:1.5rem;letter-spacing:-0.02em;margin-bottom:1.25rem;font-weight:400;">How we measured it</h2>
+
+  <div class="pipeline">
+    <div class="pipeline-step active">
+      <div class="pipeline-step-icon">🖥️</div>
+      <div class="pipeline-step-label">Layer 1</div>
+      <div class="pipeline-step-name">Server-side transcoding</div>
+      <div class="pipeline-step-tool">FFmpeg + Intel RAPL</div>
+    </div>
+    <div class="pipeline-step active">
+      <div class="pipeline-step-icon">📡</div>
+      <div class="pipeline-step-label">Layer 2</div>
+      <div class="pipeline-step-name">Network transmission</div>
+      <div class="pipeline-step-tool">Wireshark · fixed + ABR</div>
+    </div>
+    <div class="pipeline-step active">
+      <div class="pipeline-step-icon">💻</div>
+      <div class="pipeline-step-label">Layer 3</div>
+      <div class="pipeline-step-name">Client-side playback</div>
+      <div class="pipeline-step-tool">mpv + Intel RAPL</div>
+    </div>
+    <div class="pipeline-step">
+      <div class="pipeline-step-icon">☁️</div>
+      <div class="pipeline-step-label">Output</div>
+      <div class="pipeline-step-name">CO₂ estimation</div>
+      <div class="pipeline-step-tool">36 gCO₂/GB network</div>
+    </div>
+  </div>
+
+  <div class="prose">
+    <p>
+      All experiments ran on Linux using <strong>Intel RAPL counters</strong> for CPU energy measurements,
+      repeated five times per configuration to obtain reliable averages. We tested four video samples
+      (Sintel, Glass Half, Tears of Steel, Wingit) across four codecs (<strong>H.264, H.265, VP9, AV1</strong>)
+      and three resolutions (480p, 720p, 1080p).
+    </p>
+    <p>
+      For network analysis, we compared fixed-bitrate delivery against a simulated
+      <strong>Adaptive Bitrate (ABR)</strong> model distributing playback as 30% at 1080p, 50% at 720p,
+      and 20% at 480p - following standard streaming ladders. CO₂ emissions were estimated by applying
+      emission factors from official IEA and Carbon Brief reports.
+    </p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- RESULTS -->
+  <p class="label">Results</p>
+  <h2 style="font-family:'DM Serif Display',serif;font-size:1.5rem;letter-spacing:-0.02em;margin-bottom:1.25rem;font-weight:400;">What we found</h2>
+
+  <h3 style="font-size:0.88rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:500;margin-bottom:1rem;">Codec comparison</h3>
+
+  <div class="results-grid">
+    <div class="result-card">
+      <div class="result-codec">H.264</div>
+      <div class="result-verdict bad">Fast to encode, expensive to stream</div>
+      <div class="result-desc">Fastest server-side encoding but produces the largest files - 2–3× bigger than VP9 or AV1 - meaning higher network traffic and overall emissions.</div>
+    </div>
+    <div class="result-card">
+      <div class="result-codec">H.265 / HEVC</div>
+      <div class="result-verdict bad">Worst of both worlds at high resolution</div>
+      <div class="result-desc">High encoding energy, slow processing, and the highest client-side decoding energy consumption, especially at 1080p.</div>
+    </div>
+    <div class="result-card">
+      <div class="result-codec">VP9</div>
+      <div class="result-verdict good">Good compression, heavy encoding</div>
+      <div class="result-desc">Excellent file compression reduces network emissions significantly, but server-side encoding is the most energy-intensive of the four codecs.</div>
+    </div>
+    <div class="result-card">
+      <div class="result-codec">AV1</div>
+      <div class="result-verdict good">Most sustainable overall</div>
+      <div class="result-desc">Best compression efficiency and lowest client-side decoding energy across all resolutions. Despite moderate encoding cost, AV1 minimises total system emissions.</div>
+    </div>
+  </div>
+
+  <h3 style="font-size:0.88rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:2rem 0 1rem;">CO₂ by streaming scenario (H.264 · 1080p)</h3>
+
+  <div class="co2-scenarios">
+    <div class="co2-row">
+      <span class="co2-label">Low quality (480p)</span>
+      <div class="co2-bar-wrap"><div class="co2-bar" style="width:16.75%;"></div></div>
+      <span class="co2-val">3.35 g CO₂</span>
+    </div>
+    <div class="co2-row">
+      <span class="co2-label">Medium (720p)</span>
+      <div class="co2-bar-wrap"><div class="co2-bar" style="width:40.35%;"></div></div>
+      <span class="co2-val">8.07 g CO₂</span>
+    </div>
+    <div class="co2-row">
+      <span class="co2-label">ABR streaming</span>
+      <div class="co2-bar-wrap"><div class="co2-bar" style="width:45.35%;"></div></div>
+      <span class="co2-val">9.07 g CO₂</span>
+    </div>
+    <div class="co2-row">
+      <span class="co2-label">High quality (1080p)</span>
+      <div class="co2-bar-wrap"><div class="co2-bar" style="width:100%;opacity:0.55;"></div></div>
+      <span class="co2-val">20.00 g CO₂</span>
+    </div>
+  </div>
+
+  <h3 style="font-size:0.88rem;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);font-weight:500;margin:2rem 0 1rem;">ABR vs fixed-bitrate: data savings per video</h3>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Video sample</th>
+        <th>Fixed H.264 1080p</th>
+        <th>ABR traffic</th>
+        <th>Data reduction</th>
+        <th>CO₂ saved</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Glass Half</td>
+        <td>321 MB</td>
+        <td>71.2 MB</td>
+        <td class="highlight">78%</td>
+        <td class="highlight">8.99 g</td>
+      </tr>
+      <tr>
+        <td>Sintel</td>
+        <td>211 MB</td>
+        <td>19.3 MB</td>
+        <td class="highlight">91%</td>
+        <td class="highlight">6.89 g</td>
+      </tr>
+      <tr>
+        <td>Tears of Steel</td>
+        <td>981 MB</td>
+        <td>42.9 MB</td>
+        <td class="highlight">96%</td>
+        <td class="highlight">33.77 g</td>
+      </tr>
+      <tr>
+        <td>Wingit</td>
+        <td>542 MB</td>
+        <td>87.7 MB</td>
+        <td class="highlight">84%</td>
+        <td class="highlight">16.35 g</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="prose">
+    <p>
+      Across all scenarios, <strong>network transmission is the dominant source of emissions</strong>,
+      accounting for the largest share of total CO₂. Server-side encoding contributes relatively
+      little to the total. Client-side decoding becomes significant mainly at high resolutions,
+      and codec choice has a measurable impact here: AV1 and VP9 decode far more efficiently
+      than H.264 or H.265.
+    </p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- BROWSER EXTENSION -->
+  <p class="label">User-facing tool</p>
+  <h2 style="font-family:'DM Serif Display',serif;font-size:1.5rem;letter-spacing:-0.02em;margin-bottom:1.25rem;font-weight:400;">CO₂ visualisation browser extension</h2>
+
+  <div class="ext-block">
+    <div class="ext-block-text">
+      <h3>Streaming CO₂ Tracker</h3>
+      <p>
+        A Chrome extension that overlays real-time CO₂ and water-equivalent estimates
+        directly on YouTube, adapting automatically as the user changes resolution or switches
+        between live streams and on-demand content. The interface uses colour coding to signal
+        environmental impact and displays the equivalent litres of water used to generate the energy consumed.
+      </p>
+      <a href="https://github.com/oteropaula/E2E-StreamCarbon" target="_blank" class="ext-block-link">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2C5.58 2 2 5.58 2 10c0 3.54 2.29 6.55 5.47 7.61.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 012-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0018 10c0-4.42-3.58-8-8-8z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+    <div class="ext-qr">
+      <img src="images/qr-code.png" alt="QR code to try the extension"
+           onerror="this.outerHTML='<span style=\'font-size:0.65rem;color:var(--green);text-align:center;\'>Scan to try the extension</span>'">
+    </div>
+  </div>
+
+  <div class="screenshot-block">
+    <div class="screenshot-label">Browser extension · YouTube overlay</div>
+    <div class="screenshot-img">
+      <img src="images/streamcarbon_extension.png" alt="CO2 visualisation extension on YouTube"
+           onerror="this.parentElement.parentElement.style.display='none'">
+    </div>
+    <div class="screenshot-caption">
+      The extension displays total CO₂ and per-minute emission rate alongside an equivalent water volume,
+      visualised as a rising water level. For live streams, only the per-minute rate is shown.
+    </div>
+  </div>
+
+  <hr class="divider">
+
+  <!-- KEY TAKEAWAYS -->
+  <p class="label">Conclusions</p>
+  <h2 style="font-family:'DM Serif Display',serif;font-size:1.5rem;letter-spacing:-0.02em;margin-bottom:1.25rem;font-weight:400;">Key takeaways</h2>
+
+  <div class="prose">
+    <p>
+      <strong>Network traffic dominates total streaming emissions</strong> in almost all scenarios.
+      Choosing compression-efficient codecs like AV1 or VP9 significantly reduces data transfer,
+      which in turn cuts overall CO₂ - even if their server-side encoding is more computationally expensive.
+    </p>
+    <p>
+      <strong>Adaptive bitrate streaming (ABR) is a strong lever.</strong> By dynamically adjusting
+      quality to network conditions, ABR drastically reduces data transfer compared to fixed high-bitrate
+      delivery - in our experiments, by 78–96% depending on the video.
+    </p>
+    <p>
+      <strong>Resolution choice matters.</strong> Users who habitually stream at 1080p when 720p
+      would look identical on their device are generating substantially higher emissions.
+      Making this visible - as the browser extension does - could encourage more conscious habits.
+    </p>
+    <p>
+      <strong>End-to-end measurement is essential.</strong> Server, network and client interact in
+      ways that isolated measurements miss: a codec that's expensive to encode may be cheap to stream
+      and cheap to decode, making its total cost far lower than it appears.
+    </p>
+  </div>
+
+  <hr class="divider">
+
+  <!-- TECH STACK -->
+  <p class="label">Tools &amp; stack</p>
+  <div class="tag-row">
+    <span class="tag tag-tech">Python</span>
+    <span class="tag tag-tech">Linux</span>
+    <span class="tag tag-tech">Intel RAPL</span>
+    <span class="tag tag-tech">FFmpeg</span>
+    <span class="tag tag-tech">mpv</span>
+    <span class="tag tag-tech">Wireshark</span>
+    <span class="tag tag-tech">H.264</span>
+    <span class="tag tag-tech">H.265</span>
+    <span class="tag tag-tech">VP9</span>
+    <span class="tag tag-tech">AV1</span>
+    <span class="tag tag-green">Chrome Extension</span>
+    <span class="tag tag-green">Sustainable computing</span>
+    <span class="tag tag-green">CO₂ measurement</span>
+  </div>
+
+  <hr class="divider">
+
+  <!-- TEAM -->
+  <p class="label">Authors</p>
+  <div class="contrib-list">
+    <div class="contrib-item">
+      <div>
+        <div class="contrib-name">Paula Otero Paños <span style="font-size:0.75rem;color:var(--muted);font-weight:300;">(corresponding author)</span></div>
+        <div class="contrib-inst">University of Ljubljana, Faculty of Computer and Information Science</div>
+        <div class="contrib-inst">Universitat Politécnica de Valencia, Escuela Técnica Superior de Ingeniería de Telecomunicación</div>
+      </div>
+      <span class="contrib-badge">Co-first author</span>
+    </div>
+    <div class="contrib-item">
+      <div>
+        <div class="contrib-name">Aneta Kartali</div>
+        <div class="contrib-inst">University of Ljubljana, Faculty of Computer and Information Science</div>
+      </div>
+      <span class="contrib-badge">Co-first author</span>
+    </div>
+    <div class="contrib-item">
+      <div>
+        <div class="contrib-name">Mojca Ciglarič</div>
+        <div class="contrib-inst">University of Ljubljana, Faculty of Computer and Information Science</div>
+      </div>
+      <span style="font-size:0.68rem;color:var(--muted);">Co-author</span>
+    </div>
+    <div class="contrib-item">
+      <div>
+        <div class="contrib-name">Veljko Pejović</div>
+        <div class="contrib-inst">University of Ljubljana, Faculty of Computer and Information Science</div>
+      </div>
+      <span style="font-size:0.68rem;color:var(--muted);">Co-author</span>
+    </div>
+  </div>
+
+  <!-- BACK -->
+  <div class="back-section">
+    <a href="index.html" class="back-link">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg>
+      Back to portfolio
+    </a>
+  </div>
+
+</div><!-- /.page -->
+</body>
+</html>

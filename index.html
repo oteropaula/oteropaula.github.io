@@ -42,14 +42,8 @@
 
   /* HERO */
   #inicio {
-    max-width: 100%;
-    padding: 0;
-    position: relative;
-    overflow: hidden;
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    max-width: 100%; padding: 0; position: relative; overflow: hidden;
+    min-height: 100vh; display: flex; flex-direction: column; justify-content: center;
   }
   .hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.16em; color: var(--muted); text-transform: uppercase; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.75rem; }
   .hero-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--muted); }
@@ -57,24 +51,44 @@
   .hero-name em { font-style: italic; color: var(--accent); }
   .hero-tagline { font-size: 1.05rem; color: var(--muted); font-weight: 300; max-width: 500px; margin-bottom: 0.75rem; line-height: 1.8; }
   .hero-location { font-size: 0.82rem; color: var(--muted); margin-bottom: 2.5rem; display: flex; align-items: center; gap: 0.4rem; }
-  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
   .btn-primary { background: var(--accent); color: white; padding: 0.7rem 1.6rem; border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.02em; transition: opacity 0.2s; }
   .btn-primary:hover { opacity: 0.82; }
   .btn-secondary { background: transparent; color: var(--text); padding: 0.7rem 1.6rem; border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 500; border: 1px solid var(--subtle); transition: border-color 0.2s; }
   .btn-secondary:hover { border-color: var(--text); }
+  /* CV download — outline accent */
+  .btn-cv {
+    background: transparent; color: var(--accent); padding: 0.7rem 1.4rem;
+    border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 500;
+    border: 1px solid var(--accent-mid); transition: background 0.15s, color 0.15s;
+    display: inline-flex; align-items: center; gap: 0.45rem;
+  }
+  .btn-cv:hover { background: var(--accent-light); }
+  .btn-cv svg { width: 13px; height: 13px; flex-shrink: 0; }
 
   .awards-strip { display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 3.5rem; padding-top: 2.5rem; border-top: 1px solid var(--subtle); }
   .award-pill { background: var(--accent-light); border: 1px solid var(--accent-mid); border-radius: 2px; padding: 0.5rem 1rem; font-size: 0.78rem; color: var(--accent); line-height: 1.4; display: flex; align-items: flex-start; gap: 0.5rem; }
   .award-pill strong { display: block; font-weight: 500; margin-bottom: 0.1rem; }
 
-  /* ABOUT */
+  /* ─── ABOUT ──────────────────────────────────────────── */
   .about-grid { display: grid; grid-template-columns: 1fr 1.7fr; gap: 4rem; align-items: start; }
-  .about-photo { aspect-ratio: 3/4; background: var(--accent-light); border-radius: 2px; border: 1px dashed var(--accent-mid); display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 0.5rem; color: var(--accent); font-size: 0.78rem; letter-spacing: 0.05em; text-align: center; padding: 1rem; }
+  .about-photo { aspect-ratio: 3/4; background: var(--accent-light); border-radius: 2px; border: 1px dashed var(--accent-mid); overflow: hidden; }
+  .about-photo img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .about-text p { font-size: 0.975rem; color: var(--muted); margin-bottom: 1rem; font-weight: 300; line-height: 1.85; }
   .about-text p strong { color: var(--text); font-weight: 500; }
-  .skills-block { margin-top: 1.5rem; }
-  .skills-block-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.55rem; font-weight: 500; }
-  .tag-row { display: flex; flex-wrap: wrap; gap: 0.4rem; }
+
+  /* 2-column skills layout */
+  .skills-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1rem 1.5rem;
+    margin-top: 1.5rem;
+  }
+  .skills-block-full {
+    grid-column: 1 / -1;
+  }
+  .skills-block-label { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.5rem; font-weight: 500; }
+  .tag-row { display: flex; flex-wrap: wrap; gap: 0.35rem; }
   .tag { padding: 0.28rem 0.75rem; border-radius: 2px; font-size: 0.78rem; letter-spacing: 0.02em; }
   .tag-tech { background: #EFEFEF; color: #2A2A2A; }
   .tag-interest { background: var(--accent-light); color: var(--accent); }
@@ -93,119 +107,47 @@
   .exp-place { display: inline-block; background: #EFEFEF; color: #3A3A3A; padding: 0.15rem 0.55rem; border-radius: 2px; font-size: 0.72rem; }
 
   /* ─── PROJECT FILTER BAR ─────────────────────────────── */
-  .filter-wrap {
-    margin-bottom: 1.75rem;
-  }
-
-  /* Count label */
-  .filter-count {
-    font-size: 0.72rem;
-    color: var(--muted);
-    letter-spacing: 0.04em;
-    margin-bottom: 0.75rem;
-    font-weight: 300;
-  }
-  .filter-count span {
-    color: var(--text);
-    font-weight: 500;
-  }
-
-  /* Scrollable bar on mobile, wrapping on desktop */
-  .filter-bar {
-    display: flex;
-    gap: 0.4rem;
-    flex-wrap: wrap;
-  }
+  .filter-wrap { margin-bottom: 1.75rem; }
+  .filter-count { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.04em; margin-bottom: 0.75rem; font-weight: 300; }
+  .filter-count span { color: var(--text); font-weight: 500; }
+  .filter-bar { display: flex; gap: 0.4rem; flex-wrap: wrap; }
   .filter-btn {
-    background: transparent;
-    border: 1px solid var(--subtle);
-    border-radius: 2px;
-    padding: 0.32rem 0.9rem;
-    font-family: 'DM Sans', sans-serif;
-    font-size: 0.78rem;
-    letter-spacing: 0.04em;
-    color: var(--muted);
-    cursor: pointer;
+    background: transparent; border: 1px solid var(--subtle); border-radius: 2px;
+    padding: 0.32rem 0.9rem; font-family: 'DM Sans', sans-serif; font-size: 0.78rem;
+    letter-spacing: 0.04em; color: var(--muted); cursor: pointer;
     transition: background 0.15s, border-color 0.15s, color 0.15s;
-    white-space: nowrap;
-    flex-shrink: 0;
+    white-space: nowrap; flex-shrink: 0;
   }
-  .filter-btn:hover {
-    border-color: var(--accent);
-    color: var(--accent);
-  }
-  .filter-btn.active {
-    background: var(--accent);
-    border-color: var(--accent);
-    color: white;
-  }
-  .filter-btn .btn-count {
-    opacity: 0.65;
-    font-size: 0.7em;
-    margin-left: 0.25rem;
-  }
-  .filter-btn.active .btn-count {
-    opacity: 0.8;
-  }
-
-  /* Mobile: horizontal scroll, no wrap */
+  .filter-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .filter-btn.active { background: var(--accent); border-color: var(--accent); color: white; }
+  .filter-btn .btn-count { opacity: 0.65; font-size: 0.7em; margin-left: 0.25rem; }
+  .filter-btn.active .btn-count { opacity: 0.8; }
   @media (max-width: 620px) {
-    .filter-bar {
-      flex-wrap: nowrap;
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      padding-bottom: 4px;
-    }
+    .filter-bar { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; padding-bottom: 4px; }
     .filter-bar::-webkit-scrollbar { display: none; }
   }
 
   /* ─── CARD TRANSITIONS ───────────────────────────────── */
-  .projects-grid {
-    /* grid unchanged, but cards transition opacity */
-  }
-  .project-card {
-    transition: border-color 0.2s, transform 0.2s, opacity 0.2s;
-  }
-  .project-card.hidden {
-    display: none;
-    opacity: 0;
-    pointer-events: none;
-  }
-  .project-card.fading-out {
-    opacity: 0;
-    pointer-events: none;
-    transform: translateY(4px);
-  }
-  .project-card.fading-in {
-    animation: fadeInCard 0.22s ease forwards;
-  }
+  .project-card { transition: border-color 0.2s, transform 0.2s, opacity 0.2s; }
+  .project-card.hidden { display: none; opacity: 0; pointer-events: none; }
+  .project-card.fading-out { opacity: 0; pointer-events: none; transform: translateY(4px); }
+  .project-card.fading-in { animation: fadeInCard 0.22s ease forwards; }
   @keyframes fadeInCard {
     from { opacity: 0; transform: translateY(6px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
   /* ─── EMPTY STATE ────────────────────────────────────── */
-  .projects-empty {
-    display: none;
-    padding: 3rem 0;
-    text-align: center;
-    color: var(--muted);
-    font-size: 0.9rem;
-    font-weight: 300;
-    border: 1px dashed var(--subtle);
-    border-radius: 2px;
-  }
-  .projects-empty.visible {
-    display: block;
-  }
+  .projects-empty { display: none; padding: 3rem 0; text-align: center; color: var(--muted); font-size: 0.9rem; font-weight: 300; border: 1px dashed var(--subtle); border-radius: 2px; }
+  .projects-empty.visible { display: block; }
 
   /* ─── PROJECTS GRID ──────────────────────────────────── */
   .projects-grid { display: grid; gap: 1.25rem; }
   .project-card { background: var(--surface); border: 1px solid var(--subtle); border-radius: 2px; overflow: hidden; text-decoration: none; color: inherit; display: block; }
   .project-card:hover { border-color: var(--accent); transform: translateY(-2px); }
   div.project-card:hover { border-color: var(--subtle); transform: none; }
-  .project-img { height: 155px; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; }
+  .project-img { height: 155px; background: var(--accent-light); display: flex; align-items: center; justify-content: center; font-size: 0.72rem; color: var(--accent); letter-spacing: 0.1em; text-transform: uppercase; overflow: hidden; }
+  .project-img img { width: 100%; height: 100%; object-fit: cover; }
   .project-img.green { background: var(--green-light); color: var(--green); }
   .project-body { padding: 1.25rem 1.5rem 1.5rem; }
   .project-cat { font-size: 0.68rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.3rem; font-weight: 500; }
@@ -249,6 +191,8 @@
   @media (max-width: 620px) {
     .about-grid { grid-template-columns: 1fr; gap: 2rem; }
     .about-photo { aspect-ratio: 1/1; max-width: 180px; }
+    .skills-cols { grid-template-columns: 1fr; }
+    .skills-block-full { grid-column: 1; }
     .exp-item, .edu-item { grid-template-columns: 1fr; }
     .exp-meta { text-align: left; }
     .contact-wrapper { padding: 2rem 1.5rem; }
@@ -288,6 +232,10 @@
     <div class="hero-actions">
       <a href="#proyectos" class="btn-primary">See my work</a>
       <a href="#contacto" class="btn-secondary">Get in touch</a>
+      <a href="presentations/paula_otero_cv.pdf" download class="btn-cv">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        Download CV
+      </a>
     </div>
     <div class="awards-strip">
       <div class="award-pill">
@@ -314,43 +262,45 @@
   <h2 class="section-title">The person behind the terminal</h2>
   <div class="about-grid">
     <div class="about-photo">
-      <img src="images/paula.jpg" alt="Paula Otero" style="width:100%;aspect-ratio:3/4;object-fit:cover;border-radius:2px;">
+      <img src="images/paula.jpg" alt="Paula Otero">
     </div>
     <div class="about-text">
       <p>Hi! I'm <strong>Paula</strong>, a Computer Science &amp; Digital Multimedia Technologies student split between two universities, <strong>UPV in Valencia</strong> and the <strong>University of Ljubljana</strong>, where I'm currently on Erasmus.</p>
       <p>My interests sit at the intersection of cybersecurity, sustainability and systems. I care about understanding how things work at a low level, whether that's a network, an operating system or a video codec burning watts during streaming.</p>
       <p>Outside of code I was involved in <strong>ACM UPV Chapter</strong>, Poliwood and Toma Uno, and I've volunteered as an Erasmus mentor. I like leading, teaching, and getting things done.</p>
-      <div class="skills-block">
-        <p class="skills-block-label">Technical skills</p>
-        <div class="tag-row">
-          <span class="tag tag-tech">Python</span>
-          <span class="tag tag-tech">Linux</span>
-          <span class="tag tag-tech">Networking</span>
-          <span class="tag tag-tech">Cryptography basics</span>
-          <span class="tag tag-tech">Command line</span>
-          <span class="tag tag-tech">OSINT tools</span>
-          <span class="tag tag-tech">Energy profiling</span>
-          <span class="tag tag-tech">Visual computing</span>
+
+      <!-- 2-column skills grid -->
+      <div class="skills-cols">
+        <div>
+          <p class="skills-block-label">Technical skills</p>
+          <div class="tag-row">
+            <span class="tag tag-tech">Python</span>
+            <span class="tag tag-tech">Linux</span>
+            <span class="tag tag-tech">Networking</span>
+            <span class="tag tag-tech">Cryptography basics</span>
+            <span class="tag tag-tech">Command line</span>
+            <span class="tag tag-tech">OSINT tools</span>
+            <span class="tag tag-tech">Energy profiling</span>
+            <span class="tag tag-tech">Visual computing</span>
+          </div>
         </div>
-      </div>
-      <div class="skills-block" style="margin-top:1rem">
-        <p class="skills-block-label">Academic interests</p>
-        <div class="tag-row">
-          <span class="tag tag-interest">Cybersecurity</span>
-          <span class="tag tag-interest">Human security factors</span>
-          <span class="tag tag-interest">Social engineering</span>
-          <span class="tag tag-interest">Organizational security</span>
-          <span class="tag tag-interest">Security governance</span>
-          <span class="tag tag-interest">Pentesting methodologies</span>
-          <span class="tag tag-interest">Sustainable computing</span>
-          <span class="tag tag-interest">Systems efficiency</span>
+        <div>
+          <p class="skills-block-label">Academic interests</p>
+          <div class="tag-row">
+            <span class="tag tag-interest">Cybersecurity</span>
+            <span class="tag tag-interest">Human security factors</span>
+            <span class="tag tag-interest">Social engineering</span>
+            <span class="tag tag-interest">Organizational security</span>
+            <span class="tag tag-interest">Sustainable computing</span>
+            <span class="tag tag-interest">Systems efficiency</span>
+          </div>
         </div>
-      </div>
-      <div class="skills-block" style="margin-top:1rem">
-        <p class="skills-block-label">Languages</p>
-        <div class="tag-row">
-          <span class="tag tag-lang">Spanish - Native</span>
-          <span class="tag tag-lang">English - Fluent (C1 Cambridge)</span>
+        <div class="skills-block-full">
+          <p class="skills-block-label">Languages</p>
+          <div class="tag-row">
+            <span class="tag tag-lang">Spanish - Native</span>
+            <span class="tag tag-lang">English - Fluent (C1 Cambridge)</span>
+          </div>
         </div>
       </div>
     </div>
@@ -406,9 +356,10 @@
 
   <!-- FILTER BAR -->
   <div class="filter-wrap">
-    <p class="filter-count">Showing <span id="proj-count">10</span> projects</p>
+    <p class="filter-count">Showing <span id="proj-count">11</span> projects</p>
     <div class="filter-bar" role="group" aria-label="Filter projects by category">
       <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="research">Research</button>
       <button class="filter-btn" data-filter="security">Security</button>
       <button class="filter-btn" data-filter="embedded">Embedded</button>
       <button class="filter-btn" data-filter="ai">Computer vision</button>
@@ -424,6 +375,33 @@
   </div>
 
   <div class="projects-grid">
+
+    <!-- StreamCarbon - research, python (FEATURED first) -->
+    <a href="streamcarbon.html" class="project-card" data-tags="research python">
+      <div class="project-img" style="background:#0D2B1F; color:#4ADE80;">
+        <img src="images/methodology.png" alt="E2E-StreamCarbon poster" style="width:100%; height:100%; object-fit:cover;">
+      </div>
+      <div class="project-body">
+        <p class="project-cat" style="color:var(--green);">Research · Sustainable Computing · ICT4S 2026</p>
+        <h3 class="project-title">E2E-StreamCarbon: Measuring the Carbon Footprint of Video Streaming</h3>
+        <span class="project-badge">Published · ICT4S 2026 congress - Bern, Switzerland</span>
+        <p class="project-desc">
+          End-to-end framework for measuring the energy consumption and carbon footprint of video streaming.
+          Covers server-side transcoding, network transmission and client-side playback across four codecs
+          (H.264, H.265, VP9, AV1) and three resolutions. Includes a browser extension that visualises
+          real-time CO₂ emissions during YouTube playback.
+        </p>
+        <div class="tag-row-sm">
+          <span class="tag-sm green">Python</span>
+          <span class="tag-sm green">Linux</span>
+          <span class="tag-sm green">Intel RAPL</span>
+          <span class="tag-sm green">FFmpeg</span>
+          <span class="tag-sm green">Wireshark</span>
+          <span class="tag-sm green">Video codecs</span>
+          <span class="tag-sm green">Browser extension</span>
+        </div>
+      </div>
+    </a>
 
     <!-- DRM - security, python -->
     <a href="drm.html" class="project-card" data-tags="security python">
@@ -774,6 +752,12 @@
       I'm open to internships, research collaborations and interesting projects, especially anything touching cybersecurity, sustainable computing and codec efficiency or multimedia systems. Drop me a message and I'll get back to you.
     </p>
     <div class="contact-links">
+      <a href="mailto:paulaoteropanos@gmail.com" class="contact-link">
+        <svg viewBox="0 0 20 20" fill="currentColor">
+          <path d="M2 4a2 2 0 012-2h12a2 2 0 012 2v.01L10 10 2 4.01V4zm0 2.236V16a2 2 0 002 2h12a2 2 0 002-2V6.236l-7.447 5.59a1 1 0 01-1.106 0L2 6.236z"/>
+        </svg>
+        paulaoteropanos@gmail.com
+      </a>
       <a href="https://github.com/oteropaula" target="_blank" class="contact-link">
         <svg viewBox="0 0 20 20" fill="currentColor"><path d="M10 2C5.58 2 2 5.58 2 10c0 3.54 2.29 6.55 5.47 7.61.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82a7.65 7.65 0 012-.27c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0018 10c0-4.42-3.58-8-8-8z"/></svg>
         github.com/oteropaula
@@ -781,6 +765,10 @@
       <a href="https://linkedin.com/in/paulaoteropaños" target="_blank" class="contact-link">
         <svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 6h2.5v9H3V6zm1.25-4a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM7.5 6H10v1.2C10.5 6.5 11.4 6 12.5 6 14.9 6 16 7.3 16 9.8V15h-2.5v-4.8c0-1.2-.4-2-1.4-2-1 0-1.6.7-1.6 2V15H8V6z"/></svg>
         linkedin.com/in/paulaoteropaños
+      </a>
+      <a href="presentations/paula_otero_cv.pdf" download class="contact-link">
+        <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        Download CV (PDF)
       </a>
     </div>
   </div>
