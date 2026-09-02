@@ -116,8 +116,15 @@
   section { max-width: 780px; margin: 0 auto; padding: 4.5rem 2rem; }
   hr.divider { border: none; border-top: 1px solid var(--subtle); }
   .label { font-family: 'DM Sans', sans-serif; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent-text); font-weight: 500; margin-bottom: 0.65rem; }
-  .section-title { font-family: 'DM Serif Display', serif; font-weight: 400; font-size: 2rem; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 2rem; color: var(--text); }
-
+  /*.section-title { font-family: 'DM Serif Display', serif; font-weight: 400; font-size: 2rem; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 2rem; color: var(--text); }*/
+  .section-title {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    letter-spacing: 0;
+    line-height: 1.15;
+    margin-bottom: 2rem;
+  }
   /* HERO */
   #inicio {
     max-width: 100%; padding: 0; position: relative; overflow: hidden;
@@ -160,7 +167,7 @@
 
   /* ─── ABOUT ──────────────────────────────────────────── */
   .about-grid { display: grid; grid-template-columns: 1fr 1.7fr; gap: 4rem; align-items: start; }
-  .about-photo { aspect-ratio: 3/4; background: var(--surface); border-radius: 2px; border: 1px solid var(--subtle); overflow: hidden; }
+  .about-photo { aspect-ratio: 3/4; background: var(--surface); border-radius: 50%; border: 1px solid var(--subtle); overflow: hidden; }
   .about-photo img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(15%); }
   .about-text p { font-size: 0.975rem; color: var(--muted); margin-bottom: 1rem; font-weight: 300; line-height: 1.85; }
   .about-text p strong { color: var(--text); font-weight: 500; }
@@ -181,9 +188,26 @@
   .tag-lang { color: var(--green); background: var(--green-light); }
 
   /* EXPERIENCE */
-  .exp-list { display: flex; flex-direction: column; }
-  .exp-item { padding: 1.75rem 0; border-bottom: 1px solid var(--subtle); display: grid; grid-template-columns: 1fr auto; gap: 1rem; }
-  .exp-item:first-child { padding-top: 0; }
+    .exp-list {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .exp-item {
+        padding: 1.75rem 0;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 1rem;
+        border-bottom: 1px solid var(--subtle);
+    }
+
+    .exp-item:first-child {
+        padding-top: 0;
+    }
+
+    .exp-item:last-child {
+        border-bottom: none;
+    }
   .exp-role { font-family: 'DM Serif Display', serif; font-weight: 400; font-size: 1.1rem; margin-bottom: 0.2rem; color: var(--text); }
   .exp-org { font-size: 0.85rem; color: var(--accent-text); font-weight: 500; margin-bottom: 0.6rem; }
   .exp-bullets { padding-left: 1rem; color: var(--muted); font-size: 0.88rem; font-weight: 300; line-height: 1.75; }
@@ -354,14 +378,19 @@
   }
   .scribble-heading {
     text-align: center; font-family: 'Caveat', cursive; font-weight: 700;
-    font-size: clamp(2.2rem, 6vw, 3.4rem); color: var(--marker);
+    font-size: clamp(2.2rem, 6vw, 3.4rem);
     line-height: 1.15; margin-bottom: 3.5rem; position: relative; z-index: 2;
   }
   .scribble-reveal {
-    display: inline-block; clip-path: inset(0 100% 0 0);
+    display: inline-block;
+    padding-right: 0.2em;
+    clip-path: inset(0 100% 0 0);
     transition: clip-path 1.3s steps(28, end);
   }
-  #conoceme.in-view .scribble-reveal { clip-path: inset(0 0 0 0); }
+
+  #conoceme.in-view .scribble-reveal {
+    clip-path: inset(0 0 0 0);
+  }
 
   .scribble-doodles { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 2; }
   .doodle-path { fill: none; stroke: var(--marker); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; opacity: 0.75; }
@@ -405,6 +434,7 @@
     .polaroid { width: 44%; min-width: 145px; }
     .polaroid-row { gap: 2.5rem 1rem; }
   }
+  
 
 </style>
 </head>
@@ -414,7 +444,7 @@
   <a href="#inicio" class="nav-logo">Paula Otero</a>
   <div class="nav-right">
     <ul class="nav-links" id="nav-links">
-      <li><a href="#sobre-mi">About</a></li>
+      <li><a href="#conoceme">About</a></li>
       <li><a href="#experiencia">Experience</a></li>
       <li><a href="#proyectos">Projects</a></li>
       <li><a href="#educacion">Education</a></li>
@@ -473,8 +503,8 @@
 
 <!-- GET TO KNOW ME — SCRIBBLE / WHITEBOARD SECTION -->
 <section id="conoceme" class="scribble-section">
-  <p class="scribble-eyebrow">A little detour</p>
-  <h3 class="scribble-heading"><span class="scribble-reveal">Let's get to know each other a bit better</span></h3>
+  <p class="scribble-eyebrow">About me</p>
+  <h3 class="scribble-heading"><span class="scribble-reveal">The person behind the terminal</span></h3>
 
   <div class="photo-stage">
     <div class="paper-patch"></div>
@@ -516,61 +546,58 @@
       </figure>
     </div>
   </div>
-</section>
- 
-<hr class="divider">
+    <!-- ABOUT -->
+  <section id="sobre-mi">
+    <h2 class="section-title"></h2>
+    <div class="about-grid">
+      <div class="about-photo">
+        <img src="images/paula.jpg" alt="Paula Otero" loading="eager">
+      </div>
+      <div class="about-text">
+        <p>Hi! I'm <strong>Paula</strong>, a <strong>Cybersecurity master's student</strong> currently in <strong>Madrid</strong>, with a background in <strong>Computer Science &amp; Digital Multimedia Technologies</strong> from the <strong>Universitat Politècnica de València (UPV)</strong>. I also completed an <strong>Erasmus+</strong> exchange at the <strong>University of Ljubljana</strong>, expanding my academic and international experience.</p>
 
-<!-- ABOUT -->
-<section id="sobre-mi">
-  <p class="label">About me</p>
-  <h2 class="section-title">The person behind the terminal</h2>
-  <div class="about-grid">
-    <div class="about-photo">
-      <img src="images/paula.jpg" alt="Paula Otero" loading="eager">
-    </div>
-    <div class="about-text">
-      <p>Hi! I'm <strong>Paula</strong>, a <strong>Cybersecurity master's student</strong> currently in <strong>Madrid</strong>, with a background in <strong>Computer Science &amp; Digital Multimedia Technologies</strong> from the <strong>Universitat Politècnica de València (UPV)</strong>. I also completed an <strong>Erasmus+</strong> exchange at the <strong>University of Ljubljana</strong>, expanding my academic and international experience.</p>
-
-      <p>My interests focus on <strong>cybersecurity</strong>, telecommunications, intelligent systems and data analytics. I'm passionate about understanding how complex systems work, from networks and operating systems to secure and efficient software.</p>
-      
-      <p>Beyond academics, I have been actively involved in several student associations, including <strong>ACM UPV Chapter</strong>, Poliwood and Toma Uno. I also volunteered as an Erasmus mentor, represented the University of Ljubljana at the Faculty Erasmus Fair, and co-authored a research paper presented at the <strong>ICT4S Conference</strong> in Bern, Switzerland. I enjoy taking initiative, collaborating with others and turning ideas into practical solutions.</p>      
-      <!-- Skills grid -->
-      <div class="skills-cols">
-        <div>
-          <p class="skills-block-label">Technical skills</p>
-          <div class="tag-row">
-            <span class="tag tag-tech">Python</span>
-            <span class="tag tag-tech">Linux</span>
-            <span class="tag tag-tech">Networking</span>
-            <span class="tag tag-tech">Cryptography basics</span>
-            <span class="tag tag-tech">Command line</span>
-            <span class="tag tag-tech">OSINT tools</span>
-            <span class="tag tag-tech">Energy profiling</span>
-            <span class="tag tag-tech">Visual computing</span>
+        <p>My interests focus on <strong>cybersecurity</strong>, telecommunications, intelligent systems and data analytics. I'm passionate about understanding how complex systems work, from networks and operating systems to secure and efficient software.</p>
+        
+        <p>Beyond academics, I have been actively involved in several student associations, including <strong>ACM UPV Chapter</strong>, Poliwood and Toma Uno. I also volunteered as an Erasmus mentor, represented the University of Ljubljana at the Faculty Erasmus Fair, and co-authored a research paper presented at the <strong>ICT4S Conference</strong> in Bern, Switzerland. I enjoy taking initiative, collaborating with others and turning ideas into practical solutions.</p>      
+        <!-- Skills grid -->
+        <div class="skills-cols">
+          <div>
+            <p class="skills-block-label">Technical skills</p>
+            <div class="tag-row">
+              <span class="tag tag-tech">Python</span>
+              <span class="tag tag-tech">Linux</span>
+              <span class="tag tag-tech">Networking</span>
+              <span class="tag tag-tech">Cryptography basics</span>
+              <span class="tag tag-tech">Command line</span>
+              <span class="tag tag-tech">OSINT tools</span>
+              <span class="tag tag-tech">Energy profiling</span>
+              <span class="tag tag-tech">Visual computing</span>
+            </div>
           </div>
-        </div>
-        <div>
-          <p class="skills-block-label">Academic interests</p>
-          <div class="tag-row">
-            <span class="tag tag-interest">Cybersecurity</span>
-            <span class="tag tag-interest">Human security factors</span>
-            <span class="tag tag-interest">Social engineering</span>
-            <span class="tag tag-interest">Organizational security</span>
-            <span class="tag tag-interest">Sustainable computing</span>
-            <span class="tag tag-interest">Systems efficiency</span>
+          <div>
+            <p class="skills-block-label">Academic interests</p>
+            <div class="tag-row">
+              <span class="tag tag-interest">Cybersecurity</span>
+              <span class="tag tag-interest">Human security factors</span>
+              <span class="tag tag-interest">Social engineering</span>
+              <span class="tag tag-interest">Organizational security</span>
+              <span class="tag tag-interest">Sustainable computing</span>
+              <span class="tag tag-interest">Systems efficiency</span>
+            </div>
           </div>
-        </div>
-        <div class="skills-block-full">
-          <p class="skills-block-label">Languages</p>
-          <div class="tag-row">
-            <span class="tag tag-lang">Spanish - Native</span>
-            <span class="tag tag-lang">English - Fluent (C1 Cambridge)</span>
+          <div class="skills-block-full">
+            <p class="skills-block-label">Languages</p>
+            <div class="tag-row">
+              <span class="tag tag-lang">Spanish - Native</span>
+              <span class="tag tag-lang">English - Fluent (C1 Cambridge)</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
+  </section>
 </section>
+
 
 <hr class="divider">
 
