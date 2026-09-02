@@ -275,7 +275,7 @@
   <div class="screenshot-block">
     <div class="screenshot-label">HiXray dataset - 8 object classes in X-ray</div>
     <div class="screenshot-img gray">
-      <img src="images/dataset.png" alt="Dataset"
+      <img loading="lazy" src="images/dataset.png" alt="Dataset"
         style="width:100%; height:100%; object-fit:cover;">
     </div>
     <p class="screenshot-caption">8 classes: Portable Charger 1, Portable Charger 2, Water, Laptop, Mobile Phone, Tablet, Cosmetic, Nonmetallic Lighter. Total: 102,928 annotated images. Mobile Phone dominates with 53,835 training instances vs 706 for Nonmetallic Lighter - a 76× imbalance.</p>
@@ -345,7 +345,7 @@
     <div class="screenshot-block">
       <div class="screenshot-label">Noise reduction comparison - bilateral filter wins on PSNR and SSIM</div>
       <div class="screenshot-img gray">
-        <img src="images/redruido2.png" alt="Noise"
+        <img loading="lazy" src="images/redruido2.png" alt="Noise"
         style="width:100%; height:100%; object-fit:cover;">
       </div>
       <p class="screenshot-caption">Left to right: Original · Gaussian (PSNR 31.11, SSIM 0.934) · Bilateral (PSNR 34.17, SSIM 0.944) · Mean Blur (PSNR 28.37, SSIM 0.881). Bilateral filter selected: highest fidelity, best edge preservation.</p>
@@ -400,7 +400,7 @@
     <div class="screenshot-block">
       <div class="screenshot-label">W&B - model comparison across precision, recall, mAP@0.5, mAP@0.5:0.95</div>
       <div class="screenshot-img blue">
-        <img src="images/comparativayolo.png" alt="Comparativa"
+        <img loading="lazy" src="images/comparativayolo.png" alt="Comparativa"
         style="width:100%; height:100%; object-fit:cover;">
       </div>
       <p class="screenshot-caption">4 metrics × 5 runs tracked in Weights & Biases: finetune_yolo11n, baseline_yolo11n, baseline_yolo11m, baseline_yolo11l, baseline_yolo11x. YOLOv11m converges fastest and achieves the best mAP@0.5.</p>
@@ -409,7 +409,7 @@
     <div class="screenshot-block">
       <div class="screenshot-label">Confusion matrix + training curves - YOLOv11m</div>
       <div class="screenshot-img blue">
-        <img src="images/matrix.png" alt="Confussion Matrix"
+        <img loading="lazy" src="images/matrix.png" alt="Confussion Matrix"
         style="width:100%; height:100%; object-fit:cover;">
       </div>
       <p class="screenshot-caption">Confusion matrix shows strong diagonal for Laptop (645), Mobile Phone (2,176), Tablet (323), and Portable Charger 1 (764). Main weakness: Cosmetic class (535 correct, 314 misclassified as background) - consistent with visual ambiguity and remaining class imbalance.</p>
@@ -418,7 +418,7 @@
     <div class="screenshot-block">
       <div class="screenshot-label">Model predictions - YOLOv11m on test images (original + augmented)</div>
       <div class="screenshot-img dark">
-        <img src="images/gridresults.png" alt="Grid results"
+        <img loading="lazy" src="images/gridresults.png" alt="Grid results"
         style="width:100%; height:100%; object-fit:cover;">
       </div>
       <p class="screenshot-caption">Grid of test predictions showing bounding boxes and confidence scores. Mobile Phone (0.8), Laptop (0.7–0.8), Portable Charger (0.8), Tablet (0.7–0.8) detected across original and augmented images (brightness, noise, shift, rotation variants).</p>

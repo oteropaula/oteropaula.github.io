@@ -252,7 +252,7 @@
       <span>System architecture - Part I: content encryption & basic retrieval</span>
     </div>
     <div class="diagram-img">
-        <img src="images/system-overview-p1.png" alt="CDM flow diagram"
+        <img loading="lazy" src="images/system-overview-p1.png" alt="CDM flow diagram"
         style="width:100%; height:100%; object-fit:cover;">
     </div>
     <p class="diagram-caption">Original files → multimedia encryptor (AES with 5 modes) → content server. Encrypted JSON metadata with key+IV stored separately.</p>
@@ -279,7 +279,7 @@
       <span>AES128-RSA key exchange - server (Alice) ↔ client (Bob)</span>
     </div>
     <div class="diagram-img">
-        <img src="images/aes128-rsa-exchange.png" alt="CDM flow diagram"
+        <img loading="lazy" src="images/aes128-rsa-exchange.png" alt="CDM flow diagram"
         style="width:100%; height:100%; object-fit:cover;">
     </div>
     <p class="diagram-caption">Server publishes RSA public key → client generates AES key+IV with os.urandom(16), encrypts with KpbA → server decrypts with KprA → shared AES session established.</p>
@@ -308,7 +308,7 @@
       <span>CDM pipeline - Part III: full license lifecycle</span>
     </div>
     <div class="diagram-img green">
-      <img src="images/cdm-flow-p3.png" alt="CDM flow diagram"
+      <img loading="lazy" src="images/cdm-flow-p3.png" alt="CDM flow diagram"
      style="width:100%; height:100%; object-fit:cover;">
     </div>
     <p class="diagram-caption">UA → CDM → License Server → Content Server → License Server → CDM (decrypt license) → Content Server → UA (decrypted file + optional watermark).</p>

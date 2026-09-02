@@ -3,6 +3,10 @@
 <head>
 <meta charset="UTF-8">
 
+<meta name="description" content="Paula Otero Paños — Cybersecurity master's student with a background in Computer Science & Digital Multimedia Technologies, focused on cybersecurity, systems and sustainable computing.">
+<link rel="canonical" href="https://oteropaula.github.io/">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231B3FAB'/%3E%3Ctext x='50' y='69' font-family='Georgia, serif' font-size='58' fill='white' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
+
 <!-- Open Graph for LinkedIn preview -->
 <meta property="og:title" content="Paula Otero Paños" />
 <meta property="og:description" content="Computer Science & Digital Multimedia Technologies student focused on cybersecurity, systems and sustainable computing." />
@@ -84,6 +88,18 @@
   .nav-links { display: flex; gap: 2rem; list-style: none; }
   .nav-links a { font-family: 'DM Sans', sans-serif; font-size: 0.82rem; color: var(--muted); text-decoration: none; letter-spacing: 0.04em; transition: color 0.2s; }
   .nav-links a:hover { color: var(--accent-text); }
+  .nav-toggle {
+    display: none; width: 30px; height: 30px; border-radius: 2px; border: 1px solid var(--subtle-strong);
+    background: transparent; color: var(--muted); cursor: pointer;
+    align-items: center; justify-content: center;
+    transition: border-color 0.2s, color 0.2s;
+    flex-shrink: 0;
+  }
+  .nav-toggle:hover { border-color: var(--accent); color: var(--accent-text); }
+  .nav-toggle svg { width: 16px; height: 16px; }
+  .nav-toggle .icon-close { display: none; }
+  .nav-toggle.is-open .icon-menu { display: none; }
+  .nav-toggle.is-open .icon-close { display: block; }
   .theme-toggle {
     width: 30px; height: 30px; border-radius: 2px; border: 1px solid var(--subtle-strong);
     background: transparent; color: var(--muted); cursor: pointer;
@@ -288,7 +304,18 @@
     .exp-item, .edu-item { grid-template-columns: 1fr; }
     .exp-meta { text-align: left; }
     .contact-wrapper { padding: 2rem 1.5rem; }
-    .nav-links { display: none; }
+    .nav-toggle { display: flex; }
+    .nav-links {
+      display: none; flex-direction: column; gap: 0; list-style: none;
+      position: absolute; top: 58px; left: 0; right: 0;
+      background: var(--nav-bg); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--subtle);
+      padding: 0.25rem 2rem 0.75rem;
+    }
+    .nav-links.is-open { display: flex; }
+    .nav-links li { border-bottom: 1px solid var(--subtle); }
+    .nav-links li:last-child { border-bottom: none; }
+    .nav-links a { display: block; padding: 0.85rem 0; }
     .awards-strip { grid-template-columns: 1fr; gap: 1.25rem; }
     .award-stat { border-left: none; border-top: 1px solid var(--subtle); padding: 1.1rem 0 0; }
     .award-stat:first-child { border-top: none; padding-top: 0; }
@@ -300,7 +327,7 @@
 <nav>
   <a href="#inicio" class="nav-logo">Paula Otero</a>
   <div class="nav-right">
-    <ul class="nav-links">
+    <ul class="nav-links" id="nav-links">
       <li><a href="#sobre-mi">About</a></li>
       <li><a href="#experiencia">Experience</a></li>
       <li><a href="#proyectos">Projects</a></li>
@@ -311,6 +338,10 @@
     <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light / dark theme" title="Toggle theme">
       <svg class="icon-sun" viewBox="0 0 20 20" fill="currentColor"><path d="M10 4a1 1 0 011-1V2a1 1 0 10-2 0v1a1 1 0 011 1zm0 12a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zm14 0a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.64 5.64a1 1 0 010-1.41l-.71-.71a1 1 0 10-1.41 1.41l.7.71a1 1 0 001.42 0zm9.9 9.9a1 1 0 010-1.41l.7-.71a1 1 0 111.42 1.41l-.71.71a1 1 0 01-1.41 0zM5.64 14.36a1 1 0 00-1.41 0l-.71.7a1 1 0 101.41 1.42l.71-.71a1 1 0 000-1.41zm9.9-9.9a1 1 0 00-1.41 0l-.71.7a1 1 0 001.41 1.42l.71-.71a1 1 0 000-1.41zM10 6a4 4 0 100 8 4 4 0 000-8z"/></svg>
       <svg class="icon-moon" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+    </button>
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+      <svg class="icon-menu" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 5a1 1 0 011-1h14a1 1 0 110 2H3a1 1 0 01-1-1zm0 5a1 1 0 011-1h14a1 1 0 110 2H3a1 1 0 01-1-1zm1 4a1 1 0 100 2h14a1 1 0 100-2H3z" clip-rule="evenodd"/></svg>
+      <svg class="icon-close" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
     </button>
   </div>
 </nav>
@@ -360,7 +391,7 @@
   <h2 class="section-title">The person behind the terminal</h2>
   <div class="about-grid">
     <div class="about-photo">
-      <img src="images/paula.jpg" alt="Paula Otero">
+      <img src="images/paula.jpg" alt="Paula Otero" loading="eager">
     </div>
     <div class="about-text">
       <p>Hi! I'm <strong>Paula</strong>, a <strong>Cybersecurity master's student</strong> currently in <strong>Madrid</strong>, with a background in <strong>Computer Science &amp; Digital Multimedia Technologies</strong> from the <strong>Universitat Politècnica de València (UPV)</strong>. I also completed an <strong>Erasmus+</strong> exchange at the <strong>University of Ljubljana</strong>, expanding my academic and international experience.</p>
@@ -424,7 +455,9 @@
         </ul>
       </div>
       <div class="exp-meta">
-        <span class="exp-date">Jul–Aug 2024<br>Jul–Aug 2025<br>Jul–Aug 2026</span>
+        <span class="exp-date">Jul–Aug 2024</span>
+        <span class="exp-date">Jul–Aug 2025</span>
+        <span class="exp-date">Jul–Aug 2026</span>
         <span class="exp-place">Valencia, Spain</span>
       </div>
     </div>
@@ -457,15 +490,15 @@
   <div class="filter-wrap">
     <p class="filter-count">Showing <span id="proj-count">11</span> projects</p>
     <div class="filter-bar" role="group" aria-label="Filter projects by category">
-      <button class="filter-btn active" data-filter="all">All</button>
-      <button class="filter-btn" data-filter="research">Research</button>
-      <button class="filter-btn" data-filter="security">Security</button>
-      <button class="filter-btn" data-filter="embedded">Embedded</button>
-      <button class="filter-btn" data-filter="ai">Computer vision</button>
-      <button class="filter-btn" data-filter="creative">Creative</button>
-      <button class="filter-btn" data-filter="python">Python</button>
-      <button class="filter-btn" data-filter="java">Java Android</button>
-      <button class="filter-btn" data-filter="web">Web</button>
+      <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
+      <button class="filter-btn" data-filter="research" aria-pressed="false">Research</button>
+      <button class="filter-btn" data-filter="security" aria-pressed="false">Security</button>
+      <button class="filter-btn" data-filter="embedded" aria-pressed="false">Embedded</button>
+      <button class="filter-btn" data-filter="ai" aria-pressed="false">Computer vision</button>
+      <button class="filter-btn" data-filter="creative" aria-pressed="false">Creative</button>
+      <button class="filter-btn" data-filter="python" aria-pressed="false">Python</button>
+      <button class="filter-btn" data-filter="java" aria-pressed="false">Java Android</button>
+      <button class="filter-btn" data-filter="web" aria-pressed="false">Web</button>
     </div>
   </div>
 
@@ -479,7 +512,7 @@
     <!-- TFG V2X - research, python -->
     <a class="project-card" data-tags="research python ai">
       <div class="project-img" style="background:#0D1B2A; color:#60A5FA;">
-        <img src="images/tfg.png" alt="TFG V2X YOLO" style="width:100%; height:100%; object-fit:cover;">
+        <img src="images/tfg.png" alt="TFG V2X YOLO" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
         <p class="project-cat" style="color:#7FA8D9;">Research · Embedded AI · V2X Communications</p>
@@ -506,7 +539,7 @@
     <!-- StreamCarbon - research, python (FEATURED first) -->
     <a href="streamcarbon.html" class="project-card" data-tags="research python">
       <div class="project-img" style="background:#0D2B1F; color:#4ADE80;">
-        <img src="images/methodology.png" alt="E2E-StreamCarbon poster" style="width:100%; height:100%; object-fit:cover;">
+        <img src="images/methodology.png" alt="E2E-StreamCarbon poster" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
         <p class="project-cat" style="color:var(--green);">Research · Sustainable Computing · ICT4S 2026</p>
@@ -533,7 +566,7 @@
     <!-- DRM - security, python -->
     <a href="drm.html" class="project-card" data-tags="security python">
       <div class="project-img">
-        <img src="images/drm.png" alt="DRM system architecture" style="width:100%; height:100%; object-fit:cover;">
+        <img src="images/drm.png" alt="DRM system architecture" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
         <p class="project-cat">Cybersecurity · DRM</p>
@@ -558,7 +591,7 @@
     <!-- X-Ray - ai, security -->
     <a href="xray.html" class="project-card" data-tags="ai python">
       <div class="project-img" style="background:#151C19;color:#6E9C86;">
-        <img src="images/xray.png" alt="XRAY project YOLO" style="width:100%; height:100%; object-fit:cover;">
+        <img src="images/xray.png" alt="XRAY project YOLO" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
         <p class="project-cat" style="color:#6E9C86;">Computer Vision · Deep Learning</p>
@@ -576,7 +609,7 @@
     <!-- M5Stack - embedded -->
     <a href="m5stack.html" class="project-card" data-tags="embedded">
       <div class="project-img" style="background:#1A1A2E;color:#9999BB;">
-        <img src="images/m5stack.png" alt="M5Stack Suzanne Controller" style="width:100%; height:100%; object-fit:cover;">
+        <img src="images/m5stack.png" alt="M5Stack Suzanne Controller" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
         <p class="project-cat">Embedded Systems · M5Stack-FIRE · OSC</p>
@@ -601,7 +634,7 @@
     <!-- Café Bill - python -->
     <a href="cafebill.html" class="project-card" data-tags="java">
       <div class="project-img" style="background:#1A0A0A;color:#E8735A;">
-        <img src="images/cafebill_splash_1.jpg" alt="Café Bill Android app" style="width:100%; height:100%; object-fit:cover;">
+        <img src="images/cafebill_splash_1.jpg" alt="Café Bill Android app" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
         <p class="project-cat">Android App · UPV</p>
@@ -623,7 +656,7 @@
     <!-- Short film - creative -->
     <a href="shortfilm.html" class="project-card" data-tags="creative">
       <div class="project-img" style="background:#1A1A2E;color:#9999BB;">
-        <img src="images/poligala.JPG" alt="Poligala short film presentation" style="width:100%; height:100%; object-fit:cover;">
+        <img src="images/poligala.JPG" alt="Poligala short film presentation" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
         <p class="project-cat">Filmmaking · Adobe Premiere</p>
@@ -644,7 +677,7 @@
     <!-- ACM - web (no link, site no longer live) -->
     <div class="project-card" data-tags="web" style="cursor:default;">
       <div class="project-img">
-        <img src="images/acm.png" alt="ACM UPV Chapter Logo" style="width:100%; height:100%; object-fit:cover;">
+        <img src="images/acm.png" alt="ACM UPV Chapter Logo" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
         <p class="project-cat">Web · ACM UPV Chapter</p>
@@ -661,7 +694,7 @@
     <!-- Blender - creative -->
     <a href="blender.html" class="project-card" data-tags="creative">
       <div class="project-img" style="background:#241A0E;color:#C98A4B;">
-        <img src="images/cave_interior.png" alt="Blender cave" style="width:100%; height:100%; object-fit:cover;">
+        <img src="images/cave_interior.png" alt="Blender cave" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
         <p class="project-cat" style="color:#C98A4B;">3D Modelling · Animation · Graphic Design</p>
@@ -685,7 +718,7 @@
     <!-- Embedded Music - embedded -->
     <a href="embeddedmusic.html" class="project-card" data-tags="embedded">
       <div class="project-img" style="background:#161A2E;color:#8B93D9;">
-        <img src="images/embedded_music.png" alt="Embedded musical generator system" style="width:100%; height:100%; object-fit:cover;">
+        <img src="images/embedded_music.png" alt="Embedded musical generator system" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
         <p class="project-cat" style="color:#8B93D9;">Embedded Systems · Arduino · ESP32</p>
@@ -710,7 +743,7 @@
     <!-- Password Tool - security, python -->
     <a href="passwordtool.html" class="project-card" data-tags="security python">
       <div class="project-img" style="background:#171B1F;color:#8FA0AC;">
-        <img src="images/passwordtool.png" alt="Password Generator &amp; Encryption Tool" style="width:100%; height:100%; object-fit:cover;">
+        <img src="images/passwordtool.png" alt="Password Generator &amp; Encryption Tool" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
         <p class="project-cat">Python · Security · UPV</p>
@@ -733,7 +766,7 @@
     <!-- PROMU - python -->
     <a href="promu.html" class="project-card" data-tags="python">
       <div class="project-img" style="background:#241A0E;color:#C98A4B;">
-        <img src="images/guizero.png" alt="Desktop app" style="width:100%; height:100%; object-fit:cover;">
+        <img src="images/guizero.png" alt="Desktop app" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
         <p class="project-cat">Interdisciplinary · Python · User interface</p>
@@ -757,7 +790,7 @@
     <!-- Short film - creative -->
     <a href="https://youtu.be/fFtbxEHq4Sc?si=67c8W6skLAk_0Wp6" rel="noopener noreferrer" target="_blank" class="project-card" data-tags="creative">
       <div class="project-img" style="background:#1A1A2E;color:#9999BB;">
-        <img src="images/capefear.png" alt="Cape Fear thumbnail" style="width:100%; height:100%; object-fit:cover;">
+        <img src="images/capefear.png" alt="Cape Fear thumbnail" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
         <p class="project-cat">Film analysis· Video essay</p>
@@ -831,7 +864,7 @@
           <li>Volunteered as an Erasmus mentor, supporting international students during their integration.</li>
           <li>ARA Mention (High Academic Performance) / Mención ARA (Alto Rendimiento Académico)</li>
           <li>Awarded for achieving the highest GPA in the graduating class.</li>
-          <li>Achieved Highest Honours in over >35% of all program credits/coursework. </li>
+          <li>Achieved Highest Honours in over 35% of all program credits/coursework.</li>
         </ul>
       </div>
       <div class="exp-meta">
@@ -1033,8 +1066,9 @@
   // ── Wire up buttons ──────────────────────────────────────
   buttons.forEach(btn => {
     btn.addEventListener('click', () => {
-      buttons.forEach(b => b.classList.remove('active'));
+      buttons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-pressed', 'false'); });
       btn.classList.add('active');
+      btn.setAttribute('aria-pressed', 'true');
       applyFilter(btn.dataset.filter);
     });
   });
@@ -1129,6 +1163,29 @@
   window.addEventListener('resize', init);
   init();
   setInterval(draw, 40);
+})();
+</script>
+
+<!-- MOBILE NAV TOGGLE -->
+<script>
+(function(){
+  const navToggle = document.getElementById('nav-toggle');
+  const navLinks = document.getElementById('nav-links');
+  if (!navToggle || !navLinks) return;
+
+  function closeMenu() {
+    navToggle.classList.remove('is-open');
+    navLinks.classList.remove('is-open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }
+
+  navToggle.addEventListener('click', () => {
+    const isOpen = navLinks.classList.toggle('is-open');
+    navToggle.classList.toggle('is-open', isOpen);
+    navToggle.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
 })();
 </script>
 
