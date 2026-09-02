@@ -3,6 +3,15 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<script>
+  (function () {
+    try {
+      if (localStorage.getItem('theme') !== 'light') {
+        document.documentElement.setAttribute('data-theme', 'dark');
+      }
+    } catch (e) {}
+  })();
+</script>
 <title>E2E-StreamCarbon - Paula Otero Paños</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
 <style>
@@ -18,14 +27,40 @@
     --green: #0E6E56;
     --green-light: #E1F5EE;
     --green-mid: #A3D9C8;
+    --nav-bg: rgba(247,246,242,0.92);
   }
+
+  [data-theme="dark"] {
+    --bg: #17181C;
+    --surface: #1F2126;
+    --text: #EDEEF0;
+    --muted: #9B9DA6;
+    --subtle: #32353F;
+    --nav-bg: rgba(23,24,28,0.86);
+    --accent: #718AD6;
+    --accent-light: #18213A;
+    --accent-mid: #374886;
+    --green: #71D6BC;
+    --green-light: #183A2E;
+    --green-mid: #37866D;
+  }
+
+  [data-theme="dark"] .screenshot-img.gray { background: #262931; color: var(--muted); }
+  [data-theme="dark"] .tag-tech { background: #262931; color: #C7C9D1; }
+  [data-theme="dark"] .team-chip { background: #262931; color: #C7C9D1; }
+  [data-theme="dark"] code { background: #262931; }
+  [data-theme="dark"] code[style] { background: #262931 !important; color: #EDEEF0 !important; }
+  [data-theme="dark"] .theme-toggle .icon-sun { display: none; }
+  [data-theme="dark"] .theme-toggle .icon-moon { display: block; }
+  html { transition: background 0.2s; }
+  body { transition: background 0.2s, color 0.2s; }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html { scroll-behavior: smooth; }
   body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.7; }
 
   nav {
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
-    background: rgba(247,246,242,0.92); backdrop-filter: blur(14px);
+    background: var(--nav-bg); backdrop-filter: blur(14px);
     border-bottom: 1px solid var(--subtle);
     padding: 0 2.5rem; height: 58px;
     display: flex; align-items: center; justify-content: space-between;
@@ -33,6 +68,10 @@
   .nav-logo { font-family: 'DM Serif Display', serif; font-size: 1.05rem; color: var(--text); text-decoration: none; }
   .nav-back { font-size: 0.82rem; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; transition: color 0.2s; }
   .nav-back:hover { color: var(--green); }
+  .theme-toggle { width: 30px; height: 30px; border-radius: 2px; border: 1px solid var(--subtle); background: transparent; color: var(--muted); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: border-color 0.2s, color 0.2s; flex-shrink: 0; }
+  .theme-toggle:hover { border-color: var(--accent); color: var(--accent); }
+  .theme-toggle svg { width: 15px; height: 15px; }
+  .theme-toggle .icon-moon { display: none; }
   .nav-back svg { width: 14px; height: 14px; }
 
   .page { max-width: 760px; margin: 0 auto; padding: 6rem 2rem 5rem; }
@@ -43,7 +82,7 @@
   .badge { display: inline-block; padding: 0.25rem 0.75rem; border-radius: 2px; font-size: 0.75rem; font-weight: 500; }
   .badge-green  { background: var(--green-light); color: var(--green); border: 1px solid var(--green-mid); }
   .badge-blue   { background: var(--accent-light); color: var(--accent); border: 1px solid var(--accent-mid); }
-  .badge-dark   { background: var(--text); color: white; }
+  .badge-dark   { background: #14151A; color: #fff; }
 
   .project-eyebrow { display: flex; align-items: center; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap; }
   .project-title { font-family: 'DM Serif Display', serif; font-size: clamp(1.8rem, 5vw, 2.8rem); letter-spacing: -0.025em; line-height: 1.1; margin-bottom: 1.25rem; }
@@ -152,10 +191,16 @@
 
 <nav>
   <a href="index.html" class="nav-logo">Paula Otero</a>
-  <a href="index.html" class="nav-back">
-    <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg>
-    Back to portfolio
-  </a>
+  <div class="nav-right" style="display:flex; align-items:center; gap:1.25rem;">
+    <a href="index.html" class="nav-back">
+      <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M9.707 16.707a1 1 0 01-1.414 0l-6-6a1 1 0 010-1.414l6-6a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l4.293 4.293a1 1 0 010 1.414z" clip-rule="evenodd"/></svg>
+      Back to portfolio
+    </a>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light / dark theme" title="Toggle theme">
+      <svg class="icon-sun" viewBox="0 0 20 20" fill="currentColor"><path d="M10 4a1 1 0 011-1V2a1 1 0 10-2 0v1a1 1 0 011 1zm0 12a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zm14 0a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.64 5.64a1 1 0 010-1.41l-.71-.71a1 1 0 10-1.41 1.41l.7.71a1 1 0 001.42 0zm9.9 9.9a1 1 0 010-1.41l.7-.71a1 1 0 111.42 1.41l-.71.71a1 1 0 01-1.41 0zM5.64 14.36a1 1 0 00-1.41 0l-.71.7a1 1 0 101.41 1.42l.71-.71a1 1 0 000-1.41zm9.9-9.9a1 1 0 00-1.41 0l-.71.7a1 1 0 001.41 1.42l.71-.71a1 1 0 000-1.41zM10 6a4 4 0 100 8 4 4 0 000-8z"/></svg>
+      <svg class="icon-moon" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
+    </button>
+  </div>
 </nav>
 
 <div class="page">
@@ -540,5 +585,21 @@
   </div>
 
 </div><!-- /.page -->
+<script>
+(function(){
+  const btn = document.getElementById('theme-toggle');
+  if (!btn) return;
+  btn.addEventListener('click', () => {
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (isDark) {
+      document.documentElement.removeAttribute('data-theme');
+      try { localStorage.setItem('theme', 'light'); } catch (e) {}
+    } else {
+      document.documentElement.setAttribute('data-theme', 'dark');
+      try { localStorage.setItem('theme', 'dark'); } catch (e) {}
+    }
+  });
+})();
+</script>
 </body>
 </html>
