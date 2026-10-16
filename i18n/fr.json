@@ -1,0 +1,323 @@
+{
+  "meta": {
+    "description": "Paula Otero Paños - Étudiante en master de cybersécurité, avec une formation en informatique et technologies numériques et multimédias, axée sur la cybersécurité, les systèmes et l'informatique durable.",
+    "ogDescription": "Étudiante en master de cybersécurité"
+  },
+  "nav": {
+    "about": "À propos",
+    "experience": "Expérience",
+    "projects": "Projets",
+    "education": "Formation",
+    "certs": "Certificats",
+    "contact": "Contact",
+    "themeAria": "Basculer entre thème clair et sombre",
+    "themeTitle": "Changer de thème",
+    "menuAria": "Ouvrir ou fermer le menu de navigation",
+    "langLabel": "Langue"
+  },
+  "hero": {
+    "name": "Salut ! Moi c'est<br><em>Paula.</em>",
+    "tagline": "Étudiante en master passionnée par la cybersécurité et les télécommunications",
+    "location": "Actuellement à Madrid, Espagne · Originaire de Valence, Espagne · Erasmus à Ljubljana, Slovénie",
+    "seeWork": "Voir mes projets",
+    "getInTouch": "Me contacter",
+    "downloadCv": "Télécharger le CV",
+    "award1": {
+      "title": "Meilleur dossier académique",
+      "sub": "PRIX · UNIV. POLYTECHNIQUE DE VALENCE"
+    },
+    "award2": {
+      "title": "9,83 / 10",
+      "sub": "MOYENNE · ERASMUS, LJUBLJANA"
+    },
+    "award3": {
+      "title": "Mention ARA",
+      "sub": "HAUTES PERFORMANCES ACADÉMIQUES"
+    }
+  },
+  "scribble": {
+    "eyebrow": "À propos de moi",
+    "heading": "La personne derrière le terminal",
+    "polaroid1": "petite moi",
+    "polaroid2": "en pleine présentation",
+    "polaroid3": "remise de diplôme"
+  },
+  "about": {
+    "bio1": "Salut ! Moi, c'est <strong>Paula</strong>, <strong>étudiante du master en cybersécurité</strong>, qui vit actuellement à <strong>Madrid</strong>. Je suis diplômée en <strong>technologie numérique et multimédia</strong> de l'<strong>Universitat Politècnica de València (UPV)</strong>. J'ai aussi effectué un échange <strong>Erasmus+</strong> à l'<strong>Université de Ljubljana</strong>, ce qui a élargi mon expérience académique et internationale.",
+    "bio2": "J'adore comprendre le fonctionnement des systèmes complexes, des réseaux et systèmes d'exploitation jusqu'aux logiciels sûrs et efficaces.",
+    "bio3": "En dehors des études, je me suis activement investie dans plusieurs associations étudiantes, dont <strong>ACM UPV Chapter</strong>, Poliwood et Toma Uno. J'ai aussi été bénévole comme mentor Erasmus, j'ai représenté l'Université de Ljubljana au salon Erasmus de la faculté et j'ai co-rédigé un article de recherche et un poster présentés à la <strong>conférence ICT4S</strong> à Berne, en Suisse. J'aime prendre des initiatives, collaborer avec les autres et transformer les idées en solutions concrètes.",
+    "techTitle": "Compétences techniques",
+    "tech": {
+      "networking": "Réseaux",
+      "cryptographyBasics": "Cryptographie",
+      "commandLine": "Ligne de commande",
+      "energyProfiling": "Profilage énergétique",
+      "visualComputing": "Vision par ordinateur"
+    },
+    "interestsTitle": "Centres d'intérêt académiques",
+    "interests": {
+      "cybersecurity": "Cybersécurité",
+      "socialEngineering": "Ingénierie sociale",
+      "organizationalSecurity": "Sécurité organisationnelle",
+      "sustainableComputing": "Informatique durable",
+      "systemsEfficiency": "Efficacité des systèmes"
+    },
+    "languagesTitle": "Langues",
+    "languages": {
+      "spanish": "Espagnol - Langue maternelle",
+      "english": "Anglais - Courant (C1 Cambridge)"
+    }
+  },
+  "experience": {
+    "label": "Expérience",
+    "title": "Où j'ai travaillé",
+    "jobs": {
+      "sabadell": {
+        "role": "Analyste en banque d'entreprises",
+        "bullet1": "Gestion d'opérations financières pour de grands clients entreprises.",
+        "bullet2": "Traitement d'opérations internationales et nationales, dont des virements SWIFT.",
+        "bullet3": "Respect des procédures bancaires internes et des protocoles de sécurité."
+      },
+      "upvIt": {
+        "role": "Technicienne de support informatique",
+        "org": "Université polytechnique de Valence (UPV)",
+        "bullet1": "Assistance technique sur les systèmes d'exploitation, les problèmes réseau et le dépannage matériel et logiciel.",
+        "bullet2": "Installation et configuration de systèmes informatiques pour les salles de cours et les laboratoires.",
+        "bullet3": "Participation à la maintenance de l'infrastructure informatique de l'université et à la résolution des incidents du helpdesk."
+      }
+    }
+  },
+  "projects": {
+    "label": "Projets",
+    "title": "Ce que j'ai construit et étudié",
+    "empty": "Aucun projet dans cette catégorie pour le moment.",
+    "items": {
+      "tfg": {
+        "cat": "Recherche · IA embarquée · Communications V2X",
+        "title": "Analyse des performances de calcul et énergétiques d'algorithmes de détection d'objets dans les communications véhiculaires V2X",
+        "badge": "Mémoire de licence · UPV · 2025/2026",
+        "desc": "Évaluation de bout en bout de YOLOv8, YOLO11 et YOLO26 pour la perception collective dans des scénarios vehicle-to-everything (V2X). Compare la qualité de détection, la latence d'inférence, la puissance du GPU et les FLOPs matériels réels (via les compteurs Linux perf/AVX2) selon trois stratégies de transmission : PNG brut, compression JPEG et messages sémantiques CPM.",
+        "tags": {
+          "energyModelling": "Modélisation énergétique"
+        }
+      },
+      "streamCarbon": {
+        "cat": "Recherche · Informatique durable · ICT4S 2026",
+        "title": "E2E-StreamCarbon : mesurer l'empreinte carbone du streaming vidéo",
+        "badge": "Publié · Congrès ICT4S 2026 - Berne, Suisse",
+        "desc": "Cadre de bout en bout pour mesurer la consommation d'énergie et l'empreinte carbone du streaming vidéo. Couvre le transcodage côté serveur, la transmission réseau et la lecture côté client avec quatre codecs (H.264, H.265, VP9, AV1) et trois résolutions. Comprend une extension de navigateur qui visualise en temps réel les émissions de CO₂ pendant la lecture sur YouTube.",
+        "tags": {
+          "videoCodecs": "Codecs vidéo",
+          "browserExtension": "Extension de navigateur"
+        }
+      },
+      "drm": {
+        "cat": "Cybersécurité · DRM",
+        "title": "Système de gestion des droits numériques (DRM)",
+        "desc": "Conception et implémentation from scratch d'une architecture DRM sécurisée comprenant un serveur de contenu, un serveur de licences et une interface de gestion. Utilisation d'un chiffrement hybride (RSA + AES-128), d'un tatouage numérique pour la traçabilité des contenus et de signatures numériques pour valider les demandes de licence.",
+        "tags": {
+          "digitalSignatures": "Signatures numériques",
+          "watermarking": "Tatouage numérique"
+        }
+      },
+      "xray": {
+        "cat": "Vision par ordinateur · Apprentissage profond",
+        "title": "Détection d'objets dans les bagages par rayons X",
+        "badge": "YOLOv11m · 90,8 % mAP@0.5 · +17,7 pp par rapport à l'état de l'art précédent",
+        "desc": "Pipeline de prétraitement et évaluation comparative de YOLOv11 (n, m, l, x) sur le jeu de données de sécurité aéroportuaire HiXray. Notre YOLOv11m a surpassé tous les modèles de référence spécifiques au domaine de plus de 17 points de pourcentage."
+      },
+      "blenderM5": {
+        "cat": "Systèmes embarqués · M5Stack-FIRE · OSC",
+        "title": "Contrôleur d'objets Blender avec M5Stack et OSC",
+        "desc": "Système interactif qui utilise le gyroscope et les boutons d'un M5Stack-FIRE pour contrôler un objet 3D Blender en temps réel via des messages OSC. Trois modes (couleur, taille et rotation) pilotés par des données de capteurs en direct (lacet, tangage, roulis), avec TouchOSC comme interface de retour visuel."
+      },
+      "cafeBill": {
+        "cat": "Application Android · UPV",
+        "title": "Café Bill - Application Android de commande",
+        "desc": "Application Android de gestion des commandes d'une cafétéria : enregistrement des clients, sélection des articles avec contrôle des quantités, génération du reçu à l'écran et export PDF. Développée en Java pour Android au sein d'une équipe de 4 personnes.",
+        "tags": {
+          "pdfGeneration": "Génération de PDF"
+        }
+      },
+      "polireto": {
+        "cat": "Réalisation de films · Adobe Premiere",
+        "title": "Court métrage Polireto",
+        "desc": "Écriture et montage d'un court métrage pour le concours Polireto, le concours interne de cinéma de POLIWOOD UPV. Présenté en avant-première à la cérémonie Poligala dans l'auditorium de l'ETSIT. Collaboration avec les équipes VFX, son et les comédiens.",
+        "tags": {
+          "scriptwriting": "Écriture de scénario",
+          "videoEditing": "Montage vidéo",
+          "vfxCollaboration": "Collaboration VFX"
+        }
+      },
+      "acmWeb": {
+        "title": "ACM UPV Chapter - Maintenance du site web",
+        "desc": "Responsable en 2024–2025 de la maintenance et des mises à jour continues du site web officiel d'ACM UPV Chapter, en gardant le contenu à jour et la plateforme en bon état de marche pour la communauté informatique de l'université.",
+        "tags": {
+          "webMaintenance": "Maintenance web"
+        }
+      },
+      "secretCave": {
+        "cat": "Modélisation 3D · Animation · Design graphique",
+        "title": "Grotte secrète - Blender",
+        "desc": "Pipeline complet, du concept art 2D du personnage (croquis → encrage → peinture numérique → model sheet) jusqu'à une scène Blender entièrement animée : la grotte secrète d'un super-héros avec cycles de marche, trajectoires de caméra cinématographiques, simulation d'eau, herbe procédurale et un rayon laser qui modifie l'éclairage de la grotte en temps réel.",
+        "tags": {
+          "clothPhysics": "Physique des tissus",
+          "characterAnimation": "Animation de personnages"
+        }
+      },
+      "musicGen": {
+        "cat": "Systèmes embarqués · Arduino · ESP32",
+        "title": "Générateur musical embarqué sans fil",
+        "desc": "Système à double microcontrôleur pour la création de mélodies en temps réel, leur stockage et leur lecture à distance. Un Arduino Mega gère l'interaction via un encodeur rotatif et un écran LCD ; un ESP32 héberge un point d'accès WiFi et un serveur web. Communication UART, stockage SPIFFS, logique d'états de bas niveau.",
+        "tags": {
+          "wifiServer": "Serveur WiFi"
+        }
+      },
+      "passwordTool": {
+        "cat": "Python · Sécurité · UPV",
+        "title": "Générateur de mots de passe et outil de chiffrement de fichiers",
+        "desc": "Application CLI en Python combinant génération sécurisée de mots de passe, validation de conformité et chiffrement/déchiffrement de fichiers ASCII au niveau des caractères. Entièrement testée avec des suites pytest paramétrées sur les quatre modules.",
+        "tags": {
+          "asciiEncryption": "Chiffrement ASCII",
+          "fileIO": "E/S de fichiers"
+        }
+      },
+      "jumpWorld": {
+        "cat": "Interdisciplinaire · Python · Interface utilisateur",
+        "title": "Super Jump World - Analyseur de sauts",
+        "desc": "Projet interdisciplinaire couvrant 4 matières, intégrant dans une seule application une interface de bureau Python, un protocole TCP personnalisé, du traitement numérique du signal et la biomécanique du saut ; il analyse de vrais sauts humains via l'accéléromètre d'un smartphone avec 3 % d'erreur par rapport à la validation vidéo avec Tracker.",
+        "tags": {
+          "tcpSockets": "Sockets TCP",
+          "numericalIntegration": "Intégration numérique",
+          "biomechanics": "Biomécanique"
+        }
+      },
+      "capeFear": {
+        "cat": "Analyse de film · Essai vidéo",
+        "title": "« Cape Fear » (1991) et le format écran large anamorphique",
+        "desc": "Essai vidéo analysant « Cape Fear » (1991) de Martin Scorsese et son usage du format écran large anamorphique. Explore la cinématographie, les techniques de cadrage, la tension visuelle et la façon dont le format d'image renforce l'atmosphère du film.",
+        "tags": {
+          "filmAnalysis": "Analyse de film",
+          "cinematography": "Cinématographie",
+          "anamorphic": "Anamorphique",
+          "videoEssay": "Essai vidéo"
+        }
+      }
+    },
+    "filterAria": "Filtrer les projets par catégorie"
+  },
+  "education": {
+    "label": "Formation",
+    "title": "Où j'ai étudié",
+    "items": {
+      "msc": {
+        "degree": "Master en cybersécurité",
+        "uni": "Université d'Alcalá (EPS-UAH)",
+        "bullet1": "Master en présentiel débutant lors de l'année universitaire 2026–2027."
+      },
+      "bscCs": {
+        "degree": "Licence en ingénierie informatique",
+        "uni": "Université de Ljubljana (FRI-UL)",
+        "bullet1": "Programme d'échange Erasmus, une année universitaire complète à l'étranger.",
+        "bullet2": "Cours spécialisés en informatique, génie logiciel et cybersécurité.",
+        "bullet3": "Moyenne : <strong style=\"color:var(--text)\">9,83 / 10</strong>"
+      },
+      "bscDmt": {
+        "degree": "Licence en technologie numérique et multimédia",
+        "uni": "Université polytechnique de Valence (ETSIT-UPV)",
+        "bullet1": "Axé sur la programmation, les réseaux, la sécurité et les technologies audiovisuelles.",
+        "bullet2": "Ancienne membre de PoliWood, TomaUno et ACM UPV Chapter.",
+        "bullet3": "Bénévole comme mentor Erasmus, en accompagnant les étudiants internationaux dans leur intégration.",
+        "bullet4": "Mention ARA (Hautes performances académiques) / Mención ARA (Alto Rendimiento Académico)",
+        "bullet5": "Récompensée pour avoir obtenu la meilleure moyenne de sa promotion.",
+        "bullet6": "Mention la plus élevée dans plus de 35 % des crédits du programme."
+      }
+    }
+  },
+  "certs": {
+    "label": "Certifications",
+    "title": "Licences et formations",
+    "items": {
+      "cae": {
+        "badge": "Anglais · C1"
+      },
+      "valencian": {
+        "name": "Valencien C1 - Certificat de Nivell Mitjà",
+        "badge": "Valencien · C1"
+      },
+      "ibmCyber": {
+        "name": "Premiers pas en cybersécurité",
+        "badge": "Cybersécurité"
+      },
+      "ibmAi": {
+        "name": "Premiers pas en intelligence artificielle",
+        "badge": "IA"
+      },
+      "ibmGranite": {
+        "name": "Classification et synthèse de données - IBM Granite",
+        "badge": "IA · Données"
+      },
+      "edxSql": {
+        "name": "Introduction à SQL et aux bases de données relationnelles",
+        "badge": "Bases de données"
+      },
+      "edxCyber": {
+        "name": "Fondamentaux de la cybersécurité pour les utilisateurs",
+        "badge": "Cybersécurité"
+      },
+      "santanderAi": {
+        "name": "Intelligence artificielle et productivité",
+        "badge": "IA · Productivité"
+      },
+      "edxMarketing": {
+        "name": "Marketing digital sur les réseaux sociaux",
+        "badge": "Marketing digital"
+      },
+      "sabadellTraining": {
+        "name": "Certificat de formation interne de Banco Sabadell",
+        "badge": "Banque"
+      }
+    }
+  },
+  "contact": {
+    "label": "Contact",
+    "title": "Parlons-en",
+    "intro": "Je suis ouverte aux stages, aux collaborations de recherche et aux projets intéressants, surtout ceux touchant à la cybersécurité et à l'informatique durable. Écris-moi et je te répondrai.",
+    "downloadCv": "Télécharger le CV (PDF)"
+  },
+  "places": {
+    "valenciaSpain": "Valence, Espagne",
+    "madridSpain": "Madrid, Espagne",
+    "ljubljanaSlovenia": "Ljubljana, Slovénie"
+  },
+  "filters": {
+    "all": "Tous",
+    "research": "Recherche",
+    "security": "Sécurité",
+    "embedded": "Embarqué",
+    "ai": "Vision par ordinateur",
+    "creative": "Créatif"
+  },
+  "ui": {
+    "showing": "{n} projets affichés",
+    "showAll": "Afficher les {n} projets",
+    "showFewer": "Afficher moins de projets"
+  },
+  "dates": {
+    "idLabel": "ID :",
+    "months": {
+      "Jan": "Janv.",
+      "Feb": "Févr.",
+      "Mar": "Mars",
+      "Apr": "Avr.",
+      "May": "Mai",
+      "Jun": "Juin",
+      "Jul": "Juil.",
+      "Aug": "Août",
+      "Sept": "Sept.",
+      "Oct": "Oct.",
+      "Nov": "Nov.",
+      "Dec": "Déc."
+    }
+  }
+}

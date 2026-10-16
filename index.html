@@ -3,13 +3,13 @@
 <head>
 <meta charset="UTF-8">
 
-<meta name="description" content="Paula Otero Paños — Cybersecurity master's student with a background in Computer Science & Digital Multimedia Technologies, focused on cybersecurity, systems and sustainable computing.">
+<meta name="description" data-i18n-attr="content:meta.description" content="Paula Otero Paños - Cybersecurity master's student with a background in Computer Science & Telecomunicaciones, focused on cybersecurity, systems and sustainable computing.">
 <link rel="canonical" href="https://oteropaula.github.io/">
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231B3FAB'/%3E%3Ctext x='50' y='69' font-family='Georgia, serif' font-size='58' fill='white' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
 
 <!-- Open Graph for LinkedIn preview -->
 <meta property="og:title" content="Paula Otero Paños" />
-<meta property="og:description" content="Computer Science & Digital Multimedia Technologies student focused on cybersecurity, systems and sustainable computing." />
+<meta property="og:description" data-i18n-attr="content:meta.ogDescription" content="Cybersecurity master's student" />
 <meta property="og:image" content="https://oteropaula.github.io/images/banner.png" />
 <meta property="og:url" content="https://oteropaula.github.io/" />
 <meta property="og:type" content="website" />
@@ -23,6 +23,39 @@
         document.documentElement.setAttribute('data-theme', 'light');
       }
     } catch (e) {}
+  })();
+</script>
+<script>
+  // ── Language configuration + initial language (runs before first paint) ──
+  // English is the default and lives in the HTML; the other languages are loaded from i18n/<lang>.json.
+  window.I18N_CONFIG = {
+    langs: ['en', 'es', 'fr', 'de'],
+    fallback: 'en',              // language written in the HTML
+    path: 'i18n/',               // folder with es.json, fr.json, de.json
+    detectBrowserLang: false     // true → first-time visitors get their browser language if we support it
+  };
+  (function () {
+    var c = window.I18N_CONFIG, lang = c.fallback;
+    try {
+      var q = new URLSearchParams(location.search).get('lang');
+      var saved = localStorage.getItem('lang');
+      if (c.langs.indexOf(q) > -1) lang = q;
+      else if (c.langs.indexOf(saved) > -1) lang = saved;
+      else if (c.detectBrowserLang) {
+        var prefs = navigator.languages || [navigator.language];
+        for (var i = 0; i < prefs.length; i++) {
+          var p = String(prefs[i]).slice(0, 2).toLowerCase();
+          if (c.langs.indexOf(p) > -1) { lang = p; break; }
+        }
+      }
+    } catch (e) {}
+    c.initial = lang;
+    document.documentElement.lang = lang;
+    if (lang !== c.fallback) {
+      // Hide the page until the translation is applied, so non-English visitors never see a flash of English
+      document.documentElement.classList.add('i18n-pending');
+      setTimeout(function () { document.documentElement.classList.remove('i18n-pending'); }, 2500);
+    }
   })();
 </script>
 <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
@@ -65,6 +98,9 @@
     --green-mid: #BFE3D6;
     --nav-bg: rgba(247,246,242,0.9);
   }
+
+  /* Non-English visitors: hide the page until the translation is applied (removed by the i18n script) */
+  html.i18n-pending body { visibility: hidden; }
 
   html { transition: background 0.2s; }
   body { transition: background 0.2s, color 0.2s; }
@@ -118,12 +154,14 @@
   .label { font-family: 'DM Sans', sans-serif; font-size: 0.68rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent-text); font-weight: 500; margin-bottom: 0.65rem; }
   /*.section-title { font-family: 'DM Serif Display', serif; font-weight: 400; font-size: 2rem; letter-spacing: -0.01em; line-height: 1.2; margin-bottom: 2rem; color: var(--text); }*/
   .section-title {
-    font-family: 'Caveat', cursive;
-    font-weight: 700;
-    font-size: clamp(2.2rem, 6vw, 3.4rem);
-    letter-spacing: 0;
+    font-family: 'DM Serif Display', serif;
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(2rem, 5.5vw, 2.8rem);
+    letter-spacing: -0.01em;
     line-height: 1.15;
     margin-bottom: 2rem;
+    color: var(--text);
   }
   /* HERO */
   #inicio {
@@ -152,7 +190,7 @@
   .btn-cv:hover { background: var(--accent-light); }
   .btn-cv svg { width: 13px; height: 13px; flex-shrink: 0; }
 
-  /* AWARDS — equal-width stat blocks instead of uneven pills */
+  /* AWARDS - equal-width stat blocks instead of uneven pills */
   .awards-strip {
     display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
     margin-top: 3.5rem; padding-top: 2.25rem; border-top: 1px solid var(--subtle);
@@ -172,7 +210,7 @@
   .about-text p { font-size: 0.975rem; color: var(--muted); margin-bottom: 1rem; font-weight: 300; line-height: 1.85; }
   .about-text p strong { color: var(--text); font-weight: 500; }
 
-  /* skills — compact inline flow instead of stacked tag clouds */
+  /* skills - compact inline flow instead of stacked tag clouds */
   .skills-cols {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -436,6 +474,37 @@
   }
   
 
+
+  /* ─── LANGUAGE SWITCHER ──────────────────────────────── */
+  .lang-switch { position: relative; flex-shrink: 0; }
+  .lang-toggle {
+    height: 30px; padding: 0 0.6rem; border-radius: 2px; border: 1px solid var(--subtle-strong);
+    background: transparent; color: var(--muted); cursor: pointer;
+    display: flex; align-items: center; gap: 0.4rem;
+    font-family: 'DM Sans', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .lang-toggle:hover, .lang-toggle[aria-expanded="true"] { border-color: var(--accent); color: var(--accent-text); }
+  .lang-toggle svg { width: 14px; height: 14px; flex-shrink: 0; }
+  .lang-menu {
+    position: absolute; top: calc(100% + 10px); right: 0; min-width: 160px; list-style: none;
+    background: var(--surface); border: 1px solid var(--subtle-strong); border-radius: 2px;
+    padding: 0.3rem; display: none; z-index: 120; box-shadow: 0 10px 28px rgba(0,0,0,0.14);
+  }
+  .lang-switch.open .lang-menu { display: block; }
+  .lang-menu button {
+    width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+    background: none; border: none; border-radius: 2px; padding: 0.5rem 0.7rem; cursor: pointer; text-align: left;
+    font-family: 'DM Sans', sans-serif; font-size: 0.82rem; color: var(--muted); transition: background 0.15s, color 0.15s;
+  }
+  .lang-menu button:hover { background: var(--accent-light); color: var(--accent-text); }
+  .lang-menu button[aria-current="true"] { color: var(--accent-text); font-weight: 500; }
+  .lang-menu .code { font-size: 0.66rem; letter-spacing: 0.1em; opacity: 0.6; }
+  @media (max-width: 620px) {
+    .nav-right { gap: 0.6rem; }
+    .lang-menu { right: -0.25rem; }
+  }
+
 </style>
 </head>
 <body>
@@ -444,18 +513,30 @@
   <a href="#inicio" class="nav-logo">Paula Otero</a>
   <div class="nav-right">
     <ul class="nav-links" id="nav-links">
-      <li><a href="#conoceme">About</a></li>
-      <li><a href="#experiencia">Experience</a></li>
-      <li><a href="#proyectos">Projects</a></li>
-      <li><a href="#educacion">Education</a></li>
-      <li><a href="#certificados">Certs</a></li>
-      <li><a href="#contacto">Contact</a></li>
+      <li><a data-i18n="nav.about" href="#conoceme">About</a></li>
+      <li><a data-i18n="nav.experience" href="#experiencia">Experience</a></li>
+      <li><a data-i18n="nav.projects" href="#proyectos">Projects</a></li>
+      <li><a data-i18n="nav.education" href="#educacion">Education</a></li>
+      <li><a data-i18n="nav.certs" href="#certificados">Certs</a></li>
+      <li><a data-i18n="nav.contact" href="#contacto">Contact</a></li>
     </ul>
-    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light / dark theme" title="Toggle theme">
+    <div class="lang-switch" id="lang-switch">
+      <button class="lang-toggle" id="lang-toggle" type="button" aria-haspopup="true" aria-expanded="false" aria-controls="lang-menu" aria-label="Language" title="Language" data-i18n-attr="aria-label:nav.langLabel;title:nav.langLabel">
+        <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" aria-hidden="true"><circle cx="10" cy="10" r="7.5"/><path d="M2.5 10h15M10 2.5c2.2 2.1 3.3 4.6 3.3 7.5s-1.1 5.4-3.3 7.5c-2.2-2.1-3.3-4.6-3.3-7.5S7.8 4.6 10 2.5z"/></svg>
+        <span id="lang-current">EN</span>
+      </button>
+      <ul class="lang-menu" id="lang-menu">
+        <li><button type="button" data-lang="en">English <span class="code">EN</span></button></li>
+        <li><button type="button" data-lang="es">Español <span class="code">ES</span></button></li>
+        <li><button type="button" data-lang="fr">Français <span class="code">FR</span></button></li>
+        <li><button type="button" data-lang="de">Deutsch <span class="code">DE</span></button></li>
+      </ul>
+    </div>
+    <button class="theme-toggle" id="theme-toggle" aria-label="Toggle light / dark theme" title="Toggle theme" data-i18n-attr="aria-label:nav.themeAria;title:nav.themeTitle">
       <svg class="icon-sun" viewBox="0 0 20 20" fill="currentColor"><path d="M10 4a1 1 0 011-1V2a1 1 0 10-2 0v1a1 1 0 011 1zm0 12a1 1 0 011 1v1a1 1 0 11-2 0v-1a1 1 0 011-1zM4 10a1 1 0 01-1 1H2a1 1 0 110-2h1a1 1 0 011 1zm14 0a1 1 0 01-1 1h-1a1 1 0 110-2h1a1 1 0 011 1zM5.64 5.64a1 1 0 010-1.41l-.71-.71a1 1 0 10-1.41 1.41l.7.71a1 1 0 001.42 0zm9.9 9.9a1 1 0 010-1.41l.7-.71a1 1 0 111.42 1.41l-.71.71a1 1 0 01-1.41 0zM5.64 14.36a1 1 0 00-1.41 0l-.71.7a1 1 0 101.41 1.42l.71-.71a1 1 0 000-1.41zm9.9-9.9a1 1 0 00-1.41 0l-.71.7a1 1 0 001.41 1.42l.71-.71a1 1 0 000-1.41zM10 6a4 4 0 100 8 4 4 0 000-8z"/></svg>
       <svg class="icon-moon" viewBox="0 0 20 20" fill="currentColor"><path d="M17.293 13.293A8 8 0 016.707 2.707a8.001 8.001 0 1010.586 10.586z"/></svg>
     </button>
-    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false" aria-controls="nav-links">
+    <button class="nav-toggle" id="nav-toggle" aria-label="Toggle navigation menu" data-i18n-attr="aria-label:nav.menuAria" aria-expanded="false" aria-controls="nav-links">
       <svg class="icon-menu" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M2 5a1 1 0 011-1h14a1 1 0 110 2H3a1 1 0 01-1-1zm0 5a1 1 0 011-1h14a1 1 0 110 2H3a1 1 0 01-1-1zm1 4a1 1 0 100 2h14a1 1 0 100-2H3z" clip-rule="evenodd"/></svg>
       <svg class="icon-close" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
     </button>
@@ -466,34 +547,34 @@
 <section id="inicio">
   <canvas id="hero-rain" style="position:absolute; top:0; left:0; width:100%; height:100%; pointer-events:none;"></canvas>
   <div style="position:relative; z-index:2; max-width:780px; margin:0 auto; padding:5rem 2rem;">
-    <h1 class="hero-name">Paula<br><em>Otero Paños</em></h1>
-    <p class="hero-tagline">
-      Master's student passionate about cybersecurity, telecommunications, intelligent systems and data analytics.
+    <h1 data-i18n="hero.name" class="hero-name">Hi! I'm<br><em>Paula.</em></h1>
+    <p data-i18n="hero.tagline" class="hero-tagline">
+      Master's student passionate about cybersecurity and telecommunications
     </p>
-    <p class="hero-location">
+    <p data-i18n="hero.location" class="hero-location">
       <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor" style="opacity:0.5"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
-      Currently in Madrid, Spain · Based in Valencia, Spain · Erasmus in Ljubljana, Slovenia
+      Currently in Madrid, Spain · From Valencia, Spain · Erasmus in Ljubljana, Slovenia
     </p>
     <div class="hero-actions">
-      <a href="#proyectos" class="btn-primary">See my work</a>
-      <a href="#contacto" class="btn-secondary">Get in touch</a>
-      <a href="presentations/paula_otero_cv.pdf" download class="btn-cv">
+      <a data-i18n="hero.seeWork" href="#proyectos" class="btn-primary">See my work</a>
+      <a data-i18n="hero.getInTouch" href="#contacto" class="btn-secondary">Get in touch</a>
+      <a data-i18n="hero.downloadCv" href="presentations/paula_otero_cv.pdf" download class="btn-cv">
         <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
         Download CV
       </a>
     </div>
     <div class="awards-strip">
       <div class="award-stat">
-        <strong>Best Academic Record</strong>
-        <span>AWARD · POLYTECHNIC UNIV. OF VALENCIA</span>
+        <strong data-i18n="hero.award1.title">Best Academic Record</strong>
+        <span data-i18n="hero.award1.sub">AWARD · POLYTECHNIC UNIV. OF VALENCIA</span>
       </div>
       <div class="award-stat">
-        <strong>9.83 / 10</strong>
-        <span>AVERAGE GRADE · ERASMUS, LJUBLJANA</span>
+        <strong data-i18n="hero.award2.title">9.83 / 10</strong>
+        <span data-i18n="hero.award2.sub">AVERAGE GRADE · ERASMUS, LJUBLJANA</span>
       </div>
       <div class="award-stat">
-        <strong>ARA Mention</strong>
-        <span>HIGH ACADEMIC PERFORMANCE</span>
+        <strong data-i18n="hero.award3.title">ARA Mention</strong>
+        <span data-i18n="hero.award3.sub">HIGH ACADEMIC PERFORMANCE</span>
       </div>
     </div>
   </div>
@@ -501,10 +582,10 @@
 
 <hr class="divider">
 
-<!-- GET TO KNOW ME — SCRIBBLE / WHITEBOARD SECTION -->
+<!-- GET TO KNOW ME - SCRIBBLE / WHITEBOARD SECTION -->
 <section id="conoceme" class="scribble-section">
-  <p class="scribble-eyebrow">About me</p>
-  <h3 class="scribble-heading"><span class="scribble-reveal">The person behind the terminal</span></h3>
+  <p data-i18n="scribble.eyebrow" class="scribble-eyebrow">About me</p>
+  <h3 class="scribble-heading"><span data-i18n="scribble.heading" class="scribble-reveal">The person behind the terminal</span></h3>
 
   <div class="photo-stage">
     <div class="paper-patch"></div>
@@ -526,7 +607,7 @@
           <img src="images/me-child.png" alt="Paula as a child" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
           <span class="polaroid-placeholder" style="display:none;">Add<br>images/me-child.png</span>
         </div>
-        <figcaption class="polaroid-cap">little me</figcaption>
+        <figcaption data-i18n="scribble.polaroid1" class="polaroid-cap">little me</figcaption>
       </figure>
       <figure class="polaroid p2">
         <span class="polaroid-pin"></span>
@@ -534,7 +615,7 @@
           <img src="images/me-presenting.jpg" alt="Paula presenting at ICT4S 2026" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
           <span class="polaroid-placeholder" style="display:none;">Add<br>images/me-presenting.jpg</span>
         </div>
-        <figcaption class="polaroid-cap">presenting</figcaption>
+        <figcaption data-i18n="scribble.polaroid2" class="polaroid-cap">presenting</figcaption>
       </figure>
       <figure class="polaroid p3">
         <span class="polaroid-pin"></span>
@@ -542,7 +623,7 @@
           <img src="images/me-award.jpg" alt="Paula receiving an award" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
           <span class="polaroid-placeholder" style="display:none;">Add<br>images/me-award.jpg</span>
         </div>
-        <figcaption class="polaroid-cap">a proud moment</figcaption>
+        <figcaption data-i18n="scribble.polaroid3" class="polaroid-cap">graduating</figcaption>
       </figure>
     </div>
   </div>
@@ -554,42 +635,40 @@
         <img src="images/paula.png" alt="Paula Otero" loading="eager">
       </div>
       <div class="about-text">
-        <p>Hi! I'm <strong>Paula</strong>, a <strong>Cybersecurity master's student</strong> currently in <strong>Madrid</strong>, with a background in <strong>Computer Science &amp; Digital Multimedia Technologies</strong> from the <strong>Universitat Politècnica de València (UPV)</strong>. I also completed an <strong>Erasmus+</strong> exchange at the <strong>University of Ljubljana</strong>, expanding my academic and international experience.</p>
+        <p data-i18n="about.bio1">Hi! I'm <strong>Paula</strong>, an <strong>MSc in Cybersecurity student</strong> currently living in <strong>Madrid</strong>. I hold a degree in <strong>Digital and Multimedia Technology</strong> from the <strong>Universitat Politècnica de València (UPV)</strong>. I also completed an <strong>Erasmus+</strong> exchange at the <strong>University of Ljubljana</strong>, expanding my academic and international experience.</p>
 
-        <p>My interests focus on <strong>cybersecurity</strong>, telecommunications, intelligent systems and data analytics. I'm passionate about understanding how complex systems work, from networks and operating systems to secure and efficient software.</p>
+        <p data-i18n="about.bio2">I'm passionate about understanding how complex systems work, from networks and operating systems to secure and efficient software.</p>
         
-        <p>Beyond academics, I have been actively involved in several student associations, including <strong>ACM UPV Chapter</strong>, Poliwood and Toma Uno. I also volunteered as an Erasmus mentor, represented the University of Ljubljana at the Faculty Erasmus Fair, and co-authored a research paper presented at the <strong>ICT4S Conference</strong> in Bern, Switzerland. I enjoy taking initiative, collaborating with others and turning ideas into practical solutions.</p>      
+        <p data-i18n="about.bio3">Beyond academics, I have been actively involved in several student associations, including <strong>ACM UPV Chapter</strong>, Poliwood and Toma Uno. I also volunteered as an Erasmus mentor, represented the University of Ljubljana at the Faculty Erasmus Fair, and co-authored a research paper and poster presented at the <strong>ICT4S Conference</strong> in Bern, Switzerland. I enjoy taking initiative, collaborating with others and turning ideas into practical solutions.</p>      
         <!-- Skills grid -->
         <div class="skills-cols">
           <div>
-            <p class="skills-block-label">Technical skills</p>
+            <p data-i18n="about.techTitle" class="skills-block-label">Technical skills</p>
             <div class="tag-row">
               <span class="tag tag-tech">Python</span>
               <span class="tag tag-tech">Linux</span>
-              <span class="tag tag-tech">Networking</span>
-              <span class="tag tag-tech">Cryptography basics</span>
-              <span class="tag tag-tech">Command line</span>
-              <span class="tag tag-tech">OSINT tools</span>
-              <span class="tag tag-tech">Energy profiling</span>
-              <span class="tag tag-tech">Visual computing</span>
+              <span data-i18n="about.tech.networking" class="tag tag-tech">Networking</span>
+              <span data-i18n="about.tech.cryptographyBasics" class="tag tag-tech">Cryptography</span>
+              <span data-i18n="about.tech.commandLine" class="tag tag-tech">Command line</span>
+              <span data-i18n="about.tech.energyProfiling" class="tag tag-tech">Energy profiling</span>
+              <span data-i18n="about.tech.visualComputing" class="tag tag-tech">Computer vision</span>
             </div>
           </div>
           <div>
-            <p class="skills-block-label">Academic interests</p>
+            <p data-i18n="about.interestsTitle" class="skills-block-label">Academic interests</p>
             <div class="tag-row">
-              <span class="tag tag-interest">Cybersecurity</span>
-              <span class="tag tag-interest">Human security factors</span>
-              <span class="tag tag-interest">Social engineering</span>
-              <span class="tag tag-interest">Organizational security</span>
-              <span class="tag tag-interest">Sustainable computing</span>
-              <span class="tag tag-interest">Systems efficiency</span>
+              <span data-i18n="about.interests.cybersecurity" class="tag tag-interest">Cybersecurity</span>
+              <span data-i18n="about.interests.socialEngineering" class="tag tag-interest">Social engineering</span>
+              <span data-i18n="about.interests.organizationalSecurity" class="tag tag-interest">Organizational security</span>
+              <span data-i18n="about.interests.sustainableComputing" class="tag tag-interest">Sustainable computing</span>
+              <span data-i18n="about.interests.systemsEfficiency" class="tag tag-interest">Systems efficiency</span>
             </div>
           </div>
           <div class="skills-block-full">
-            <p class="skills-block-label">Languages</p>
+            <p data-i18n="about.languagesTitle" class="skills-block-label">Languages</p>
             <div class="tag-row">
-              <span class="tag tag-lang">Spanish - Native</span>
-              <span class="tag tag-lang">English - Fluent (C1 Cambridge)</span>
+              <span data-i18n="about.languages.spanish" class="tag tag-lang">Spanish - Native</span>
+              <span data-i18n="about.languages.english" class="tag tag-lang">English - Fluent (C1 Cambridge)</span>
             </div>
           </div>
         </div>
@@ -603,39 +682,39 @@
 
 <!-- EXPERIENCE -->
 <section id="experiencia">
-  <p class="label">Experience</p>
-  <h2 class="section-title">Where I've worked</h2>
+  <p data-i18n="experience.label" class="label">Experience</p>
+  <h2 data-i18n="experience.title" class="section-title">Where I've worked</h2>
   <div class="exp-list">
     <div class="exp-item">
       <div>
-        <p class="exp-role">Corporate Banking Analyst</p>
+        <p data-i18n="experience.jobs.sabadell.role" class="exp-role">Corporate Banking Analyst</p>
         <p class="exp-org">Banco Sabadell</p>
         <ul class="exp-bullets">
-          <li>Managed financial operations for large enterprise clients.</li>
-          <li>Processed international and domestic transactions including SWIFT transfers.</li>
-          <li>Ensured compliance with internal banking procedures and security protocols.</li>
+          <li data-i18n="experience.jobs.sabadell.bullet1">Managed financial operations for large enterprise clients.</li>
+          <li data-i18n="experience.jobs.sabadell.bullet2">Processed international and domestic transactions including SWIFT transfers.</li>
+          <li data-i18n="experience.jobs.sabadell.bullet3">Ensured compliance with internal banking procedures and security protocols.</li>
         </ul>
       </div>
       <div class="exp-meta">
-        <span class="exp-date">Jul–Aug 2024</span>
-        <span class="exp-date">Jul–Aug 2025</span>
-        <span class="exp-date">Jul–Aug 2026</span>
-        <span class="exp-place">Valencia, Spain</span>
+        <span data-i18n-date class="exp-date">Jul–Aug 2024</span>
+        <span data-i18n-date class="exp-date">Jul–Aug 2025</span>
+        <span data-i18n-date class="exp-date">Jul–Aug 2026</span>
+        <span data-i18n="places.valenciaSpain" class="exp-place">Valencia, Spain</span>
       </div>
     </div>
     <div class="exp-item">
       <div>
-        <p class="exp-role">IT Support Technician</p>
-        <p class="exp-org">Polytechnic University of Valencia (UPV)</p>
+        <p data-i18n="experience.jobs.upvIt.role" class="exp-role">IT Support Technician</p>
+        <p data-i18n="experience.jobs.upvIt.org" class="exp-org">Polytechnic University of Valencia (UPV)</p>
         <ul class="exp-bullets">
-          <li>Provided technical support for operating systems, networking issues and hardware/software troubleshooting.</li>
-          <li>Installed and configured computer systems for classrooms and laboratories.</li>
-          <li>Assisted in maintaining university IT infrastructure and resolving helpdesk incidents.</li>
+          <li data-i18n="experience.jobs.upvIt.bullet1">Provided technical support for operating systems, networking issues and hardware/software troubleshooting.</li>
+          <li data-i18n="experience.jobs.upvIt.bullet2">Installed and configured computer systems for classrooms and laboratories.</li>
+          <li data-i18n="experience.jobs.upvIt.bullet3">Assisted in maintaining university IT infrastructure and resolving helpdesk incidents.</li>
         </ul>
       </div>
       <div class="exp-meta">
-        <span class="exp-date">Sept 2024 – Jun 2025</span>
-        <span class="exp-place">Valencia, Spain</span>
+        <span data-i18n-date class="exp-date">Sept 2024 – Jun 2025</span>
+        <span data-i18n="places.valenciaSpain" class="exp-place">Valencia, Spain</span>
       </div>
     </div>
   </div>
@@ -645,26 +724,26 @@
 
 <!-- PROJECTS -->
 <section id="proyectos">
-  <p class="label">Projects</p>
-  <h2 class="section-title">Things I've built &amp; researched</h2>
+  <p data-i18n="projects.label" class="label">Projects</p>
+  <h2 data-i18n="projects.title" class="section-title">Things I've built &amp; researched</h2>
 
   <!-- FILTER BAR -->
   <div class="filter-wrap">
-    <p class="filter-count">Showing <span id="proj-count">11</span> projects</p>
-    <div class="filter-bar" role="group" aria-label="Filter projects by category">
-      <button class="filter-btn active" data-filter="all" aria-pressed="true">All</button>
-      <button class="filter-btn" data-filter="research" aria-pressed="false">Research</button>
-      <button class="filter-btn" data-filter="security" aria-pressed="false">Security</button>
-      <button class="filter-btn" data-filter="embedded" aria-pressed="false">Embedded</button>
-      <button class="filter-btn" data-filter="ai" aria-pressed="false">Computer vision</button>
-      <button class="filter-btn" data-filter="creative" aria-pressed="false">Creative</button>
-      <button class="filter-btn" data-filter="python" aria-pressed="false">Python</button>
-      <button class="filter-btn" data-filter="java" aria-pressed="false">Java Android</button>
-      <button class="filter-btn" data-filter="web" aria-pressed="false">Web</button>
+    <p class="filter-count" id="proj-count">Showing <span>13</span> projects</p>
+    <div class="filter-bar" role="group" aria-label="Filter projects by category" data-i18n-attr="aria-label:projects.filterAria">
+      <button class="filter-btn active" data-filter="all" aria-pressed="true"><span data-i18n="filters.all">All</span></button>
+      <button class="filter-btn" data-filter="research" aria-pressed="false"><span data-i18n="filters.research">Research</span> <span class="btn-count"></span></button>
+      <button class="filter-btn" data-filter="security" aria-pressed="false"><span data-i18n="filters.security">Security</span> <span class="btn-count"></span></button>
+      <button class="filter-btn" data-filter="embedded" aria-pressed="false"><span data-i18n="filters.embedded">Embedded</span> <span class="btn-count"></span></button>
+      <button class="filter-btn" data-filter="ai" aria-pressed="false"><span data-i18n="filters.ai">Computer vision</span> <span class="btn-count"></span></button>
+      <button class="filter-btn" data-filter="creative" aria-pressed="false"><span data-i18n="filters.creative">Creative</span> <span class="btn-count"></span></button>
+      <button class="filter-btn" data-filter="python" aria-pressed="false">Python <span class="btn-count"></span></button>
+      <button class="filter-btn" data-filter="java" aria-pressed="false">Java Android <span class="btn-count"></span></button>
+      <button class="filter-btn" data-filter="web" aria-pressed="false">Web <span class="btn-count"></span></button>
     </div>
   </div>
 
-  <div class="projects-empty" id="proj-empty">
+  <div data-i18n="projects.empty" class="projects-empty" id="proj-empty">
     No projects in this category yet.
   </div>
 
@@ -677,10 +756,10 @@
         <img src="images/tfg.png" alt="TFG V2X YOLO" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
-        <p class="project-cat" style="color:#7FA8D9;">Research · Embedded AI · V2X Communications</p>
-        <h3 class="project-title">Computational and Energy Performance Analysis of Object Detection Algorithms in V2X Vehicular Communications</h3>
-        <span class="project-badge">Bachelor's Thesis · UPV · 2025/2026</span>
-        <p class="project-desc">
+        <p data-i18n="projects.items.tfg.cat" class="project-cat" style="color:#7FA8D9;">Research · Embedded AI · V2X Communications</p>
+        <h3 data-i18n="projects.items.tfg.title" class="project-title">Computational and Energy Performance Analysis of Object Detection Algorithms in V2X Vehicular Communications</h3>
+        <span data-i18n="projects.items.tfg.badge" class="project-badge">Bachelor's Thesis · UPV · 2025/2026</span>
+        <p data-i18n="projects.items.tfg.desc" class="project-desc">
           End-to-end evaluation of YOLOv8, YOLO11 and YOLO26 for collective perception in
           vehicle-to-everything (V2X) scenarios. Benchmarks detection quality, inference latency,
           GPU power and real hardware FLOPs (via Linux perf/AVX2 counters) across three
@@ -693,7 +772,7 @@
         <span class="tag-sm green">PyTorch</span>
         <span class="tag-sm green">KITTI</span>
         <span class="tag-sm green">V2X · CPM</span>
-        <span class="tag-sm green">Energy modelling</span>
+        <span data-i18n="projects.items.tfg.tags.energyModelling" class="tag-sm green">Energy modelling</span>
         </div>
       </div>
     </a>
@@ -704,10 +783,10 @@
         <img src="images/methodology.png" alt="E2E-StreamCarbon poster" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
-        <p class="project-cat" style="color:var(--green);">Research · Sustainable Computing · ICT4S 2026</p>
-        <h3 class="project-title">E2E-StreamCarbon: Measuring the Carbon Footprint of Video Streaming</h3>
-        <span class="project-badge">Published · ICT4S 2026 congress - Bern, Switzerland</span>
-        <p class="project-desc">
+        <p data-i18n="projects.items.streamCarbon.cat" class="project-cat" style="color:var(--green);">Research · Sustainable Computing · ICT4S 2026</p>
+        <h3 data-i18n="projects.items.streamCarbon.title" class="project-title">E2E-StreamCarbon: Measuring the Carbon Footprint of Video Streaming</h3>
+        <span data-i18n="projects.items.streamCarbon.badge" class="project-badge">Published · ICT4S 2026 congress - Bern, Switzerland</span>
+        <p data-i18n="projects.items.streamCarbon.desc" class="project-desc">
           End-to-end framework for measuring the energy consumption and carbon footprint of video streaming.
           Covers server-side transcoding, network transmission and client-side playback across four codecs
           (H.264, H.265, VP9, AV1) and three resolutions. Includes a browser extension that visualises
@@ -719,8 +798,8 @@
           <span class="tag-sm green">Intel RAPL</span>
           <span class="tag-sm green">FFmpeg</span>
           <span class="tag-sm green">Wireshark</span>
-          <span class="tag-sm green">Video codecs</span>
-          <span class="tag-sm green">Browser extension</span>
+          <span data-i18n="projects.items.streamCarbon.tags.videoCodecs" class="tag-sm green">Video codecs</span>
+          <span data-i18n="projects.items.streamCarbon.tags.browserExtension" class="tag-sm green">Browser extension</span>
         </div>
       </div>
     </a>
@@ -731,9 +810,9 @@
         <img src="images/drm.png" alt="DRM system architecture" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
-        <p class="project-cat">Cybersecurity · DRM</p>
-        <h3 class="project-title">Digital Rights Management System</h3>
-        <p class="project-desc">
+        <p data-i18n="projects.items.drm.cat" class="project-cat">Cybersecurity · DRM</p>
+        <h3 data-i18n="projects.items.drm.title" class="project-title">Digital Rights Management System</h3>
+        <p data-i18n="projects.items.drm.desc" class="project-desc">
           Designed and implemented a secure DRM architecture from scratch including a content server,
           license server and management interface. Applied hybrid encryption (RSA + AES-128),
           digital watermarking for content traceability and digital signatures to validate license
@@ -744,8 +823,8 @@
           <span class="tag-sm">RSA</span>
           <span class="tag-sm">AES-128</span>
           <span class="tag-sm">DRM</span>
-          <span class="tag-sm">Digital signatures</span>
-          <span class="tag-sm">Watermarking</span>
+          <span data-i18n="projects.items.drm.tags.digitalSignatures" class="tag-sm">Digital signatures</span>
+          <span data-i18n="projects.items.drm.tags.watermarking" class="tag-sm">Watermarking</span>
         </div>
       </div>
     </a>
@@ -756,10 +835,10 @@
         <img src="images/xray.png" alt="XRAY project YOLO" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
-        <p class="project-cat" style="color:#6E9C86;">Computer Vision · Deep Learning</p>
-        <h3 class="project-title">X-Ray Baggage Object Detection</h3>
-        <span class="project-badge" style="background:#151C19;color:#6E9C86;display:inline-block;font-size:0.72rem;padding:0.2rem 0.6rem;border-radius:2px;margin-bottom:0.75rem;">YOLOv11m · 90.8% mAP@0.5 · +17.7pp vs prior SOTA</span>
-        <p class="project-desc">
+        <p data-i18n="projects.items.xray.cat" class="project-cat" style="color:#6E9C86;">Computer Vision · Deep Learning</p>
+        <h3 data-i18n="projects.items.xray.title" class="project-title">X-Ray Baggage Object Detection</h3>
+        <span data-i18n="projects.items.xray.badge" class="project-badge" style="background:#151C19;color:#6E9C86;display:inline-block;font-size:0.72rem;padding:0.2rem 0.6rem;border-radius:2px;margin-bottom:0.75rem;">YOLOv11m · 90.8% mAP@0.5 · +17.7pp vs prior SOTA</span>
+        <p data-i18n="projects.items.xray.desc" class="project-desc">
           Preprocessing pipeline and comparative evaluation of YOLOv11 (n, m, l, x) on the HiXray airport security dataset. Our YOLOv11m outperformed all domain-specific baselines by over 17 percentage points.
         </p>
         <div class="tag-row-sm">
@@ -774,9 +853,9 @@
         <img src="images/m5stack.png" alt="M5Stack Suzanne Controller" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
-        <p class="project-cat">Embedded Systems · M5Stack-FIRE · OSC</p>
-        <h3 class="project-title">Blender Object Controller with M5Stack &amp; OSC</h3>
-        <p class="project-desc">
+        <p data-i18n="projects.items.blenderM5.cat" class="project-cat">Embedded Systems · M5Stack-FIRE · OSC</p>
+        <h3 data-i18n="projects.items.blenderM5.title" class="project-title">Blender Object Controller with M5Stack &amp; OSC</h3>
+        <p data-i18n="projects.items.blenderM5.desc" class="project-desc">
           Interactive system that uses an M5Stack-FIRE's gyroscope and buttons to control
           a Blender 3D object in real time via OSC messages. Three modes - colour, size,
           and rotation - driven by live sensor data (yaw, pitch, roll), with TouchOSC
@@ -799,9 +878,9 @@
         <img src="images/cafebill_splash_1.jpg" alt="Café Bill Android app" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
-        <p class="project-cat">Android App · UPV</p>
-        <h3 class="project-title">Café Bill - Android Ordering App</h3>
-        <p class="project-desc">
+        <p data-i18n="projects.items.cafeBill.cat" class="project-cat">Android App · UPV</p>
+        <h3 data-i18n="projects.items.cafeBill.title" class="project-title">Café Bill - Android Ordering App</h3>
+        <p data-i18n="projects.items.cafeBill.desc" class="project-desc">
           Android app for cafeteria order management: client registration, item selection
           with quantity controls, on-screen receipt generation and PDF export.
           Built in Java for Android with a 4-person team.
@@ -809,7 +888,7 @@
         <div class="tag-row-sm">
           <span class="tag-sm">Java</span>
           <span class="tag-sm">Android</span>
-          <span class="tag-sm">PDF generation</span>
+          <span data-i18n="projects.items.cafeBill.tags.pdfGeneration" class="tag-sm">PDF generation</span>
           <span class="tag-sm">Android Studio</span>
         </div>
       </div>
@@ -821,16 +900,16 @@
         <img src="images/poligala.JPG" alt="Poligala short film presentation" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
-        <p class="project-cat">Filmmaking · Adobe Premiere</p>
-        <h3 class="project-title">Polireto Short Film</h3>
-        <p class="project-desc">
+        <p data-i18n="projects.items.polireto.cat" class="project-cat">Filmmaking · Adobe Premiere</p>
+        <h3 data-i18n="projects.items.polireto.title" class="project-title">Polireto Short Film</h3>
+        <p data-i18n="projects.items.polireto.desc" class="project-desc">
           Wrote and edited a short film for the Polireto competition, POLIWOOD UPV's internal filmmaking contest.
           Premiered at the Poligala ceremony in the ETSIT auditorium. Collaborated with VFX, sound and on-screen talent.
         </p>
         <div class="tag-row-sm">
-          <span class="tag-sm">Scriptwriting</span>
-          <span class="tag-sm">Video editing</span>
-          <span class="tag-sm">VFX collaboration</span>
+          <span data-i18n="projects.items.polireto.tags.scriptwriting" class="tag-sm">Scriptwriting</span>
+          <span data-i18n="projects.items.polireto.tags.videoEditing" class="tag-sm">Video editing</span>
+          <span data-i18n="projects.items.polireto.tags.vfxCollaboration" class="tag-sm">VFX collaboration</span>
           <span class="tag-sm">POLIWOOD</span>
         </div>
       </div>
@@ -843,12 +922,12 @@
       </div>
       <div class="project-body">
         <p class="project-cat">Web · ACM UPV Chapter</p>
-        <h3 class="project-title">ACM UPV Chapter - Website Maintenance</h3>
-        <p class="project-desc">
+        <h3 data-i18n="projects.items.acmWeb.title" class="project-title">ACM UPV Chapter - Website Maintenance</h3>
+        <p data-i18n="projects.items.acmWeb.desc" class="project-desc">
           Responsible during 2024–2025 for ongoing maintenance and updates of the official ACM UPV Chapter website, keeping content current and the platform running smoothly for the university's computing community.
         </p>
         <div class="tag-row-sm">
-          <span class="tag-sm">Web maintenance</span><span class="tag-sm">ACM UPV</span>
+          <span data-i18n="projects.items.acmWeb.tags.webMaintenance" class="tag-sm">Web maintenance</span><span class="tag-sm">ACM UPV</span>
         </div>
       </div>
     </div>
@@ -859,9 +938,9 @@
         <img src="images/cave_interior.png" alt="Blender cave" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
-        <p class="project-cat" style="color:#C98A4B;">3D Modelling · Animation · Graphic Design</p>
-        <h3 class="project-title">Secret Cave - Blender</h3>
-        <p class="project-desc">
+        <p data-i18n="projects.items.secretCave.cat" class="project-cat" style="color:#C98A4B;">3D Modelling · Animation · Graphic Design</p>
+        <h3 data-i18n="projects.items.secretCave.title" class="project-title">Secret Cave - Blender</h3>
+        <p data-i18n="projects.items.secretCave.desc" class="project-desc">
           Full pipeline from 2D character concept art (sketch → ink → digital painting → modelsheet)
           to a fully animated Blender scene: a superhero's secret cave with walk cycles,
           cinematic camera paths, water simulation, procedural grass, and a laser beam that changes
@@ -871,8 +950,8 @@
           <span class="tag-sm">Blender</span>
           <span class="tag-sm">GIMP</span>
           <span class="tag-sm">UV Mapping</span>
-          <span class="tag-sm">Cloth physics</span>
-          <span class="tag-sm">Character animation</span>
+          <span data-i18n="projects.items.secretCave.tags.clothPhysics" class="tag-sm">Cloth physics</span>
+          <span data-i18n="projects.items.secretCave.tags.characterAnimation" class="tag-sm">Character animation</span>
         </div>
       </div>
     </a>
@@ -883,9 +962,9 @@
         <img src="images/embedded_music.png" alt="Embedded musical generator system" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
-        <p class="project-cat" style="color:#8B93D9;">Embedded Systems · Arduino · ESP32</p>
-        <h3 class="project-title">Wireless Embedded Musical Generator</h3>
-        <p class="project-desc">
+        <p data-i18n="projects.items.musicGen.cat" class="project-cat" style="color:#8B93D9;">Embedded Systems · Arduino · ESP32</p>
+        <h3 data-i18n="projects.items.musicGen.title" class="project-title">Wireless Embedded Musical Generator</h3>
+        <p data-i18n="projects.items.musicGen.desc" class="project-desc">
           Dual-microcontroller system for real-time melody creation, storage and remote playback.
           An Arduino Mega handles interaction via rotary encoder and LCD; an ESP32 hosts a WiFi
           access point and web server. UART communication, SPIFFS storage, low-level state logic.
@@ -895,7 +974,7 @@
           <span class="tag-sm">Arduino Mega</span>
           <span class="tag-sm">ESP32</span>
           <span class="tag-sm">UART</span>
-          <span class="tag-sm">WiFi Server</span>
+          <span data-i18n="projects.items.musicGen.tags.wifiServer" class="tag-sm">WiFi Server</span>
           <span class="tag-sm">SPIFFS</span>
           <span class="tag-sm">LCD</span>
         </div>
@@ -908,9 +987,9 @@
         <img src="images/passwordtool.png" alt="Password Generator &amp; Encryption Tool" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
-        <p class="project-cat">Python · Security · UPV</p>
-        <h3 class="project-title">Password Generator &amp; File Encryption Tool</h3>
-        <p class="project-desc">
+        <p data-i18n="projects.items.passwordTool.cat" class="project-cat">Python · Security · UPV</p>
+        <h3 data-i18n="projects.items.passwordTool.title" class="project-title">Password Generator &amp; File Encryption Tool</h3>
+        <p data-i18n="projects.items.passwordTool.desc" class="project-desc">
           Python CLI application combining secure password generation, compliance validation,
           and character-level ASCII file encryption and decryption. Fully tested with parametrised
           pytest suites across all four modules.
@@ -918,8 +997,8 @@
         <div class="tag-row-sm">
           <span class="tag-sm">Python 3</span>
           <span class="tag-sm">pytest</span>
-          <span class="tag-sm">ASCII encryption</span>
-          <span class="tag-sm">File I/O</span>
+          <span data-i18n="projects.items.passwordTool.tags.asciiEncryption" class="tag-sm">ASCII encryption</span>
+          <span data-i18n="projects.items.passwordTool.tags.fileIO" class="tag-sm">File I/O</span>
           <span class="tag-sm">CLI</span>
         </div>
       </div>
@@ -931,9 +1010,9 @@
         <img src="images/guizero.png" alt="Desktop app" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
-        <p class="project-cat">Interdisciplinary · Python · User interface</p>
-        <h3 class="project-title">Super Jump World - Jump Analyser</h3>
-        <p class="project-desc">
+        <p data-i18n="projects.items.jumpWorld.cat" class="project-cat">Interdisciplinary · Python · User interface</p>
+        <h3 data-i18n="projects.items.jumpWorld.title" class="project-title">Super Jump World - Jump Analyser</h3>
+        <p data-i18n="projects.items.jumpWorld.desc" class="project-desc">
           4-subject interdisciplinary project integrating a Python desktop GUI, a custom TCP protocol,
           numerical signal processing, and jump biomechanics into one application, analysing real human
           jumps via smartphone accelerometer with 3% error vs Tracker video validation.
@@ -942,9 +1021,9 @@
           <span class="tag-sm">Python</span>
           <span class="tag-sm">GUIzero</span>
           <span class="tag-sm">Kivy</span>
-          <span class="tag-sm">TCP sockets</span>
-          <span class="tag-sm">Numerical integration</span>
-          <span class="tag-sm">Biomechanics</span>
+          <span data-i18n="projects.items.jumpWorld.tags.tcpSockets" class="tag-sm">TCP sockets</span>
+          <span data-i18n="projects.items.jumpWorld.tags.numericalIntegration" class="tag-sm">Numerical integration</span>
+          <span data-i18n="projects.items.jumpWorld.tags.biomechanics" class="tag-sm">Biomechanics</span>
         </div>
       </div>
     </a>
@@ -955,17 +1034,17 @@
         <img src="images/capefear.png" alt="Cape Fear thumbnail" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
-        <p class="project-cat">Film analysis· Video essay</p>
-        <h3 class="project-title">"Cape Fear" (1991) and the Anamorphic Widescreen Format</h3>
-        <p class="project-desc">
+        <p data-i18n="projects.items.capeFear.cat" class="project-cat">Film analysis· Video essay</p>
+        <h3 data-i18n="projects.items.capeFear.title" class="project-title">"Cape Fear" (1991) and the Anamorphic Widescreen Format</h3>
+        <p data-i18n="projects.items.capeFear.desc" class="project-desc">
           Video essay analyzing Martin Scorsese’s "Cape Fear" (1991) and its use of the anamorphic widescreen format.
           Explores cinematography, framing techniques, visual tension and how aspect ratio enhances the film’s atmosphere.
         </p>
         <div class="tag-row-sm">
-          <span class="tag-sm">Film analysis</span>
-          <span class="tag-sm">Cinematography</span>
-          <span class="tag-sm">Anamorphic</span>
-          <span class="tag-sm">Video essay</span>
+          <span data-i18n="projects.items.capeFear.tags.filmAnalysis" class="tag-sm">Film analysis</span>
+          <span data-i18n="projects.items.capeFear.tags.cinematography" class="tag-sm">Cinematography</span>
+          <span data-i18n="projects.items.capeFear.tags.anamorphic" class="tag-sm">Anamorphic</span>
+          <span data-i18n="projects.items.capeFear.tags.videoEssay" class="tag-sm">Video essay</span>
         </div>
       </div>
     </a>
@@ -985,53 +1064,53 @@
 
 <!-- EDUCATION -->
 <section id="educacion">
-  <p class="label">Education</p>
-  <h2 class="section-title">Where I've studied</h2>
+  <p data-i18n="education.label" class="label">Education</p>
+  <h2 data-i18n="education.title" class="section-title">Where I've studied</h2>
   <div class="edu-list">
     <div class="edu-item">
       <div>
-        <p class="edu-degree">MSc in Cybersecurity</p>
-        <p class="edu-uni">University of Alcalá (EPS-UAH)</p>
+        <p data-i18n="education.items.msc.degree" class="edu-degree">MSc in Cybersecurity</p>
+        <p data-i18n="education.items.msc.uni" class="edu-uni">University of Alcalá (EPS-UAH)</p>
         <ul class="edu-bullets">
-          <li>In-person (presencial) master's program starting the 2026–2027 academic year.</li>
+          <li data-i18n="education.items.msc.bullet1">In-person (presencial) master's program starting the 2026–2027 academic year.</li>
         </ul>
       </div>
       <div class="exp-meta">
-        <span class="exp-date">Sept 2026 – Jul 2027</span>
-        <span class="exp-place">Madrid, Spain</span>
+        <span data-i18n-date class="exp-date">Sept 2026 – Jul 2027</span>
+        <span data-i18n="places.madridSpain" class="exp-place">Madrid, Spain</span>
       </div>
     </div>
     <div class="edu-item">
       <div>
-        <p class="edu-degree">BSc in Computer Science</p>
-        <p class="edu-uni">University of Ljubljana (FRI-UL)</p>
+        <p data-i18n="education.items.bscCs.degree" class="edu-degree">BSc in Computer Engineering</p>
+        <p data-i18n="education.items.bscCs.uni" class="edu-uni">University of Ljubljana (FRI-UL)</p>
         <ul class="edu-bullets">
-          <li>Erasmus exchange program, one full academic year abroad.</li>
-          <li>Specialized coursework in computer science, software engineering and cybersecurity.</li>
-          <li>Grade average: <strong style="color:var(--text)">9.83 / 10</strong></li>
+          <li data-i18n="education.items.bscCs.bullet1">Erasmus exchange program, one full academic year abroad.</li>
+          <li data-i18n="education.items.bscCs.bullet2">Specialized coursework in computer science, software engineering and cybersecurity.</li>
+          <li data-i18n="education.items.bscCs.bullet3">Grade average: <strong style="color:var(--text)">9.83 / 10</strong></li>
         </ul>
       </div>
       <div class="exp-meta">
-        <span class="exp-date">Sept 2025 – Jul 2026</span>
-        <span class="exp-place">Ljubljana, Slovenia</span>
+        <span data-i18n-date class="exp-date">Sept 2025 – Jul 2026</span>
+        <span data-i18n="places.ljubljanaSlovenia" class="exp-place">Ljubljana, Slovenia</span>
       </div>
     </div>
     <div class="edu-item">
       <div>
-        <p class="edu-degree">BSc in Digital and Multimedia Technology</p>
-        <p class="edu-uni">Polytechnic University of Valencia (ETSIT-UPV)</p>
+        <p data-i18n="education.items.bscDmt.degree" class="edu-degree">BSc in Digital and Multimedia Technology</p>
+        <p data-i18n="education.items.bscDmt.uni" class="edu-uni">Polytechnic University of Valencia (ETSIT-UPV)</p>
         <ul class="edu-bullets">
-          <li>Focus on programming, networks, security, and audiovisual technologies.</li>
-          <li>Former member of PoliWood, TomaUno, and ACM UPV Chapter.</li>
-          <li>Volunteered as an Erasmus mentor, supporting international students during their integration.</li>
-          <li>ARA Mention (High Academic Performance) / Mención ARA (Alto Rendimiento Académico)</li>
-          <li>Awarded for achieving the highest GPA in the graduating class.</li>
-          <li>Achieved Highest Honours in over 35% of all program credits/coursework.</li>
+          <li data-i18n="education.items.bscDmt.bullet1">Focus on programming, networks, security, and audiovisual technologies.</li>
+          <li data-i18n="education.items.bscDmt.bullet2">Former member of PoliWood, TomaUno, and ACM UPV Chapter.</li>
+          <li data-i18n="education.items.bscDmt.bullet3">Volunteered as an Erasmus mentor, supporting international students during their integration.</li>
+          <li data-i18n="education.items.bscDmt.bullet4">ARA Mention (High Academic Performance) / Mención ARA (Alto Rendimiento Académico)</li>
+          <li data-i18n="education.items.bscDmt.bullet5">Awarded for achieving the highest GPA in the graduating class.</li>
+          <li data-i18n="education.items.bscDmt.bullet6">Achieved Highest Honours in over 35% of all program credits/coursework.</li>
         </ul>
       </div>
       <div class="exp-meta">
-        <span class="exp-date">Sept 2022 – Jul 2026</span>
-        <span class="exp-place">Valencia, Spain</span>
+        <span data-i18n-date class="exp-date">Sept 2022 – Jul 2026</span>
+        <span data-i18n="places.valenciaSpain" class="exp-place">Valencia, Spain</span>
       </div>
     </div>
   </div>
@@ -1042,68 +1121,68 @@
 
 <!-- CERTIFICATES -->
 <section id="certificados">
-  <p class="label">Certifications</p>
-  <h2 class="section-title">Licences &amp; courses</h2>
+  <p data-i18n="certs.label" class="label">Certifications</p>
+  <h2 data-i18n="certs.title" class="section-title">Licences &amp; courses</h2>
   <div class="cert-grid">
     <div class="cert-card">
       <span class="cert-issuer">Cambridge University Press &amp; Assessment</span>
       <span class="cert-name">Cambridge English: Advanced (C1) - CAE</span>
-      <span class="cert-date">Aug 2024 · ID: C8324480</span>
-      <span class="cert-badge">English · C1</span>
+      <span data-i18n-date class="cert-date">Aug 2024 · ID: C8324480</span>
+      <span data-i18n="certs.items.cae.badge" class="cert-badge">English · C1</span>
     </div>
     <div class="cert-card">
       <span class="cert-issuer">JQCV</span>
-      <span class="cert-name">Valencian C1 - Certificat de Nivell Mitjà</span>
-      <span class="cert-date">Oct 2024 · ID: CSV Z2Z44Z7I-TLHJ66Y6</span>
-      <span class="cert-badge">Valencian · C1</span>
+      <span data-i18n="certs.items.valencian.name" class="cert-name">Valencian C1 - Certificat de Nivell Mitjà</span>
+      <span data-i18n-date class="cert-date">Oct 2024 · ID: CSV Z2Z44Z7I-TLHJ66Y6</span>
+      <span data-i18n="certs.items.valencian.badge" class="cert-badge">Valencian · C1</span>
     </div>
     <div class="cert-card">
       <span class="cert-issuer">IBM</span>
-      <span class="cert-name">Getting started with cybersecurity</span>
-      <span class="cert-date">Mar 2026</span>
-      <span class="cert-badge green">Cybersecurity</span>
+      <span data-i18n="certs.items.ibmCyber.name" class="cert-name">Getting started with cybersecurity</span>
+      <span data-i18n-date class="cert-date">Mar 2026</span>
+      <span data-i18n="certs.items.ibmCyber.badge" class="cert-badge green">Cybersecurity</span>
     </div>
     <div class="cert-card">
       <span class="cert-issuer">IBM</span>
-      <span class="cert-name">Getting started with artificial intelligence</span>
-      <span class="cert-date">Mar 2026</span>
-      <span class="cert-badge green">AI</span>
+      <span data-i18n="certs.items.ibmAi.name" class="cert-name">Getting started with artificial intelligence</span>
+      <span data-i18n-date class="cert-date">Mar 2026</span>
+      <span data-i18n="certs.items.ibmAi.badge" class="cert-badge green">AI</span>
     </div>
     <div class="cert-card">
       <span class="cert-issuer">IBM</span>
-      <span class="cert-name">Data classification and summarization - IBM Granite</span>
-      <span class="cert-date">Mar 2026</span>
-      <span class="cert-badge green">AI · Data</span>
+      <span data-i18n="certs.items.ibmGranite.name" class="cert-name">Data classification and summarization - IBM Granite</span>
+      <span data-i18n-date class="cert-date">Mar 2026</span>
+      <span data-i18n="certs.items.ibmGranite.badge" class="cert-badge green">AI · Data</span>
     </div>
     <div class="cert-card">
       <span class="cert-issuer">edX</span>
-      <span class="cert-name">Introduction to SQL and relational databases</span>
-      <span class="cert-date">Oct 2024 · ID: a4ff6f20ed504c78a7ea355a110ef83a</span>
-      <span class="cert-badge">Databases</span>
+      <span data-i18n="certs.items.edxSql.name" class="cert-name">Introduction to SQL and relational databases</span>
+      <span data-i18n-date class="cert-date">Oct 2024 · ID: a4ff6f20ed504c78a7ea355a110ef83a</span>
+      <span data-i18n="certs.items.edxSql.badge" class="cert-badge">Databases</span>
     </div>
     <div class="cert-card">
       <span class="cert-issuer">edX</span>
-      <span class="cert-name">Cybersecurity fundamentals for users</span>
-      <span class="cert-date">Sept 2024 · ID: 5dda7615857a47d190dda1e47eb0e012</span>
-      <span class="cert-badge green">Cybersecurity</span>
+      <span data-i18n="certs.items.edxCyber.name" class="cert-name">Cybersecurity fundamentals for users</span>
+      <span data-i18n-date class="cert-date">Sept 2024 · ID: 5dda7615857a47d190dda1e47eb0e012</span>
+      <span data-i18n="certs.items.edxCyber.badge" class="cert-badge green">Cybersecurity</span>
     </div>
     <div class="cert-card">
       <span class="cert-issuer">Santander · Google</span>
-      <span class="cert-name">Artificial intelligence and productivity</span>
-      <span class="cert-date">Sept 2024 · ID: OA-2024-0911000553773</span>
-      <span class="cert-badge green">AI · Productivity</span>
+      <span data-i18n="certs.items.santanderAi.name" class="cert-name">Artificial intelligence and productivity</span>
+      <span data-i18n-date class="cert-date">Sept 2024 · ID: OA-2024-0911000553773</span>
+      <span data-i18n="certs.items.santanderAi.badge" class="cert-badge green">AI · Productivity</span>
     </div>
     <div class="cert-card">
       <span class="cert-issuer">edX</span>
-      <span class="cert-name">Marketing digital in social media</span>
-      <span class="cert-date">Sept 2024 · ID: ad1719ac3d4e4f399c748b64b6f4b9d7</span>
-      <span class="cert-badge">Digital marketing</span>
+      <span data-i18n="certs.items.edxMarketing.name" class="cert-name">Marketing digital in social media</span>
+      <span data-i18n-date class="cert-date">Sept 2024 · ID: ad1719ac3d4e4f399c748b64b6f4b9d7</span>
+      <span data-i18n="certs.items.edxMarketing.badge" class="cert-badge">Digital marketing</span>
     </div>
     <div class="cert-card">
       <span class="cert-issuer">Adecco · Banco Sabadell</span>
-      <span class="cert-name">Banco Sabadell internal training certificate</span>
-      <span class="cert-date">May 2025</span>
-      <span class="cert-badge">Banking</span>
+      <span data-i18n="certs.items.sabadellTraining.name" class="cert-name">Banco Sabadell internal training certificate</span>
+      <span data-i18n-date class="cert-date">May 2025</span>
+      <span data-i18n="certs.items.sabadellTraining.badge" class="cert-badge">Banking</span>
     </div>
   </div>
 </section>
@@ -1112,11 +1191,11 @@
 
 <!-- CONTACT -->
 <section id="contacto">
-  <p class="label">Contact</p>
-  <h2 class="section-title">Let's talk</h2>
+  <p data-i18n="contact.label" class="label">Contact</p>
+  <h2 data-i18n="contact.title" class="section-title">Let's talk</h2>
   <div class="contact-wrapper">
-    <p class="contact-intro">
-      I'm open to internships, research collaborations and interesting projects, especially anything touching cybersecurity, sustainable computing and codec efficiency or multimedia systems. Drop me a message and I'll get back to you.
+    <p data-i18n="contact.intro" class="contact-intro">
+      I'm open to internships, research collaborations and interesting projects, especially anything touching cybersecurity and sustainable computing. Drop me a message and I'll get back to you.
     </p>
     <div class="contact-links">
       <a href="mailto:paulaoteropanos@gmail.com" class="contact-link">
@@ -1133,7 +1212,7 @@
         <svg viewBox="0 0 20 20" fill="currentColor"><path d="M3 6h2.5v9H3V6zm1.25-4a1.5 1.5 0 110 3 1.5 1.5 0 010-3zM7.5 6H10v1.2C10.5 6.5 11.4 6 12.5 6 14.9 6 16 7.3 16 9.8V15h-2.5v-4.8c0-1.2-.4-2-1.4-2-1 0-1.6.7-1.6 2V15H8V6z"/></svg>
         linkedin.com/in/paulaoteropaños
       </a>
-      <a href="presentations/paula_otero_cv.pdf" download class="contact-link">
+      <a data-i18n="contact.downloadCv" href="presentations/paula_otero_cv.pdf" download class="contact-link">
         <svg viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M3 17a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zm3.293-7.707a1 1 0 011.414 0L9 10.586V3a1 1 0 112 0v7.586l1.293-1.293a1 1 0 111.414 1.414l-3 3a1 1 0 01-1.414 0l-3-3a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
         Download CV (PDF)
       </a>
@@ -1144,6 +1223,172 @@
 <footer>
   Paula Otero Paños
 </footer>
+
+<!-- LANGUAGE SWITCHER
+     English is written directly in this HTML (default, works without JS, visible to crawlers).
+     Spanish / French / German are loaded on demand from i18n/<lang>.json.
+     To translate an element, give it data-i18n="section.key" and add that key to every JSON file.
+     Config (languages, default, browser detection) lives in the <head> script. -->
+<script>
+(function () {
+  const C = window.I18N_CONFIG;
+
+  // English text for strings that JavaScript builds at runtime (everything else is the English in the HTML).
+  const EN_UI = {
+    'ui.showing':   'Showing {n} projects',
+    'ui.showAll':   'Show all {n} projects',
+    'ui.showFewer': 'Show fewer projects'
+  };
+
+  let lang = C.fallback;
+  let dict = null;                 // flat dictionary of the active language (null = English from the HTML)
+  let token = 0;                   // guards against out-of-order loads when the user clicks quickly
+  const cache = {};                // lang -> Promise<flat dict>
+  const listeners = [];
+
+  // ── Collect everything translatable once (the English original is kept so we can switch back) ──
+  const items = [], attrs = [], dates = [];
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (el.querySelector('svg')) {                       // icon + text: only swap the text node
+      const tn = [...el.childNodes].find(n => n.nodeType === 3 && n.nodeValue.trim());
+      if (tn) items.push({ key, node: tn, orig: tn.nodeValue, text: true });
+    } else {
+      items.push({ key, node: el, orig: el.innerHTML, text: false });
+    }
+  });
+  document.querySelectorAll('[data-i18n-attr]').forEach(el => {
+    el.dataset.i18nAttr.split(';').forEach(pair => {     // "aria-label:nav.themeAria;title:nav.themeTitle"
+      const i = pair.indexOf(':'); if (i < 0) return;
+      const attr = pair.slice(0, i).trim(), key = pair.slice(i + 1).trim();
+      attrs.push({ el, attr, key, orig: el.getAttribute(attr) });
+    });
+  });
+  document.querySelectorAll('[data-i18n-date]').forEach(el => dates.push({ el, orig: el.textContent }));
+
+  // ── Helpers ──
+  function flatten(obj, prefix, out) {
+    for (const k in obj) {
+      const v = obj[k], path = prefix ? prefix + '.' + k : k;
+      if (v && typeof v === 'object') flatten(v, path, out); else out[path] = v;
+    }
+    return out;
+  }
+
+  function load(l) {
+    if (!cache[l]) {
+      cache[l] = fetch(C.path + l + '.json')
+        .then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+        .then(j => flatten(j, '', {}));
+      cache[l].catch(() => { delete cache[l]; });        // allow a retry later
+    }
+    return cache[l];
+  }
+
+  // t('ui.showAll', { n: 13 }) → string in the active language (English fallback for missing keys)
+  function t(key, vars) {
+    let s = dict && dict[key] !== undefined ? dict[key] : EN_UI[key];
+    if (s === undefined) return key;
+    if (vars) Object.keys(vars).forEach(k => { s = s.split('{' + k + '}').join(vars[k]); });
+    return s;
+  }
+
+  function translateDate(txt) {
+    if (!dict) return txt;
+    return txt
+      .replace(/\b(Sept|Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Oct|Nov|Dec)\b/g, m => dict['dates.months.' + m] || m)
+      .replace(/\bID:/g, dict['dates.idLabel'] || 'ID:');
+  }
+
+  function render(l, d) {
+    lang = l; dict = d;
+    document.documentElement.lang = l;
+    const missing = [];
+    const pick = key => {
+      if (!d) return undefined;
+      if (d[key] === undefined) { missing.push(key); return undefined; }
+      return d[key];
+    };
+    items.forEach(it => {
+      const tr = pick(it.key);
+      if (it.text) {
+        const lead = it.orig.match(/^\s*/)[0], trail = it.orig.match(/\s*$/)[0];
+        it.node.nodeValue = tr !== undefined ? lead + tr + trail : it.orig;
+      } else {
+        it.node.innerHTML = tr !== undefined ? tr : it.orig;
+      }
+    });
+    attrs.forEach(a => {
+      const tr = pick(a.key);
+      a.el.setAttribute(a.attr, tr !== undefined ? tr : a.orig);
+    });
+    dates.forEach(x => { x.el.textContent = translateDate(x.orig); });
+
+    const cur = document.getElementById('lang-current'); if (cur) cur.textContent = l.toUpperCase();
+    document.querySelectorAll('#lang-menu [data-lang]').forEach(b => b.setAttribute('aria-current', String(b.dataset.lang === l)));
+
+    if (d) {                                              // dev diagnostics (visible in the browser console only)
+      const used = new Set([...items.map(i => i.key), ...attrs.map(a => a.key)]);
+      const unused = Object.keys(d).filter(k => !used.has(k) && !/^(ui|dates)\./.test(k));
+      if (missing.length) console.warn('[i18n] ' + l + '.json is missing ' + missing.length + ' key(s):', [...new Set(missing)]);
+      if (unused.length)  console.warn('[i18n] ' + l + '.json has ' + unused.length + ' key(s) not used in the page:', unused);
+    }
+  }
+
+  async function setLang(l, persist) {
+    if (!C.langs.includes(l)) return;
+    const mine = ++token;
+    let d = null;
+    if (l !== C.fallback) {
+      try { d = await load(l); }
+      catch (e) {
+        console.error('[i18n] Could not load ' + C.path + l + '.json (' + e.message + '). ' +
+                      'If you opened the file directly (file://), serve the folder with a local web server instead.');
+        document.documentElement.classList.remove('i18n-pending');
+        return;
+      }
+    }
+    if (mine !== token) return;                           // a newer click superseded this one
+    render(l, d);
+    document.documentElement.classList.remove('i18n-pending');
+    if (persist) { try { localStorage.setItem('lang', l); } catch (e) {} }
+    listeners.forEach(fn => fn(l));
+  }
+
+  window.I18N = {
+    get lang() { return lang; },
+    t,
+    setLang: l => setLang(l, true),
+    onChange: fn => listeners.push(fn),
+    // Console helper: I18N._report() → keys used by the page that the active language lacks, and vice versa
+    _report: () => {
+      const used = new Set([...items.map(i => i.key), ...attrs.map(a => a.key)]);
+      return dict ? {
+        missing: [...used].filter(k => dict[k] === undefined),
+        unused: Object.keys(dict).filter(k => !used.has(k) && !/^(ui|dates)\./.test(k))
+      } : { missing: [], unused: [] };
+    }
+  };
+
+  // ── Dropdown wiring ──
+  const sw = document.getElementById('lang-switch');
+  const toggle = document.getElementById('lang-toggle');
+  function closeMenu() { sw.classList.remove('open'); toggle.setAttribute('aria-expanded', 'false'); }
+  toggle.addEventListener('click', e => {
+    e.stopPropagation();
+    const open = sw.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+  document.querySelectorAll('#lang-menu [data-lang]').forEach(b => {
+    b.addEventListener('click', () => { setLang(b.dataset.lang, true); closeMenu(); });
+  });
+  document.addEventListener('click', e => { if (!sw.contains(e.target)) closeMenu(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeMenu(); });
+
+  // ── Initial language (decided in the <head> script: ?lang=xx → saved choice → browser language if enabled → English) ──
+  setLang(C.initial, false);
+})();
+</script>
 
 <!-- FILTER LOGIC -->
 <script>
@@ -1169,13 +1414,21 @@
     return n;
   }
 
-  // ── Inject per-category counts into button labels ───────
-  buttons.forEach(btn => {
-    const filter = btn.dataset.filter;
-    if (filter === 'all') return; // "All" shows total, handled live
-    const n = countFor(filter);
-    btn.innerHTML = `${btn.textContent.trim()} <span class="btn-count">(${n})</span>`;
-  });
+  // ── Per-category counts next to each label (the labels themselves are translated by i18n) ──
+  function renderCounts() {
+    buttons.forEach(btn => {
+      const el = btn.querySelector('.btn-count');
+      if (el) el.textContent = '(' + countFor(btn.dataset.filter) + ')';
+    });
+  }
+  renderCounts();
+
+  // "Showing N projects": one template per language, so word order can differ freely
+  let visibleNow = total;
+  function renderShowing() {
+    countEl.innerHTML = I18N.t('ui.showing', { n: '<span>' + visibleNow + '</span>' });
+  }
+  let currentFilter = 'all';
 
   // ── Collapse state: only relevant when the "all" filter is active.
   //    Any specific filter always shows every matching card. ───────
@@ -1189,11 +1442,12 @@
     const expanded = userExpanded;
     wrap.classList.toggle('collapsed', !expanded);
     toggleBtn.classList.toggle('is-expanded', expanded);
-    toggleLbl.textContent = expanded ? 'Show fewer projects' : `Show all ${total} projects`;
+    toggleLbl.textContent = expanded ? I18N.t('ui.showFewer') : I18N.t('ui.showAll', { n: total });
   }
 
   // ── Apply a filter ───────────────────────────────────────
   function applyFilter(filter) {
+    currentFilter = filter;
     let visible = 0;
 
     cards.forEach(card => {
@@ -1213,11 +1467,8 @@
     });
 
     // Update counter
-    countEl.textContent = visible;
-
-    // Update All button count
-    const allBtn = document.querySelector('.filter-btn[data-filter="all"]');
-    if (allBtn) allBtn.innerHTML = `All`;
+    visibleNow = visible;
+    renderShowing();
 
     // Empty state
     emptyEl.classList.toggle('visible', visible === 0);
@@ -1243,6 +1494,9 @@
       document.getElementById('proyectos').scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   });
+
+  // Re-render dynamic labels when the language changes
+  I18N.onChange(() => { renderShowing(); updateCollapseUI(currentFilter); });
 
   // Initialise - show total count for "All"
   applyFilter('all');
