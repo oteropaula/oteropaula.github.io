@@ -1,6 +1,6 @@
 {
   "meta": {
-    "description": "Paula Otero Paños - Masterstudentin der Cybersicherheit mit Hintergrund in Informatik und digitalen Multimedia-Technologien, Schwerpunkt Cybersicherheit, Systeme und nachhaltiges Computing.",
+    "description": "Paula Otero Paños - Masterstudentin der Cybersicherheit mit Hintergrund in Informatik und Telekommunikation, Schwerpunkt Cybersicherheit, Systeme und nachhaltiges Computing.",
     "ogDescription": "Masterstudentin der Cybersicherheit"
   },
   "nav": {
@@ -9,6 +9,7 @@
     "projects": "Projekte",
     "education": "Ausbildung",
     "certs": "Zertifikate",
+    "activities": "Aktivitäten",
     "contact": "Kontakt",
     "themeAria": "Zwischen hellem und dunklem Design wechseln",
     "themeTitle": "Design wechseln",
@@ -18,6 +19,7 @@
   "hero": {
     "name": "Hallo! Ich bin<br><em>Paula.</em>",
     "tagline": "Masterstudentin mit Leidenschaft für Cybersicherheit und Telekommunikation",
+    "seeking": "Ich suche ein <strong>Praktikum in Cybersicherheit ab Januar 2027</strong>. Besonders interessieren mich offensive Sicherheit und sichere Netzwerkkommunikation: Protokolle, TLS und Schwachstellenforschung.",
     "location": "Derzeit in Madrid, Spanien · Aus Valencia, Spanien · Erasmus in Ljubljana, Slowenien",
     "seeWork": "Meine Projekte ansehen",
     "getInTouch": "Kontakt aufnehmen",
@@ -43,13 +45,20 @@
     "polaroid3": "bei der Abschlussfeier"
   },
   "about": {
-    "bio1": "Hallo! Ich bin <strong>Paula</strong>, <strong>Studentin im Master Cybersicherheit</strong> und lebe derzeit in <strong>Madrid</strong>. Mein Bachelorstudium in <strong>Digital- und Multimedia-Technologie</strong> habe ich an der <strong>Universitat Politècnica de València (UPV)</strong> absolviert. Außerdem war ich im Rahmen von <strong>Erasmus+</strong> an der <strong>Universität Ljubljana</strong>, was meine akademische und internationale Erfahrung erweitert hat.",
-    "bio2": "Mich begeistert es zu verstehen, wie komplexe Systeme funktionieren – von Netzwerken und Betriebssystemen bis hin zu sicherer und effizienter Software.",
-    "bio3": "Neben dem Studium war ich in mehreren Studierendenvereinigungen aktiv, darunter <strong>ACM UPV Chapter</strong>, Poliwood und Toma Uno. Außerdem war ich ehrenamtlich als Erasmus-Mentorin tätig, habe die Universität Ljubljana auf der Erasmus-Messe der Fakultät vertreten und war Co-Autorin eines Forschungsartikels und eines Posters, die auf der <strong>ICT4S-Konferenz</strong> in Bern (Schweiz) vorgestellt wurde. Ich ergreife gern die Initiative, arbeite mit anderen zusammen und setze Ideen in praktische Lösungen um.",
-    "techTitle": "Technische Fähigkeiten",
+    "bio1": "Hallo! Ich bin <strong>Paula</strong>, <strong>Studentin im Master Cybersicherheit</strong> und lebe derzeit in <strong>Madrid</strong>. Meinen Abschluss habe ich an der <strong>Universitat Politècnica de València (UPV)</strong> gemacht, wo ich an der <strong>Fakultät für Telekommunikationstechnik</strong> studiert habe. Während meines <strong>Erasmus+</strong>-Austauschs an der <strong>Universität Ljubljana</strong> habe ich Kurse mit Schwerpunkt Cybersicherheit im dortigen Studiengang Computer- und Informationswissenschaft belegt, was meine akademische und internationale Erfahrung erweitert hat.",
+    "bio2": "Mich interessiert besonders, wie komplexe Systeme funktionieren und wie man sie schützt – von Netzwerken und Betriebssystemen bis hin zu sicherer Software und kritischer Infrastruktur.",
+    "bio3": "Ich entwickle meine Cybersicherheitskompetenzen aktiv durch praktische Challenges und Branchenveranstaltungen weiter. Ich habe an <strong>Talent4Cyber 2026</strong> teilgenommen, einem nationalen universitären Cybersicherheits-Hackathon im Attack-&amp;-Defense-Format. Außerdem bin ich in den Lehrveranstaltungen engagiert und besuche regelmäßig Konferenzen und Veranstaltungen der Branche. Daneben war ich Co-Autorin eines Forschungsartikels und eines Posters, die ich auf der <strong>ICT4S-2026-Konferenz</strong> in Bern (Schweiz) vorgestellt habe und die sich mit den Umweltauswirkungen digitaler Technologien befassen.",
+    "skills": {
+      "securityTitle": "Sicherheit und Kryptografie",
+      "appliedCrypto": "Angewandte Kryptografie (RSA, AES)",
+      "digitalSignatures": "Digitale Signaturen",
+      "watermarking": "Wasserzeichen",
+      "programmingTitle": "Programmierung",
+      "systemsTitle": "Systeme und Netzwerke",
+      "aiTitle": "KI, Daten und Forschung"
+    },
     "tech": {
       "networking": "Netzwerke",
-      "cryptographyBasics": "Kryptografie",
       "commandLine": "Kommandozeile",
       "energyProfiling": "Energieprofiling",
       "visualComputing": "Computer Vision"
@@ -65,6 +74,7 @@
     "languagesTitle": "Sprachen",
     "languages": {
       "spanish": "Spanisch - Muttersprache",
+      "valencian": "Valencianisch - C1",
       "english": "Englisch - Fließend (C1 Cambridge)"
     }
   },
@@ -206,6 +216,52 @@
     },
     "filterAria": "Projekte nach Kategorie filtern"
   },
+  "activities": {
+    "label": "Über Projekte hinaus",
+    "title": "Aktivitäten und Veranstaltungen",
+    "cats": {
+      "conference": "Cybersicherheitskonferenz",
+      "hackathon": "Cybersicherheits-Hackathon",
+      "research": "Forschungskonferenz"
+    },
+    "badges": {
+      "accepted": "Bestätigt",
+      "attendee": "Besucherin",
+      "participant": "Teilnehmerin",
+      "presenter": "Vortragende"
+    },
+    "items": {
+      "stic": {
+        "date": "November 2026 · Madrid, Spanien · CCN",
+        "desc": "Anmeldung bestätigt für eine der führenden spanischen Veranstaltungen zu Cybersicherheit und Cyberabwehr, organisiert vom Nationalen Kryptologischen Zentrum (CCN). Das Programm umfasst den ENS, KI-Sicherheit, kritische Infrastrukturen, industrielle Cybersicherheit und Cyberresilienz."
+      },
+      "cibertodos": {
+        "date": "29. Oktober 2026 · Madrid, Spanien · ISACA Madrid Chapter",
+        "desc": "Besuch von Vorträgen und Diskussionen zu aktuellen Herausforderungen der Cybersicherheit, darunter agentische KI, Post-Quanten-Kryptografie, Cybersicherheits-Governance und digitale Souveränität."
+      },
+      "talent4cyber": {
+        "date": "14.–15. Oktober 2026 · Online",
+        "desc": "Teilnahme am spanischen nationalen universitären Cybersicherheits-Hackathon im Attack-and-Defense-Format, einer zweitägigen Teamübung zur Reaktion auf Cybervorfälle und zum Schutz kritischer Infrastrukturen."
+      },
+      "ict4s": {
+        "date": "Juni 2026 · Bern, Schweiz",
+        "desc": "Vorstellung des Forschungsartikels und Posters <em>E2E-StreamCarbon</em> auf der ICT4S 2026 in Bern, Schweiz."
+      }
+    },
+    "tags": {
+      "criticalInfra": "Kritische Infrastrukturen",
+      "cyberResilience": "Cyberresilienz",
+      "aiSecurity": "KI-Sicherheit",
+      "cryptography": "Kryptografie",
+      "governance": "Governance",
+      "attackDefense": "Attack &amp; Defense",
+      "cybersecurity": "Cybersicherheit",
+      "teamwork": "Teamarbeit",
+      "research": "Forschung",
+      "sustainableComputing": "Nachhaltiges Computing",
+      "scientificCommunication": "Wissenschaftskommunikation"
+    }
+  },
   "education": {
     "label": "Ausbildung",
     "title": "Wo ich studiert habe",
@@ -236,8 +292,27 @@
   },
   "certs": {
     "label": "Zertifizierungen",
-    "title": "Lizenzen und Kurse",
+    "title": "Zertifikate",
+    "filterAria": "Zertifikate nach Kategorie filtern",
+    "filters": {
+      "cyber": "Cybersicherheit",
+      "languages": "Sprachen",
+      "other": "Weitere"
+    },
+    "status": {
+      "preparing": "In Vorbereitung",
+      "selfPaced": "Selbstlernkurs · Laufend"
+    },
+    "verify": "Prüfen ↗",
     "items": {
+      "oscp": {
+        "name": "OSCP - OffSec Certified Professional",
+        "badge": "Offensive Sicherheit · Laufend"
+      },
+      "columbiaAiGov": {
+        "name": "KI-Cybersicherheit und Governance",
+        "badge": "KI-Sicherheit · Laufend"
+      },
       "cae": {
         "badge": "Englisch · C1"
       },

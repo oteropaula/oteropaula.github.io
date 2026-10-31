@@ -5,17 +5,17 @@
 
 <meta name="description" data-i18n-attr="content:meta.description" content="Paula Otero Paños - Cybersecurity master's student with a background in Computer Science & Telecomunicaciones, focused on cybersecurity, systems and sustainable computing.">
 <link rel="canonical" href="https://oteropaula.github.io/">
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%231B3FAB'/%3E%3Ctext x='50' y='69' font-family='Georgia, serif' font-size='58' fill='white' text-anchor='middle'%3EP%3C/text%3E%3C/svg%3E">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Crect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%2317181C%22/%3E%3Cpolyline points=%2213,34 31,50 13,66%22 fill=%22none%22 stroke=%22%236BF08F%22 stroke-width=%229%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3Cpath d=%22M45 74V27h14a14 14 0 0 1 0 28H45%22 fill=%22none%22 stroke=%22%23fff%22 stroke-width=%229%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3Cline x1=%2266%22 y1=%2276%22 x2=%2288%22 y2=%2276%22 stroke=%22%236BF08F%22 stroke-width=%229%22 stroke-linecap=%22round%22/%3E%3C/svg%3E">
 
 <!-- Open Graph for LinkedIn preview -->
-<meta property="og:title" content="Paula Otero Paños" />
+<meta property="og:title" content="Paula Otero Paños · Cybersecurity MSc student" />
 <meta property="og:description" data-i18n-attr="content:meta.ogDescription" content="Cybersecurity master's student" />
 <meta property="og:image" content="https://oteropaula.github.io/images/banner.png" />
 <meta property="og:url" content="https://oteropaula.github.io/" />
 <meta property="og:type" content="website" />
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Paula Otero Paños - Portfolio</title>
+<title>Paula Otero ~$</title>
 <script>
   (function () {
     try {
@@ -58,7 +58,7 @@
     }
   })();
 </script>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Caveat:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&family=Caveat:wght@500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #17181C;
@@ -69,15 +69,22 @@
     --muted-dim: #6D707A;
     --subtle: #32353F;
     --subtle-strong: #40444F;
-    --accent: #B23A52;
-    --accent-light: #26191D;
-    --accent-mid: #5A2632;
-    --accent-text: #E8A2AF;
+    --accent: #2FD566;
+    --accent-light: #13241A;
+    --accent-mid: #1D5A33;
+    --accent-text: #6BF08F;
     --green: #6E9C86;
     --green-light: #182420;
     --green-mid: #2C3A34;
     --nav-bg: rgba(23,24,28,0.82);
-    --on-accent: #FFFFFF;
+    --on-accent: #06140B;
+    /* syntax-highlight palette for tags (one hue per meaning) */
+    --c-green: #6BF08F;   /* security   */
+    --c-blue: #7FB2FF;    /* research   */
+    --c-cyan: #4FD8E8;    /* systems    */
+    --c-purple: #C4A7FF;  /* AI / ML    */
+    --c-amber: #F2C46D;   /* creative / languages / honours */
+    --c-slate: #A3A8B4;   /* neutral    */
   }
 
   [data-theme="light"] {
@@ -97,6 +104,13 @@
     --green-light: #E1F5EE;
     --green-mid: #BFE3D6;
     --nav-bg: rgba(247,246,242,0.9);
+    --on-accent: #FFFFFF;
+    --c-green: #137A3F;
+    --c-blue: #1F5FC9;
+    --c-cyan: #0B7A8C;
+    --c-purple: #7240C4;
+    --c-amber: #9A6200;
+    --c-slate: #5B616C;
   }
 
   /* Non-English visitors: hide the page until the translation is applied (removed by the i18n script) */
@@ -173,7 +187,19 @@
   .hero-eyebrow::before { content: ''; display: inline-block; width: 24px; height: 1px; background: var(--muted-dim); }
   .hero-name { font-family: 'DM Serif Display', serif; font-weight: 400; font-size: clamp(3rem, 8vw, 5rem); line-height: 1.02; letter-spacing: -0.015em; margin-bottom: 1.5rem; color: var(--text); }
   .hero-name em { font-style: italic; font-weight: 400; color: var(--accent-text); }
+  /* ─── HACKER TOUCHES ─────────────────────────────────── */
+  .hero-name em { display: inline-block; }
+  .hero-name em.glitching, .hero-name em.alias { font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace; font-style: normal; letter-spacing: -0.04em; }
+  .hero-name em.glitching { text-shadow: 2px 0 rgba(0,229,255,0.75), -2px 0 rgba(255,46,99,0.75); animation: nameJitter 0.2s steps(2) infinite; }
+  @keyframes nameJitter { 0% { transform: translate(0,0); } 25% { transform: translate(-2px,1px); } 50% { transform: translate(2px,-1px); } 75% { transform: translate(-1px,0); } 100% { transform: translate(0,0); } }
+  .hero-tagline::after { content: '_'; margin-left: 0.15em; color: var(--accent-text); animation: termBlink 1.1s steps(1) infinite; }
+  @keyframes termBlink { 50% { opacity: 0; } }
+  .label { font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace; letter-spacing: 0.12em; }
+  .label::before { content: '> '; opacity: 0.7; }
+  @media (prefers-reduced-motion: reduce) { .hero-tagline::after, .hero-name em.glitching { animation: none; } }
   .hero-tagline { font-size: 1.05rem; color: var(--muted); font-weight: 300; max-width: 500px; margin-bottom: 0.75rem; line-height: 1.8; }
+  .hero-seeking { font-family: 'DM Sans', sans-serif; font-size: 0.88rem; line-height: 1.7; color: var(--muted); max-width: 540px; margin-bottom: 0.9rem; padding-left: 0.85rem; border-left: 2px solid var(--accent); }
+  .hero-seeking strong { color: var(--text); font-weight: 500; }
   .hero-location { font-family: 'DM Sans', sans-serif; font-size: 0.82rem; color: var(--muted-dim); margin-bottom: 2.75rem; display: flex; align-items: center; gap: 0.4rem; }
   .hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; align-items: center; }
   .btn-primary { background: var(--accent); color: var(--on-accent); padding: 0.7rem 1.6rem; border-radius: 2px; text-decoration: none; font-size: 0.85rem; font-weight: 500; letter-spacing: 0.02em; transition: opacity 0.2s, transform 0.2s; }
@@ -204,26 +230,34 @@
   .award-stat span { font-family: 'DM Sans', sans-serif; font-size: 0.7rem; letter-spacing: 0.02em; color: var(--muted-dim); line-height: 1.5; }
 
   /* ─── ABOUT ──────────────────────────────────────────── */
-  .about-grid { display: grid; grid-template-columns: 1fr 1.7fr; gap: 4rem; align-items: start; }
-  .about-photo { aspect-ratio: 3/4; background: var(--surface); border-radius: 50%; border: 1px solid var(--subtle); overflow: hidden; }
-  .about-photo img { width: 100%; height: 100%; object-fit: cover; display: block; filter: grayscale(15%); }
+  .about-grid { display: block; }
   .about-text p { font-size: 0.975rem; color: var(--muted); margin-bottom: 1rem; font-weight: 300; line-height: 1.85; }
   .about-text p strong { color: var(--text); font-weight: 500; }
 
   /* skills - compact inline flow instead of stacked tag clouds */
-  .skills-cols {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 1.1rem 1.5rem;
-    margin-top: 1.75rem;
+  .skills-cols { display: flex; flex-direction: column; margin-top: 2.5rem; border-top: 1px solid var(--subtle); }
+  .skills-cols > div { display: grid; grid-template-columns: 12rem 1fr; gap: 0.5rem 1.5rem; align-items: baseline; padding: 0.8rem 0; border-bottom: 1px solid var(--subtle); }
+  .skills-block-label { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted-dim); margin: 0; font-weight: 500; }
+  /* ─── TAG PALETTE: colour = meaning (set --tone on a parent, children inherit) ─── */
+  .tone-green  { --tone: var(--c-green); }
+  .tone-blue   { --tone: var(--c-blue); }
+  .tone-cyan   { --tone: var(--c-cyan); }
+  .tone-purple { --tone: var(--c-purple); }
+  .tone-amber  { --tone: var(--c-amber); }
+  .tone-slate  { --tone: var(--c-slate); }
+  .status-upcoming { --tone: var(--c-blue); } .status-accepted { --tone: var(--c-cyan); } .status-attendee { --tone: var(--c-slate); }
+  .status-participant { --tone: var(--c-purple); } .status-presenter { --tone: var(--c-green); }
+  .tag-tech, .tag-lang, .tag-sm, .project-badge, .cert-badge, .edu-badge {
+    color: var(--tone, var(--c-slate)); background: color-mix(in srgb, var(--tone, var(--c-slate)) 14%, transparent); border: none;
   }
-  .skills-block-full { grid-column: 1 / -1; }
-  .skills-block-label { font-family: 'DM Sans', sans-serif; font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted-dim); margin-bottom: 0.55rem; font-weight: 500; }
+  .tag-interest { color: var(--muted); background: transparent; border: 1px solid var(--subtle-strong); }
+  .project-cat { color: var(--tone, var(--accent-text)); }
+  .project-card .project-img { background: color-mix(in srgb, var(--tone, var(--c-slate)) 12%, var(--bg)); color: var(--tone, var(--c-slate)); }
+  .edu-badge { --tone: var(--c-amber); }
+  .cert-card.in-progress { background: color-mix(in srgb, var(--tone) 9%, var(--surface)); box-shadow: inset 3px 0 0 var(--tone); }
+  .cert-badge.progress { background: var(--tone); color: var(--on-accent); }
   .tag-row { display: flex; flex-wrap: wrap; gap: 0.3rem; }
   .tag { font-family: 'DM Sans', sans-serif; padding: 0.28rem 0.75rem; border-radius: 2px; font-size: 0.78rem; letter-spacing: 0.02em; border: none; }
-  .tag-tech { color: var(--text); background: var(--surface-2); }
-  .tag-interest { color: var(--accent-text); background: var(--accent-light); }
-  .tag-lang { color: var(--green); background: var(--green-light); }
 
   /* EXPERIENCE */
     .exp-list {
@@ -277,10 +311,13 @@
 
   /* ─── CARD TRANSITIONS ───────────────────────────────── */
   .project-card { transition: border-color 0.2s, transform 0.2s, opacity 0.2s, background 0.2s; }
+  .activity-card-link { cursor: pointer; }
+  .activity-card-link:hover { border-color: var(--accent-mid); transform: translateY(-2px); }
+  .activity-card-link:focus-visible { outline: 2px solid var(--accent-mid); outline-offset: 3px; }
   .project-card.hidden { display: none; opacity: 0; pointer-events: none; }
   .project-card.fading-out { opacity: 0; pointer-events: none; transform: translateY(4px); }
   .project-card.fading-in { animation: fadeInCard 0.22s ease forwards; }
-  .contact-wrapper, .cert-card, .about-photo, .exp-place, .tag, .tag-sm, .project-badge, .cert-badge, .edu-badge, .filter-btn, .btn-secondary, .theme-toggle { transition: background 0.2s, border-color 0.2s, color 0.2s; }
+  .contact-wrapper, .cert-card, .exp-place, .tag, .tag-sm, .project-badge, .cert-badge, .edu-badge, .filter-btn, .btn-secondary, .theme-toggle { transition: background 0.2s, border-color 0.2s, color 0.2s; }
   @keyframes fadeInCard {
     from { opacity: 0; transform: translateY(6px); }
     to   { opacity: 1; transform: translateY(0); }
@@ -299,14 +336,13 @@
   .project-img img { width: 100%; height: 100%; object-fit: cover; filter: saturate(0.9); }
   .project-img.green { background: var(--green-light); color: var(--green); }
   .project-body { padding: 1.2rem 1.4rem 1.4rem; }
-  .project-cat { font-family: 'DM Sans', sans-serif; font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent-text); margin-bottom: 0.35rem; font-weight: 500; }
-  .project-cat.green { color: var(--green); }
+  .project-cat { font-family: 'DM Sans', sans-serif; font-size: 0.66rem; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.35rem; font-weight: 500; }
   .project-title { font-family: 'DM Serif Display', serif; font-weight: 400; font-size: 1.12rem; margin-bottom: 0.5rem; color: var(--text); line-height: 1.3; }
   .project-desc { font-size: 0.87rem; color: var(--muted); line-height: 1.7; font-weight: 300; margin-bottom: 1rem; }
-  .project-badge { display: inline-block; font-size: 0.72rem; background: var(--accent-light); color: var(--accent-text); padding: 0.2rem 0.6rem; border-radius: 2px; margin-bottom: 0.75rem; letter-spacing: 0.02em; font-family: 'DM Sans', sans-serif; }
+  .project-badge { display: inline-block; font-size: 0.72rem; padding: 0.2rem 0.6rem; border-radius: 2px; margin-bottom: 0.75rem; letter-spacing: 0.02em; font-family: 'DM Sans', sans-serif; }
+  /* Activity status badges */
   .tag-row-sm { display: flex; flex-wrap: wrap; gap: 0.32rem; }
-  .tag-sm { font-family: 'DM Sans', sans-serif; background: var(--accent-light); border: none; color: var(--accent-text); padding: 0.18rem 0.55rem; border-radius: 2px; font-size: 0.72rem; }
-  .tag-sm.green { background: var(--green-light); color: var(--green); }
+  .tag-sm { font-family: 'DM Sans', sans-serif; padding: 0.18rem 0.55rem; border-radius: 2px; font-size: 0.72rem; }
 
   /* ─── PROJECTS EXPAND/COLLAPSE ───────────────────────── */
   .projects-collapse-wrap { position: relative; }
@@ -336,7 +372,7 @@
   .edu-uni { font-size: 0.85rem; color: var(--accent-text); font-weight: 500; margin-bottom: 0.6rem; }
   .edu-bullets { padding-left: 1rem; color: var(--muted); font-size: 0.88rem; font-weight: 300; line-height: 1.75; }
   .edu-bullets li { margin-bottom: 0.2rem; }
-  .edu-badge { display: inline-block; font-size: 0.72rem; background: var(--accent-light); color: var(--accent-text); padding: 0.2rem 0.6rem; border-radius: 2px; margin-bottom: 0.6rem; letter-spacing: 0.02em; font-family: 'DM Sans', sans-serif; }
+  .edu-badge { display: inline-block; font-size: 0.72rem; padding: 0.2rem 0.6rem; border-radius: 2px; margin-bottom: 0.6rem; letter-spacing: 0.02em; font-family: 'DM Sans', sans-serif; }
 
   /* CONTACT */
   .contact-wrapper { background: var(--surface); border: 1px solid var(--subtle); border-radius: 2px; padding: 3rem; }
@@ -354,15 +390,20 @@
   .cert-issuer { font-family: 'DM Sans', sans-serif; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted-dim); font-weight: 500; }
   .cert-name { font-weight: 500; font-size: 0.9rem; color: var(--text); line-height: 1.4; }
   .cert-date { font-family: 'DM Sans', sans-serif; font-size: 0.78rem; color: var(--muted-dim); font-weight: 400; }
-  .cert-badge { display: inline-block; margin-top: 0.35rem; background: var(--accent-light); color: var(--accent-text); font-size: 0.7rem; padding: 0.15rem 0.55rem; border-radius: 2px; width: fit-content; font-family: 'DM Sans', sans-serif; }
-  .cert-badge.green { border-color: var(--green-mid); color: var(--green); }
+  .cert-badge { display: inline-block; margin-top: 0.35rem; font-size: 0.7rem; padding: 0.15rem 0.55rem; border-radius: 2px; width: fit-content; font-family: 'DM Sans', sans-serif; }
 
+  .cert-card[hidden] { display: none; }
+  .cert-verify { font-family: 'DM Sans', sans-serif; font-size: 0.72rem; color: var(--accent-text); text-decoration: none; width: fit-content; margin-top: 0.1rem; border-bottom: 1px solid transparent; }
+  .cert-verify:hover { border-bottom-color: var(--accent-text); }
+  .cert-badge.progress { display: inline-flex; align-items: center; gap: 0.45rem; }
+  .cert-badge.progress::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: currentColor; animation: certPulse 1.8s ease-in-out infinite; }
+  @keyframes certPulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.25; } }
+  @media (prefers-reduced-motion: reduce) { .cert-badge.progress::before { animation: none; } }
+  .cert-filter { margin-top: 1.5rem; margin-bottom: 0; }
+  .cert-filter + .cert-grid { margin-top: 1rem; }
   @media (max-width: 560px) { .cert-grid { grid-template-columns: 1fr; } }
   @media (max-width: 620px) {
-    .about-grid { grid-template-columns: 1fr; gap: 2rem; }
-    .about-photo { aspect-ratio: 1/1; max-width: 180px; }
-    .skills-cols { grid-template-columns: 1fr; }
-    .skills-block-full { grid-column: 1; }
+    .skills-cols > div { grid-template-columns: 1fr; gap: 0.5rem; }
     .exp-item, .edu-item { grid-template-columns: 1fr; }
     .exp-meta { text-align: left; }
     .contact-wrapper { padding: 2rem 1.5rem; }
@@ -410,13 +451,14 @@
   }
   [data-theme="light"] .paper-patch { box-shadow: 0 16px 36px rgba(0,0,0,0.07); }
   .scribble-eyebrow {
-    text-align: center; font-family: 'DM Sans', sans-serif; font-size: 0.72rem;
-    letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted);
-    margin-bottom: 0.6rem;
+    text-align: center; font-family: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace; font-size: 0.68rem;
+    letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent-text); font-weight: 500;
+    margin-bottom: 0.65rem;
   }
+  .scribble-eyebrow::before { content: '> '; opacity: 0.7; }
   .scribble-heading {
-    text-align: center; font-family: 'Caveat', cursive; font-weight: 700;
-    font-size: clamp(2.2rem, 6vw, 3.4rem);
+    text-align: center; font-family: 'DM Serif Display', serif; font-weight: 400; font-style: italic;
+    font-size: clamp(2rem, 5.5vw, 2.8rem); letter-spacing: -0.01em;
     line-height: 1.15; margin-bottom: 3.5rem; position: relative; z-index: 2;
   }
   .scribble-reveal {
@@ -505,17 +547,81 @@
     .lang-menu { right: -0.25rem; }
   }
 
+
+  /* ─── HACKER v2 ──────────────────────────────────────── */
+  :root { --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace; }
+  .label, .hero-name em.glitching, .hero-name em.alias { font-family: var(--mono); }
+
+  /* nav logo as a shell prompt, with window dots on wide screens */
+  .nav-logo { font-family: var(--mono); font-size: 0.86rem; font-weight: 500; letter-spacing: -0.02em; display: inline-flex; align-items: center; white-space: nowrap; }
+  .nav-logo::before { content: ''; flex-shrink: 0; width: 8px; height: 8px; margin-right: 40px; border-radius: 50%; background: var(--subtle-strong); box-shadow: 14px 0 0 var(--subtle-strong), 28px 0 0 var(--subtle-strong); }
+  .nav-logo .nl-u { color: var(--accent-text); }
+  .nav-logo .nl-s { color: var(--muted-dim); }
+  .nav-logo .nl-p { color: var(--green); }
+  @media (max-width: 900px) { .nav-logo::before { display: none; } }
+
+  /* monospace for the "data" layer: tags, dates, badges, meta */
+  .tag, .tag-sm, .tag-tech, .tag-lang, .tag-interest, .project-badge, .edu-badge, .cert-badge, .project-cat,
+  .exp-meta, .cert-date, .cert-issuer, .cert-verify, .filter-btn, .filter-count, .award-stat span,
+  .skills-block-label, .hero-eyebrow, .hero-location, footer { font-family: var(--mono); }
+  .tag { font-size: 0.72rem; letter-spacing: 0; }
+  .tag-sm { font-size: 0.66rem; letter-spacing: 0; }
+  .project-badge, .edu-badge, .cert-badge { font-size: 0.66rem; letter-spacing: 0; }
+  .project-cat { font-size: 0.62rem; letter-spacing: 0.06em; }
+  .exp-meta { font-size: 0.72rem; }
+  .filter-btn { font-size: 0.68rem; letter-spacing: 0; }
+  .filter-count { font-size: 0.68rem; }
+  .cert-date { font-size: 0.72rem; }
+  .cert-issuer, .skills-block-label { font-size: 0.62rem; letter-spacing: 0.08em; }
+  .cert-verify { font-size: 0.68rem; }
+  .award-stat span { font-size: 0.62rem; letter-spacing: 0; }
+  .hero-location { font-size: 0.74rem; }
+  footer { font-size: 0.7rem; }
+  .project-badge::before, .edu-badge::before { content: '['; opacity: 0.6; margin-right: 0.15em; }
+  .project-badge::after, .edu-badge::after { content: ']'; opacity: 0.6; margin-left: 0.15em; }
+
+  /* blinking block cursor after the hero name (the tagline gets its own while it types) */
+  .hero-name em::after { content: ''; display: inline-block; width: 0.09em; height: 0.78em; margin-left: 0.1em; background: var(--accent-text); vertical-align: -0.04em; animation: termBlink 1.1s steps(1) infinite; }
+  .hero-tagline::after { content: none; }
+  .hero-tagline.typing::after { content: '_'; }
+  @media (prefers-reduced-motion: reduce) { .hero-name em::after { animation: none; } }
+
+  /* section labels read as shell commands: "$ cat experience.md  # Experience" */
+  .label[data-cmd] { text-transform: none; letter-spacing: 0.02em; font-size: 0.76rem; color: var(--muted); }
+  .label[data-cmd]::before { content: '$ ' attr(data-cmd) '  # '; color: var(--green); opacity: 1; }
+
+  /* footer hint (desktop only) */
+  .egg-hint { display: block; margin-top: 0.35rem; opacity: 0.55; font-size: 0.64rem; }
+  @media (hover: none) { .egg-hint { display: none; } }
+
+  /* hidden terminal */
+  body.term-open { overflow: hidden; }
+  #term { position: fixed; inset: 0; z-index: 300; display: none; align-items: center; justify-content: center; padding: 1rem; background: rgba(8,9,11,0.72); backdrop-filter: blur(4px); }
+  #term.open { display: flex; }
+  .term-win { width: min(720px, 100%); height: min(460px, 80vh); display: flex; flex-direction: column; background: #0E0F12; color: #D7D9DE; border: 1px solid #32353F; border-radius: 6px; font-family: var(--mono); font-size: 0.8rem; line-height: 1.6; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+  .term-bar { display: flex; align-items: center; gap: 0.4rem; padding: 0.55rem 0.8rem; border-bottom: 1px solid #24262D; color: #6D707A; font-size: 0.7rem; }
+  .term-bar i { width: 10px; height: 10px; border-radius: 50%; background: #32353F; display: inline-block; }
+  .term-bar i:first-child { background: #B23A52; cursor: pointer; }
+  .term-bar span { margin-left: 0.6rem; }
+  .term-out { flex: 1; overflow-y: auto; padding: 0.8rem 1rem; white-space: pre-wrap; word-break: break-word; }
+  .term-out a { color: #6BF08F; }
+  .term-line { display: flex; gap: 0.5rem; padding: 0.6rem 1rem; border-top: 1px solid #24262D; align-items: center; }
+  .term-line b { color: #2FD566; font-weight: 500; white-space: nowrap; }
+  .term-line input { flex: 1; min-width: 0; background: none; border: 0; outline: 0; color: #EDEEF0; font: inherit; caret-color: #6BF08F; }
+  .t-dim { color: #6D707A; } .t-ok { color: #2FD566; } .t-acc { color: #6BF08F; } .t-err { color: #E8A2AF; }
+  @media (hover: none) { .term-line input { font-size: 16px; } }
 </style>
 </head>
 <body>
 
 <nav>
-  <a href="#inicio" class="nav-logo">Paula Otero</a>
+  <a href="#inicio" class="nav-logo" aria-label="Paula Otero"><span class="nl-text" aria-hidden="true"><span class="nl-u">paula</span><span class="nl-s">@</span>otero<span class="nl-s">:~</span><span class="nl-p">$</span></span></a>
   <div class="nav-right">
     <ul class="nav-links" id="nav-links">
       <li><a data-i18n="nav.about" href="#conoceme">About</a></li>
       <li><a data-i18n="nav.experience" href="#experiencia">Experience</a></li>
       <li><a data-i18n="nav.projects" href="#proyectos">Projects</a></li>
+      <li><a data-i18n="nav.activities" href="#actividades">Activities</a></li>
       <li><a data-i18n="nav.education" href="#educacion">Education</a></li>
       <li><a data-i18n="nav.certs" href="#certificados">Certs</a></li>
       <li><a data-i18n="nav.contact" href="#contacto">Contact</a></li>
@@ -551,6 +657,7 @@
     <p data-i18n="hero.tagline" class="hero-tagline">
       Master's student passionate about cybersecurity and telecommunications
     </p>
+    <p data-i18n="hero.seeking" class="hero-seeking">Looking for a <strong>cybersecurity internship from January 2027</strong>. Especially interested in offensive security and secure network communications: protocols, TLS and vulnerability research.</p>
     <p data-i18n="hero.location" class="hero-location">
       <svg width="13" height="13" viewBox="0 0 20 20" fill="currentColor" style="opacity:0.5"><path fill-rule="evenodd" d="M5.05 4.05a7 7 0 119.9 9.9L10 18.9l-4.95-4.95a7 7 0 010-9.9zM10 11a2 2 0 100-4 2 2 0 000 4z" clip-rule="evenodd"/></svg>
       Currently in Madrid, Spain · From Valencia, Spain · Erasmus in Ljubljana, Slovenia
@@ -605,7 +712,7 @@
         <span class="polaroid-pin"></span>
         <div class="polaroid-img">
           <img src="images/me-child.png" alt="Paula as a child" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <span class="polaroid-placeholder" style="display:none;">Add<br>images/me-child.png</span>
+          <span class="polaroid-placeholder" style="display:none;" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8.5 6l1.2-2h4.6l1.2 2"/></svg></span>
         </div>
         <figcaption data-i18n="scribble.polaroid1" class="polaroid-cap">little me</figcaption>
       </figure>
@@ -613,7 +720,7 @@
         <span class="polaroid-pin"></span>
         <div class="polaroid-img">
           <img src="images/me-presenting.jpg" alt="Paula presenting at ICT4S 2026" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <span class="polaroid-placeholder" style="display:none;">Add<br>images/me-presenting.jpg</span>
+          <span class="polaroid-placeholder" style="display:none;" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8.5 6l1.2-2h4.6l1.2 2"/></svg></span>
         </div>
         <figcaption data-i18n="scribble.polaroid2" class="polaroid-cap">presenting</figcaption>
       </figure>
@@ -621,7 +728,7 @@
         <span class="polaroid-pin"></span>
         <div class="polaroid-img">
           <img src="images/me-award.jpg" alt="Paula receiving an award" loading="lazy" onerror="this.style.display='none'; this.nextElementSibling.style.display='flex';">
-          <span class="polaroid-placeholder" style="display:none;">Add<br>images/me-award.jpg</span>
+          <span class="polaroid-placeholder" style="display:none;" aria-hidden="true"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8.5 6l1.2-2h4.6l1.2 2"/></svg></span>
         </div>
         <figcaption data-i18n="scribble.polaroid3" class="polaroid-cap">graduating</figcaption>
       </figure>
@@ -631,46 +738,75 @@
   <section id="sobre-mi">
     <h2 class="section-title"></h2>
     <div class="about-grid">
-      <div class="about-photo">
-        <img src="images/paula.png" alt="Paula Otero" loading="eager">
-      </div>
       <div class="about-text">
-        <p data-i18n="about.bio1">Hi! I'm <strong>Paula</strong>, an <strong>MSc in Cybersecurity student</strong> currently living in <strong>Madrid</strong>. I hold a degree in <strong>Digital and Multimedia Technology</strong> from the <strong>Universitat Politècnica de València (UPV)</strong>. I also completed an <strong>Erasmus+</strong> exchange at the <strong>University of Ljubljana</strong>, expanding my academic and international experience.</p>
+        <p data-i18n="about.bio1">Hi! I'm <strong>Paula</strong>, an <strong>MSc in Cybersecurity student</strong> currently based in <strong>Madrid</strong>. I hold a degree from the <strong>Universitat Politècnica de València (UPV)</strong>, where I studied at the <strong>School of Telecommunications Engineering</strong>. During my <strong>Erasmus+</strong> exchange at the <strong>University of Ljubljana</strong>, I took cybersecurity-focused courses within its Computer and Information Science programme, broadening my academic and international experience.</p>
 
-        <p data-i18n="about.bio2">I'm passionate about understanding how complex systems work, from networks and operating systems to secure and efficient software.</p>
+        <p data-i18n="about.bio2">I'm particularly interested in understanding how complex systems work and how to protect them, from networks and operating systems to secure software and critical infrastructure.</p>
         
-        <p data-i18n="about.bio3">Beyond academics, I have been actively involved in several student associations, including <strong>ACM UPV Chapter</strong>, Poliwood and Toma Uno. I also volunteered as an Erasmus mentor, represented the University of Ljubljana at the Faculty Erasmus Fair, and co-authored a research paper and poster presented at the <strong>ICT4S Conference</strong> in Bern, Switzerland. I enjoy taking initiative, collaborating with others and turning ideas into practical solutions.</p>      
-        <!-- Skills grid -->
-        <div class="skills-cols">
-          <div>
-            <p data-i18n="about.techTitle" class="skills-block-label">Technical skills</p>
-            <div class="tag-row">
-              <span class="tag tag-tech">Python</span>
-              <span class="tag tag-tech">Linux</span>
-              <span data-i18n="about.tech.networking" class="tag tag-tech">Networking</span>
-              <span data-i18n="about.tech.cryptographyBasics" class="tag tag-tech">Cryptography</span>
-              <span data-i18n="about.tech.commandLine" class="tag tag-tech">Command line</span>
-              <span data-i18n="about.tech.energyProfiling" class="tag tag-tech">Energy profiling</span>
-              <span data-i18n="about.tech.visualComputing" class="tag tag-tech">Computer vision</span>
-            </div>
-          </div>
-          <div>
-            <p data-i18n="about.interestsTitle" class="skills-block-label">Academic interests</p>
-            <div class="tag-row">
-              <span data-i18n="about.interests.cybersecurity" class="tag tag-interest">Cybersecurity</span>
-              <span data-i18n="about.interests.socialEngineering" class="tag tag-interest">Social engineering</span>
-              <span data-i18n="about.interests.organizationalSecurity" class="tag tag-interest">Organizational security</span>
-              <span data-i18n="about.interests.sustainableComputing" class="tag tag-interest">Sustainable computing</span>
-              <span data-i18n="about.interests.systemsEfficiency" class="tag tag-interest">Systems efficiency</span>
-            </div>
-          </div>
-          <div class="skills-block-full">
-            <p data-i18n="about.languagesTitle" class="skills-block-label">Languages</p>
-            <div class="tag-row">
-              <span data-i18n="about.languages.spanish" class="tag tag-lang">Spanish - Native</span>
-              <span data-i18n="about.languages.english" class="tag tag-lang">English - Fluent (C1 Cambridge)</span>
-            </div>
-          </div>
+        <p data-i18n="about.bio3">I'm actively developing my cybersecurity skills through hands-on challenges and industry events. I took part in <strong>Talent4Cyber 2026</strong>, a national university Attack &amp; Defense cybersecurity hackathon. I'm also an active student in class and regularly take part in conferences and events in the field. Alongside these activities, I co-authored and presented a research paper and poster at the <strong>ICT4S 2026 Conference</strong> in Bern, Switzerland, exploring the environmental impact of digital technologies.</p>      
+        
+      </div>
+    </div>
+    <!-- Skills (full width, one row per category) -->
+    <div class="skills-cols">
+      <div class="tone-green">
+        <p data-i18n="about.skills.securityTitle" class="skills-block-label">Security &amp; cryptography</p>
+        <div class="tag-row">
+          <span data-i18n="about.skills.appliedCrypto" class="tag tag-tech">Applied cryptography (RSA, AES)</span>
+          <span data-i18n="about.skills.digitalSignatures" class="tag tag-tech">Digital signatures</span>
+          <span data-i18n="about.skills.watermarking" class="tag tag-tech">Watermarking</span>
+          <span class="tag tag-tech">Wireshark</span>
+        </div>
+      </div>
+      <div class="tone-blue">
+        <p data-i18n="about.skills.programmingTitle" class="skills-block-label">Programming</p>
+        <div class="tag-row">
+          <span class="tag tag-tech">Python</span>
+          <span class="tag tag-tech">Java</span>
+          <span class="tag tag-tech">Embedded C</span>
+          <span class="tag tag-tech">MicroPython</span>
+          <span class="tag tag-tech">SQL</span>
+          <span class="tag tag-tech">pytest</span>
+          <span data-i18n="about.tech.commandLine" class="tag tag-tech">Command line</span>
+        </div>
+      </div>
+      <div class="tone-cyan">
+        <p data-i18n="about.skills.systemsTitle" class="skills-block-label">Systems &amp; networking</p>
+        <div class="tag-row">
+          <span class="tag tag-tech">Linux</span>
+          <span data-i18n="about.tech.networking" class="tag tag-tech">Networking</span>
+          <span class="tag tag-tech">TCP sockets</span>
+          <span class="tag tag-tech">UART · WiFi</span>
+          <span class="tag tag-tech">Arduino · ESP32</span>
+        </div>
+      </div>
+      <div class="tone-purple">
+        <p data-i18n="about.skills.aiTitle" class="skills-block-label">AI, data &amp; research</p>
+        <div class="tag-row">
+          <span class="tag tag-tech">PyTorch</span>
+          <span class="tag tag-tech">YOLO</span>
+          <span class="tag tag-tech">OpenCV</span>
+          <span class="tag tag-tech">Weights &amp; Biases</span>
+          <span data-i18n="about.tech.energyProfiling" class="tag tag-tech">Energy profiling</span>
+          <span data-i18n="about.tech.visualComputing" class="tag tag-tech">Computer vision</span>
+        </div>
+      </div>
+      <div class="tone-slate">
+        <p data-i18n="about.interestsTitle" class="skills-block-label">Academic interests</p>
+        <div class="tag-row">
+          <span data-i18n="about.interests.cybersecurity" class="tag tag-interest">Cybersecurity</span>
+          <span data-i18n="about.interests.socialEngineering" class="tag tag-interest">Social engineering</span>
+          <span data-i18n="about.interests.organizationalSecurity" class="tag tag-interest">Organizational security</span>
+          <span data-i18n="about.interests.sustainableComputing" class="tag tag-interest">Sustainable computing</span>
+          <span data-i18n="about.interests.systemsEfficiency" class="tag tag-interest">Systems efficiency</span>
+        </div>
+      </div>
+      <div class="tone-amber">
+        <p data-i18n="about.languagesTitle" class="skills-block-label">Languages</p>
+        <div class="tag-row">
+          <span data-i18n="about.languages.spanish" class="tag tag-lang">Spanish - Native</span>
+          <span data-i18n="about.languages.valencian" class="tag tag-lang">Valencian - C1</span>
+          <span data-i18n="about.languages.english" class="tag tag-lang">English - Fluent (C1 Cambridge)</span>
         </div>
       </div>
     </div>
@@ -682,7 +818,7 @@
 
 <!-- EXPERIENCE -->
 <section id="experiencia">
-  <p data-i18n="experience.label" class="label">Experience</p>
+  <p data-i18n="experience.label" class="label" data-cmd="cat experience.md">Experience</p>
   <h2 data-i18n="experience.title" class="section-title">Where I've worked</h2>
   <div class="exp-list">
     <div class="exp-item">
@@ -724,16 +860,16 @@
 
 <!-- PROJECTS -->
 <section id="proyectos">
-  <p data-i18n="projects.label" class="label">Projects</p>
+  <p data-i18n="projects.label" class="label" data-cmd="ls -la ./projects">Projects</p>
   <h2 data-i18n="projects.title" class="section-title">Things I've built &amp; researched</h2>
 
   <!-- FILTER BAR -->
   <div class="filter-wrap">
     <p class="filter-count" id="proj-count">Showing <span>13</span> projects</p>
     <div class="filter-bar" role="group" aria-label="Filter projects by category" data-i18n-attr="aria-label:projects.filterAria">
-      <button class="filter-btn active" data-filter="all" aria-pressed="true"><span data-i18n="filters.all">All</span></button>
+      <button class="filter-btn" data-filter="all" aria-pressed="false"><span data-i18n="filters.all">All</span></button>
+      <button class="filter-btn active" data-filter="security" aria-pressed="true"><span data-i18n="filters.security">Security</span> <span class="btn-count"></span></button>
       <button class="filter-btn" data-filter="research" aria-pressed="false"><span data-i18n="filters.research">Research</span> <span class="btn-count"></span></button>
-      <button class="filter-btn" data-filter="security" aria-pressed="false"><span data-i18n="filters.security">Security</span> <span class="btn-count"></span></button>
       <button class="filter-btn" data-filter="embedded" aria-pressed="false"><span data-i18n="filters.embedded">Embedded</span> <span class="btn-count"></span></button>
       <button class="filter-btn" data-filter="ai" aria-pressed="false"><span data-i18n="filters.ai">Computer vision</span> <span class="btn-count"></span></button>
       <button class="filter-btn" data-filter="creative" aria-pressed="false"><span data-i18n="filters.creative">Creative</span> <span class="btn-count"></span></button>
@@ -751,12 +887,12 @@
   <div class="projects-grid">
 
     <!-- TFG V2X - research, python -->
-    <a class="project-card" data-tags="research python ai">
-      <div class="project-img" style="background:#0D1B2A; color:#60A5FA;">
+    <a class="project-card tone-blue" data-tags="research python ai">
+      <div class="project-img">
         <img src="images/tfg.png" alt="TFG V2X YOLO" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
-        <p data-i18n="projects.items.tfg.cat" class="project-cat" style="color:#7FA8D9;">Research · Embedded AI · V2X Communications</p>
+        <p data-i18n="projects.items.tfg.cat" class="project-cat">Research · Embedded AI · V2X Communications</p>
         <h3 data-i18n="projects.items.tfg.title" class="project-title">Computational and Energy Performance Analysis of Object Detection Algorithms in V2X Vehicular Communications</h3>
         <span data-i18n="projects.items.tfg.badge" class="project-badge">Bachelor's Thesis · UPV · 2025/2026</span>
         <p data-i18n="projects.items.tfg.desc" class="project-desc">
@@ -766,24 +902,24 @@
           transmission strategies: raw PNG, JPEG compression, and CPM semantic messages.
         </p>
         <div class="tag-row-sm">
-        <span class="tag-sm green">Python</span>
-        <span class="tag-sm green">YOLOv8/11/26</span>
-        <span class="tag-sm green">perf</span>
-        <span class="tag-sm green">PyTorch</span>
-        <span class="tag-sm green">KITTI</span>
-        <span class="tag-sm green">V2X · CPM</span>
-        <span data-i18n="projects.items.tfg.tags.energyModelling" class="tag-sm green">Energy modelling</span>
+        <span class="tag-sm">Python</span>
+        <span class="tag-sm">YOLOv8/11/26</span>
+        <span class="tag-sm">perf</span>
+        <span class="tag-sm">PyTorch</span>
+        <span class="tag-sm">KITTI</span>
+        <span class="tag-sm">V2X · CPM</span>
+        <span data-i18n="projects.items.tfg.tags.energyModelling" class="tag-sm">Energy modelling</span>
         </div>
       </div>
     </a>
 
     <!-- StreamCarbon - research, python (FEATURED first) -->
-    <a href="streamcarbon.html" class="project-card" data-tags="research python">
-      <div class="project-img" style="background:#0D2B1F; color:#4ADE80;">
+    <a href="streamcarbon.html" class="project-card tone-blue" data-tags="research python">
+      <div class="project-img">
         <img src="images/methodology.png" alt="E2E-StreamCarbon poster" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
-        <p data-i18n="projects.items.streamCarbon.cat" class="project-cat" style="color:var(--green);">Research · Sustainable Computing · ICT4S 2026</p>
+        <p data-i18n="projects.items.streamCarbon.cat" class="project-cat">Research · Sustainable Computing · ICT4S 2026</p>
         <h3 data-i18n="projects.items.streamCarbon.title" class="project-title">E2E-StreamCarbon: Measuring the Carbon Footprint of Video Streaming</h3>
         <span data-i18n="projects.items.streamCarbon.badge" class="project-badge">Published · ICT4S 2026 congress - Bern, Switzerland</span>
         <p data-i18n="projects.items.streamCarbon.desc" class="project-desc">
@@ -793,19 +929,19 @@
           real-time CO₂ emissions during YouTube playback.
         </p>
         <div class="tag-row-sm">
-          <span class="tag-sm green">Python</span>
-          <span class="tag-sm green">Linux</span>
-          <span class="tag-sm green">Intel RAPL</span>
-          <span class="tag-sm green">FFmpeg</span>
-          <span class="tag-sm green">Wireshark</span>
-          <span data-i18n="projects.items.streamCarbon.tags.videoCodecs" class="tag-sm green">Video codecs</span>
-          <span data-i18n="projects.items.streamCarbon.tags.browserExtension" class="tag-sm green">Browser extension</span>
+          <span class="tag-sm">Python</span>
+          <span class="tag-sm">Linux</span>
+          <span class="tag-sm">Intel RAPL</span>
+          <span class="tag-sm">FFmpeg</span>
+          <span class="tag-sm">Wireshark</span>
+          <span data-i18n="projects.items.streamCarbon.tags.videoCodecs" class="tag-sm">Video codecs</span>
+          <span data-i18n="projects.items.streamCarbon.tags.browserExtension" class="tag-sm">Browser extension</span>
         </div>
       </div>
     </a>
 
     <!-- DRM - security, python -->
-    <a href="drm.html" class="project-card" data-tags="security python">
+    <a href="drm.html" class="project-card tone-green" data-tags="security python">
       <div class="project-img">
         <img src="images/drm.png" alt="DRM system architecture" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
@@ -830,26 +966,26 @@
     </a>
 
     <!-- X-Ray - ai, security -->
-    <a href="xray.html" class="project-card" data-tags="ai python">
-      <div class="project-img" style="background:#151C19;color:#6E9C86;">
+    <a href="xray.html" class="project-card tone-purple" data-tags="ai python">
+      <div class="project-img">
         <img src="images/xray.png" alt="XRAY project YOLO" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
-        <p data-i18n="projects.items.xray.cat" class="project-cat" style="color:#6E9C86;">Computer Vision · Deep Learning</p>
+        <p data-i18n="projects.items.xray.cat" class="project-cat">Computer Vision · Deep Learning</p>
         <h3 data-i18n="projects.items.xray.title" class="project-title">X-Ray Baggage Object Detection</h3>
-        <span data-i18n="projects.items.xray.badge" class="project-badge" style="background:#151C19;color:#6E9C86;display:inline-block;font-size:0.72rem;padding:0.2rem 0.6rem;border-radius:2px;margin-bottom:0.75rem;">YOLOv11m · 90.8% mAP@0.5 · +17.7pp vs prior SOTA</span>
+        <span data-i18n="projects.items.xray.badge" class="project-badge">YOLOv11m · 90.8% mAP@0.5 · +17.7pp vs prior SOTA</span>
         <p data-i18n="projects.items.xray.desc" class="project-desc">
           Preprocessing pipeline and comparative evaluation of YOLOv11 (n, m, l, x) on the HiXray airport security dataset. Our YOLOv11m outperformed all domain-specific baselines by over 17 percentage points.
         </p>
         <div class="tag-row-sm">
-          <span class="tag-sm green">Python</span><span class="tag-sm green">YOLOv11</span><span class="tag-sm green">OpenCV</span><span class="tag-sm green">W&amp;B</span><span class="tag-sm green">HiXray</span>
+          <span class="tag-sm">Python</span><span class="tag-sm">YOLOv11</span><span class="tag-sm">OpenCV</span><span class="tag-sm">W&amp;B</span><span class="tag-sm">HiXray</span>
         </div>
       </div>
     </a>
 
     <!-- M5Stack - embedded -->
-    <a href="m5stack.html" class="project-card" data-tags="embedded">
-      <div class="project-img" style="background:#1A1A2E;color:#9999BB;">
+    <a href="m5stack.html" class="project-card tone-cyan" data-tags="embedded">
+      <div class="project-img">
         <img src="images/m5stack.png" alt="M5Stack Suzanne Controller" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
@@ -873,8 +1009,8 @@
     </a>
 
     <!-- Café Bill - python -->
-    <a href="cafebill.html" class="project-card" data-tags="java">
-      <div class="project-img" style="background:#1A0A0A;color:#E8735A;">
+    <a href="cafebill.html" class="project-card tone-slate" data-tags="java">
+      <div class="project-img">
         <img src="images/cafebill_splash_1.jpg" alt="Café Bill Android app" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
@@ -895,8 +1031,8 @@
     </a>
 
     <!-- Short film - creative -->
-    <a href="shortfilm.html" class="project-card" data-tags="creative">
-      <div class="project-img" style="background:#1A1A2E;color:#9999BB;">
+    <a href="shortfilm.html" class="project-card tone-amber" data-tags="creative">
+      <div class="project-img">
         <img src="images/poligala.JPG" alt="Poligala short film presentation" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
@@ -916,7 +1052,7 @@
     </a>
 
     <!-- ACM - web (no link, site no longer live) -->
-    <div class="project-card" data-tags="web" style="cursor:default;">
+    <div class="project-card tone-slate" data-tags="web" style="cursor:default;">
       <div class="project-img">
         <img src="images/acm.png" alt="ACM UPV Chapter Logo" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
@@ -933,12 +1069,12 @@
     </div>
 
     <!-- Blender - creative -->
-    <a href="blender.html" class="project-card" data-tags="creative">
-      <div class="project-img" style="background:#241A0E;color:#C98A4B;">
+    <a href="blender.html" class="project-card tone-amber" data-tags="creative">
+      <div class="project-img">
         <img src="images/cave_interior.png" alt="Blender cave" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
-        <p data-i18n="projects.items.secretCave.cat" class="project-cat" style="color:#C98A4B;">3D Modelling · Animation · Graphic Design</p>
+        <p data-i18n="projects.items.secretCave.cat" class="project-cat">3D Modelling · Animation · Graphic Design</p>
         <h3 data-i18n="projects.items.secretCave.title" class="project-title">Secret Cave - Blender</h3>
         <p data-i18n="projects.items.secretCave.desc" class="project-desc">
           Full pipeline from 2D character concept art (sketch → ink → digital painting → modelsheet)
@@ -957,12 +1093,12 @@
     </a>
 
     <!-- Embedded Music - embedded -->
-    <a href="embeddedmusic.html" class="project-card" data-tags="embedded">
-      <div class="project-img" style="background:#161A2E;color:#8B93D9;">
+    <a href="embeddedmusic.html" class="project-card tone-cyan" data-tags="embedded">
+      <div class="project-img">
         <img src="images/embedded_music.png" alt="Embedded musical generator system" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
-        <p data-i18n="projects.items.musicGen.cat" class="project-cat" style="color:#8B93D9;">Embedded Systems · Arduino · ESP32</p>
+        <p data-i18n="projects.items.musicGen.cat" class="project-cat">Embedded Systems · Arduino · ESP32</p>
         <h3 data-i18n="projects.items.musicGen.title" class="project-title">Wireless Embedded Musical Generator</h3>
         <p data-i18n="projects.items.musicGen.desc" class="project-desc">
           Dual-microcontroller system for real-time melody creation, storage and remote playback.
@@ -982,8 +1118,8 @@
     </a>
 
     <!-- Password Tool - security, python -->
-    <a href="passwordtool.html" class="project-card" data-tags="security python">
-      <div class="project-img" style="background:#171B1F;color:#8FA0AC;">
+    <a href="passwordtool.html" class="project-card tone-green" data-tags="security python">
+      <div class="project-img">
         <img src="images/passwordtool.png" alt="Password Generator &amp; Encryption Tool" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
@@ -1005,8 +1141,8 @@
     </a>
 
     <!-- PROMU - python -->
-    <a href="promu.html" class="project-card" data-tags="python">
-      <div class="project-img" style="background:#241A0E;color:#C98A4B;">
+    <a href="promu.html" class="project-card tone-slate" data-tags="python">
+      <div class="project-img">
         <img src="images/guizero.png" alt="Desktop app" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
@@ -1029,8 +1165,8 @@
     </a>
 
     <!-- Short film - creative -->
-    <a href="https://youtu.be/fFtbxEHq4Sc?si=67c8W6skLAk_0Wp6" rel="noopener noreferrer" target="_blank" class="project-card" data-tags="creative">
-      <div class="project-img" style="background:#1A1A2E;color:#9999BB;">
+    <a href="https://youtu.be/fFtbxEHq4Sc?si=67c8W6skLAk_0Wp6" rel="noopener noreferrer" target="_blank" class="project-card tone-amber" data-tags="creative">
+      <div class="project-img">
         <img src="images/capefear.png" alt="Cape Fear thumbnail" loading="lazy" style="width:100%; height:100%; object-fit:cover;">
       </div>
       <div class="project-body">
@@ -1062,9 +1198,59 @@
 
 <hr class="divider">
 
+<!-- ACTIVITIES & EVENTS -->
+<section id="actividades">
+  <p data-i18n="activities.label" class="label" data-cmd="tail -f activities.log">Beyond projects</p>
+  <h2 data-i18n="activities.title" class="section-title">Activities &amp; Events</h2>
+  <div class="projects-grid">
+    <div class="project-card tone-cyan">
+      <div class="project-body">
+        <p data-i18n="activities.cats.conference" class="project-cat">Cybersecurity conference</p>
+        <span data-i18n="activities.badges.accepted" class="project-badge status-accepted">Accepted</span>
+        <h3 class="project-title">XX Jornadas STIC 2026</h3>
+        <p data-i18n="activities.items.stic.date" class="project-desc">November 2026 · Madrid, Spain · CCN</p>
+        <p data-i18n="activities.items.stic.desc" class="project-desc">Registration confirmed for one of Spain's leading cybersecurity and cyber defence events, organised by the National Cryptologic Centre (CCN). The programme covers the ENS, AI security, critical infrastructure, industrial cybersecurity and cyber resilience.</p>
+        <div class="tag-row-sm"><span class="tag-sm">ENS</span><span data-i18n="activities.tags.criticalInfra" class="tag-sm">Critical Infrastructure</span><span data-i18n="activities.tags.cyberResilience" class="tag-sm">Cyber Resilience</span></div>
+      </div>
+    </div>
+    <a class="project-card tone-slate activity-card-link" href="https://lnkd.in/p/ecMhpWRW" target="_blank" rel="noopener noreferrer" aria-label="Open XIV Congreso CiberTodos LinkedIn post">
+      <div class="project-body">
+        <p data-i18n="activities.cats.conference" class="project-cat">Cybersecurity conference</p>
+        <span data-i18n="activities.badges.attendee" class="project-badge status-attendee">Attendee</span>
+        <h3 class="project-title">XIV Congreso CiberTodos</h3>
+        <p data-i18n="activities.items.cibertodos.date" class="project-desc">29 October 2026 · Madrid, Spain · ISACA Madrid Chapter</p>
+        <p data-i18n="activities.items.cibertodos.desc" class="project-desc">Attended talks and discussions on current cybersecurity challenges, including agentic AI, post-quantum cryptography, cybersecurity governance and digital sovereignty.</p>
+        <div class="tag-row-sm"><span data-i18n="activities.tags.aiSecurity" class="tag-sm">AI Security</span><span data-i18n="activities.tags.cryptography" class="tag-sm">Cryptography</span><span data-i18n="activities.tags.governance" class="tag-sm">Governance</span></div>
+      </div>
+    </a>
+    <a class="project-card tone-purple activity-card-link" href="https://lnkd.in/p/eSUSR8zV" target="_blank" rel="noopener noreferrer" aria-label="Open Talent4Cyber 2026 LinkedIn post">
+      <div class="project-body">
+        <p data-i18n="activities.cats.hackathon" class="project-cat">Cybersecurity hackathon</p>
+        <span data-i18n="activities.badges.participant" class="project-badge status-participant">Participant</span>
+        <h3 class="project-title">Talent4Cyber 2026</h3>
+        <p data-i18n="activities.items.talent4cyber.date" class="project-desc">14–15 October 2026 · Online</p>
+        <p data-i18n="activities.items.talent4cyber.desc" class="project-desc">Participated in Spain's national university Attack &amp; Defense cybersecurity hackathon, a two-day team-based exercise focused on responding to cyber incidents and protecting critical infrastructure.</p>
+        <div class="tag-row-sm"><span data-i18n="activities.tags.attackDefense" class="tag-sm">Attack &amp; Defense</span><span data-i18n="activities.tags.cybersecurity" class="tag-sm">Cybersecurity</span><span data-i18n="activities.tags.teamwork" class="tag-sm">Teamwork</span></div>
+      </div>
+    </a>
+    <div class="project-card tone-green">
+      <div class="project-body">
+        <p data-i18n="activities.cats.research" class="project-cat">Research conference</p>
+        <span data-i18n="activities.badges.presenter" class="project-badge status-presenter">Presenter</span>
+        <h3 class="project-title">ICT4S 2026</h3>
+        <p data-i18n="activities.items.ict4s.date" class="project-desc">June 2026 · Bern, Switzerland</p>
+        <p data-i18n="activities.items.ict4s.desc" class="project-desc">Presented the <em>E2E-StreamCarbon</em> research paper and poster at ICT4S 2026 in Bern, Switzerland.</p>
+        <div class="tag-row-sm"><span data-i18n="activities.tags.research" class="tag-sm">Research</span><span data-i18n="activities.tags.sustainableComputing" class="tag-sm">Sustainable Computing</span><span data-i18n="activities.tags.scientificCommunication" class="tag-sm">Scientific Communication</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="divider">
+
 <!-- EDUCATION -->
 <section id="educacion">
-  <p data-i18n="education.label" class="label">Education</p>
+  <p data-i18n="education.label" class="label" data-cmd="cat education.md">Education</p>
   <h2 data-i18n="education.title" class="section-title">Where I've studied</h2>
   <div class="edu-list">
     <div class="edu-item">
@@ -1121,64 +1307,86 @@
 
 <!-- CERTIFICATES -->
 <section id="certificados">
-  <p data-i18n="certs.label" class="label">Certifications</p>
-  <h2 data-i18n="certs.title" class="section-title">Licences &amp; courses</h2>
+  <p data-i18n="certs.label" class="label" data-cmd="ls -l ~/certs">Certifications</p>
+  <h2 data-i18n="certs.title" class="section-title">Certs</h2>
+  <div class="filter-wrap cert-filter">
+    <div class="filter-bar" role="group" aria-label="Filter licences by category" data-i18n-attr="aria-label:certs.filterAria">
+      <button class="filter-btn active" data-cert-filter="cyber" aria-pressed="true"><span data-i18n="certs.filters.cyber">Cybersecurity</span> <span class="btn-count"></span></button>
+      <button class="filter-btn" data-cert-filter="languages" aria-pressed="false"><span data-i18n="certs.filters.languages">Languages</span> <span class="btn-count"></span></button>
+      <button class="filter-btn" data-cert-filter="other" aria-pressed="false"><span data-i18n="certs.filters.other">Other</span> <span class="btn-count"></span></button>
+    </div>
+  </div>
   <div class="cert-grid">
-    <div class="cert-card">
+    <div class="cert-card in-progress tone-green" data-cat="cyber">
+      <span class="cert-issuer">OffSec</span>
+      <span data-i18n="certs.items.oscp.name" class="cert-name">OSCP - OffSec Certified Professional</span>
+      <span data-i18n="certs.status.preparing" class="cert-date">In preparation</span>
+      <span data-i18n="certs.items.oscp.badge" class="cert-badge progress">Offensive security · In progress</span>
+    </div>
+    <div class="cert-card in-progress tone-green" data-cat="cyber">
+      <span class="cert-issuer">Columbia Engineering</span>
+      <span data-i18n="certs.items.columbiaAiGov.name" class="cert-name">AI Cybersecurity and Governance</span>
+      <span data-i18n="certs.status.selfPaced" class="cert-date">Self-paced course · In progress</span>
+      <span data-i18n="certs.items.columbiaAiGov.badge" class="cert-badge progress">AI security · In progress</span>
+    </div>
+    <div class="cert-card tone-amber" data-cat="languages">
       <span class="cert-issuer">Cambridge University Press &amp; Assessment</span>
       <span class="cert-name">Cambridge English: Advanced (C1) - CAE</span>
       <span data-i18n-date class="cert-date">Aug 2024 · ID: C8324480</span>
       <span data-i18n="certs.items.cae.badge" class="cert-badge">English · C1</span>
     </div>
-    <div class="cert-card">
+    <div class="cert-card tone-amber" data-cat="languages">
       <span class="cert-issuer">JQCV</span>
       <span data-i18n="certs.items.valencian.name" class="cert-name">Valencian C1 - Certificat de Nivell Mitjà</span>
       <span data-i18n-date class="cert-date">Oct 2024 · ID: CSV Z2Z44Z7I-TLHJ66Y6</span>
       <span data-i18n="certs.items.valencian.badge" class="cert-badge">Valencian · C1</span>
     </div>
-    <div class="cert-card">
+    <div class="cert-card tone-green" data-cat="cyber">
       <span class="cert-issuer">IBM</span>
       <span data-i18n="certs.items.ibmCyber.name" class="cert-name">Getting started with cybersecurity</span>
       <span data-i18n-date class="cert-date">Mar 2026</span>
-      <span data-i18n="certs.items.ibmCyber.badge" class="cert-badge green">Cybersecurity</span>
+      <span data-i18n="certs.items.ibmCyber.badge" class="cert-badge">Cybersecurity</span>
     </div>
-    <div class="cert-card">
+    <div class="cert-card tone-purple" data-cat="other">
       <span class="cert-issuer">IBM</span>
       <span data-i18n="certs.items.ibmAi.name" class="cert-name">Getting started with artificial intelligence</span>
       <span data-i18n-date class="cert-date">Mar 2026</span>
-      <span data-i18n="certs.items.ibmAi.badge" class="cert-badge green">AI</span>
+      <span data-i18n="certs.items.ibmAi.badge" class="cert-badge">AI</span>
     </div>
-    <div class="cert-card">
+    <div class="cert-card tone-purple" data-cat="other">
       <span class="cert-issuer">IBM</span>
       <span data-i18n="certs.items.ibmGranite.name" class="cert-name">Data classification and summarization - IBM Granite</span>
       <span data-i18n-date class="cert-date">Mar 2026</span>
-      <span data-i18n="certs.items.ibmGranite.badge" class="cert-badge green">AI · Data</span>
+      <span data-i18n="certs.items.ibmGranite.badge" class="cert-badge">AI · Data</span>
     </div>
-    <div class="cert-card">
+    <div class="cert-card tone-blue" data-cat="other">
       <span class="cert-issuer">edX</span>
       <span data-i18n="certs.items.edxSql.name" class="cert-name">Introduction to SQL and relational databases</span>
-      <span data-i18n-date class="cert-date">Oct 2024 · ID: a4ff6f20ed504c78a7ea355a110ef83a</span>
+      <span data-i18n-date class="cert-date">Oct 2024</span>
+      <a data-i18n="certs.verify" class="cert-verify" href="https://courses.edx.org/certificates/a4ff6f20ed504c78a7ea355a110ef83a" target="_blank" rel="noopener noreferrer">Verify ↗</a>
       <span data-i18n="certs.items.edxSql.badge" class="cert-badge">Databases</span>
     </div>
-    <div class="cert-card">
+    <div class="cert-card tone-green" data-cat="cyber">
       <span class="cert-issuer">edX</span>
       <span data-i18n="certs.items.edxCyber.name" class="cert-name">Cybersecurity fundamentals for users</span>
-      <span data-i18n-date class="cert-date">Sept 2024 · ID: 5dda7615857a47d190dda1e47eb0e012</span>
-      <span data-i18n="certs.items.edxCyber.badge" class="cert-badge green">Cybersecurity</span>
+      <span data-i18n-date class="cert-date">Sept 2024</span>
+      <a data-i18n="certs.verify" class="cert-verify" href="https://courses.edx.org/certificates/5dda7615857a47d190dda1e47eb0e012" target="_blank" rel="noopener noreferrer">Verify ↗</a>
+      <span data-i18n="certs.items.edxCyber.badge" class="cert-badge">Cybersecurity</span>
     </div>
-    <div class="cert-card">
+    <div class="cert-card tone-purple" data-cat="other">
       <span class="cert-issuer">Santander · Google</span>
       <span data-i18n="certs.items.santanderAi.name" class="cert-name">Artificial intelligence and productivity</span>
       <span data-i18n-date class="cert-date">Sept 2024 · ID: OA-2024-0911000553773</span>
-      <span data-i18n="certs.items.santanderAi.badge" class="cert-badge green">AI · Productivity</span>
+      <span data-i18n="certs.items.santanderAi.badge" class="cert-badge">AI · Productivity</span>
     </div>
-    <div class="cert-card">
+    <div class="cert-card tone-slate" data-cat="other">
       <span class="cert-issuer">edX</span>
       <span data-i18n="certs.items.edxMarketing.name" class="cert-name">Marketing digital in social media</span>
-      <span data-i18n-date class="cert-date">Sept 2024 · ID: ad1719ac3d4e4f399c748b64b6f4b9d7</span>
+      <span data-i18n-date class="cert-date">Sept 2024</span>
+      <a data-i18n="certs.verify" class="cert-verify" href="https://courses.edx.org/certificates/ad1719ac3d4e4f399c748b64b6f4b9d7" target="_blank" rel="noopener noreferrer">Verify ↗</a>
       <span data-i18n="certs.items.edxMarketing.badge" class="cert-badge">Digital marketing</span>
     </div>
-    <div class="cert-card">
+    <div class="cert-card tone-slate" data-cat="other">
       <span class="cert-issuer">Adecco · Banco Sabadell</span>
       <span data-i18n="certs.items.sabadellTraining.name" class="cert-name">Banco Sabadell internal training certificate</span>
       <span data-i18n-date class="cert-date">May 2025</span>
@@ -1186,12 +1394,29 @@
     </div>
   </div>
 </section>
+<script>
+(function () {
+  const btns  = document.querySelectorAll('[data-cert-filter]');
+  const cards = document.querySelectorAll('#certificados .cert-card');
+  if (!btns.length) return;
+  btns.forEach(b => {
+    const n = [...cards].filter(c => c.dataset.cat === b.dataset.certFilter).length;
+    b.querySelector('.btn-count').textContent = n;
+    b.addEventListener('click', () => {
+      btns.forEach(x => { x.classList.toggle('active', x === b); x.setAttribute('aria-pressed', String(x === b)); });
+      cards.forEach(c => { c.hidden = c.dataset.cat !== b.dataset.certFilter; });
+    });
+  });
+  document.querySelector('[data-cert-filter].active').click();
+})();
+</script>
+
 
 <hr class="divider">
 
 <!-- CONTACT -->
 <section id="contacto">
-  <p data-i18n="contact.label" class="label">Contact</p>
+  <p data-i18n="contact.label" class="label" data-cmd="./contact.sh">Contact</p>
   <h2 data-i18n="contact.title" class="section-title">Let's talk</h2>
   <div class="contact-wrapper">
     <p data-i18n="contact.intro" class="contact-intro">
@@ -1222,6 +1447,7 @@
 
 <footer>
   Paula Otero Paños
+  <span class="egg-hint">press ~ for a terminal</span>
 </footer>
 
 <!-- LANGUAGE SWITCHER
@@ -1393,7 +1619,7 @@
 <!-- FILTER LOGIC -->
 <script>
 (function () {
-  const buttons   = document.querySelectorAll('.filter-btn');
+  const buttons   = document.querySelectorAll('.filter-btn[data-filter]');
   const cards     = document.querySelectorAll('[data-tags]');
   const countEl   = document.getElementById('proj-count');
   const emptyEl   = document.getElementById('proj-empty');
@@ -1428,7 +1654,7 @@
   function renderShowing() {
     countEl.innerHTML = I18N.t('ui.showing', { n: '<span>' + visibleNow + '</span>' });
   }
-  let currentFilter = 'all';
+  let currentFilter = 'security';
 
   // ── Collapse state: only relevant when the "all" filter is active.
   //    Any specific filter always shows every matching card. ───────
@@ -1498,8 +1724,8 @@
   // Re-render dynamic labels when the language changes
   I18N.onChange(() => { renderShowing(); updateCollapseUI(currentFilter); });
 
-  // Initialise - show total count for "All"
-  applyFilter('all');
+  // Initialise - Security is the default filter
+  applyFilter('security');
 })();
 </script>
 
@@ -1539,7 +1765,7 @@
   const ctx = canvas.getContext('2d');
   const CHARS = ['0','1'];
   const THEMES = {
-    dark:  { head: '#E8A2AF', trail: '#B23A52', bgFill: 'rgba(23,24,28,0.4)' },
+    dark:  { head: '#B6FFC8', trail: '#2FD566', bgFill: 'rgba(23,24,28,0.4)' },
     light: { head: '#1B3FAB', trail: '#6C86D9', bgFill: 'rgba(247,246,242,0.45)' }
   };
   function currentTheme() {
@@ -1652,5 +1878,191 @@
 })();
 </script>
 
+
+<!-- HERO NAME GLITCH: "Paula." briefly scrambles into other handles, then decodes back -->
+<script>
+(function () {
+  const h1 = document.querySelector('.hero-name');
+  if (!h1 || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  const ALIASES = ['p4ul4', 'root', '0xPaula', 'whoami', 'admin', 'anonymous', 'r00t', 'n0b0dy', 'sudo', 'ghost'];
+  const NOISE = '!<>-_\\/[]{}=+*^?#01';
+  let realEm = '', timer = null, raf = null, idx = 0;
+  const getEm = () => h1.querySelector('em');
+
+  // Screen readers get the real, stable heading (the visible text changes while the effect runs)
+  function pin() {
+    const e = getEm(); if (!e) return;
+    realEm = e.textContent;
+    const c = h1.cloneNode(true);
+    c.querySelectorAll('br').forEach(b => b.replaceWith(' '));
+    h1.setAttribute('aria-label', c.textContent.replace(/\s+/g, ' ').trim());
+  }
+
+  function scramble(el, to, done) {
+    const from = el.textContent, len = Math.max(from.length, to.length), q = [];
+    for (let i = 0; i < len; i++) {
+      const start = Math.floor(Math.random() * 12);
+      q.push({ from: from[i] || '', to: to[i] || '', start, end: start + 8 + Math.floor(Math.random() * 14), ch: '' });
+    }
+    let frame = 0;
+    el.classList.add('glitching');
+    (function tick() {
+      let out = '', complete = 0;
+      q.forEach(c => {
+        if (frame >= c.end) { complete++; out += c.to; }
+        else if (frame >= c.start) {
+          if (!c.ch || Math.random() < 0.3) c.ch = NOISE[Math.floor(Math.random() * NOISE.length)];
+          out += c.ch;
+        } else out += c.from;
+      });
+      el.textContent = out;
+      if (complete === q.length) { el.classList.remove('glitching'); done && done(); return; }
+      frame++; raf = requestAnimationFrame(tick);
+    })();
+  }
+
+  function stop() { clearTimeout(timer); cancelAnimationFrame(raf); }
+  function later(fn, ms) { timer = setTimeout(fn, ms); }
+
+  function cycle() {
+    const e = getEm();
+    if (!e || document.hidden) return later(cycle, 3000);
+    const alias = ALIASES[idx++ % ALIASES.length] + '.';
+    scramble(e, alias, () => {
+      e.classList.add('alias');
+      later(() => scramble(e, realEm, () => {
+        e.classList.remove('alias');
+        later(cycle, 4500 + Math.random() * 3000);
+      }), 1400);
+    });
+  }
+
+  function start(delay) { stop(); pin(); later(cycle, delay); }
+
+  start(2200);
+  // Language switch rewrites the heading: restart from the new real text
+  I18N.onChange(() => start(3500));
+})();
+</script>
+
+<!-- TAGLINE TYPEWRITER -->
+<script>
+(function () {
+  const el = document.querySelector('.hero-tagline');
+  if (!el || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  let timer;
+  function reset() { clearTimeout(timer); el.classList.remove('typing'); el.style.minHeight = ''; el.removeAttribute('aria-label'); }
+  function type() {
+    const full = el.textContent.replace(/\s+/g, ' ').trim();
+    if (!full) return;
+    el.style.minHeight = el.offsetHeight + 'px';      // reserve the final height so the hero doesn't jump
+    el.setAttribute('aria-label', full);
+    el.textContent = '';
+    el.classList.add('typing');
+    let i = 0;
+    (function step() {
+      i++; el.textContent = full.slice(0, i);
+      if (i < full.length) timer = setTimeout(step, 22 + Math.random() * 28);
+      else reset();
+    })();
+  }
+  function go() { if (document.documentElement.classList.contains('i18n-pending')) return setTimeout(go, 100); type(); }
+  setTimeout(go, 400);
+  I18N.onChange(reset);                               // a language switch rewrites the text: stop typing
+})();
+</script>
+
+<!-- HIDDEN TERMINAL: press ~ (or ` ), the Konami code, or triple-tap the logo -->
+<script>
+(function () {
+  const root = document.createElement('div');
+  root.id = 'term'; root.setAttribute('role', 'dialog'); root.setAttribute('aria-modal', 'true'); root.setAttribute('aria-label', 'Terminal');
+  root.innerHTML = '<div class="term-win"><div class="term-bar"><i id="term-x" title="close"></i><i></i><i></i><span>paula@otero: ~</span></div>' +
+    '<div class="term-out" id="term-out" aria-live="polite"></div>' +
+    '<label class="term-line"><b>paula@otero:~$</b><input id="term-in" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" aria-label="Terminal command"></label></div>';
+  document.body.appendChild(root);
+  const out = root.querySelector('#term-out'), inp = root.querySelector('#term-in');
+  const esc = t => String(t).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  const print = (html) => { const d = document.createElement('div'); d.innerHTML = html; out.appendChild(d); out.scrollTop = out.scrollHeight; };
+  const DIRS = ['inicio', 'conoceme', 'sobre-mi', 'experiencia', 'proyectos', 'actividades', 'educacion', 'certificados', 'contacto'];
+  const hist = []; let hi = 0, last = null, booted = false;
+
+  function open() {
+    last = document.activeElement;
+    root.classList.add('open'); document.body.classList.add('term-open');
+    if (!booted) { booted = true; print('<span class="t-ok">paula@otero</span> — hidden terminal\nType <span class="t-acc">help</span> to see what you can do. <span class="t-dim">(Esc to close)</span>\n'); }
+    setTimeout(() => inp.focus(), 0);
+  }
+  function close() { root.classList.remove('open'); document.body.classList.remove('term-open'); if (last && last.focus) last.focus(); }
+  function go(id) { const t = document.getElementById(id); if (!t) return false; close(); t.scrollIntoView({ behavior: 'smooth' }); return true; }
+  const texts = sel => [...document.querySelectorAll(sel)].map(n => n.textContent.replace(/\s+/g, ' ').trim()).filter(Boolean);
+
+  const C = {
+    help: () => 'Commands:\n  <span class="t-acc">whoami</span>      who is behind this site\n  <span class="t-acc">ls</span>          list sections\n  <span class="t-acc">cd</span> &lt;dir&gt;     jump to a section\n  <span class="t-acc">projects</span>    things I\'ve built\n  <span class="t-acc">skills</span>      what I work with\n  <span class="t-acc">contact</span>     how to reach me\n  <span class="t-acc">cv</span>          download my CV\n  <span class="t-acc">theme</span>       toggle light / dark\n  <span class="t-acc">nmap</span> paula  scan the host\n  <span class="t-acc">clear</span>, <span class="t-acc">exit</span>',
+    whoami: () => 'Paula Otero Paños\nMaster\'s student in cybersecurity, with a background in Computer Science & Telecommunications.\nInterested in offensive security, secure network communications and sustainable computing.',
+    ls: () => DIRS.map(d => '<span class="t-acc">' + d + '/</span>').join('  '),
+    pwd: () => '/home/paula/portfolio',
+    cd: a => { const d = (a || 'inicio').replace(/\/$/, '').replace(/^~?\/?/, '') || 'inicio'; return go(d) ? '' : 'cd: ' + esc(a) + ': no such directory'; },
+    projects: () => texts('#proyectos .project-title').map((t, i) => '<span class="t-dim">' + String(i + 1).padStart(2, '0') + '</span> ' + esc(t)).join('\n') + '\n\n<span class="t-dim">cd proyectos</span> to see them all.',
+    skills: () => { const seen = new Set(); return texts('#sobre-mi .tag').filter(t => !seen.has(t) && seen.add(t)).map(esc).join(' · '); },
+    contact: () => [...document.querySelectorAll('#contacto .contact-link')].filter(a => !a.hasAttribute('download')).map(a => '<a href="' + esc(a.getAttribute('href')) + '" target="_blank" rel="noopener">' + esc(a.textContent.replace(/\s+/g, ' ').trim()) + '</a>').join('\n'),
+    cv: () => { const a = document.querySelector('a[download]'); if (!a) return 'cv: not found'; const l = document.createElement('a'); l.href = a.href; l.download = ''; document.body.appendChild(l); l.click(); l.remove(); return '<span class="t-ok">downloading</span> paula_otero_cv.pdf …'; },
+    theme: () => { const b = document.getElementById('theme-toggle'); if (b) b.click(); return 'theme toggled'; },
+    nmap: () => 'Starting scan of paula…\nPORT     STATE   SERVICE\n22/tcp   <span class="t-err">closed</span>  ssh     <span class="t-dim">(nice try)</span>\n80/tcp   <span class="t-ok">open</span>    http    <span class="t-dim">→ redirects to 443</span>\n443/tcp  <span class="t-ok">open</span>    https   <span class="t-dim">TLS 1.3, obviously</span>\n\nNmap done: 1 host up. Hire her.',
+    sudo: () => 'paula is not in the sudoers file. This incident will be reported.',
+    rm: () => 'rm: nice try.',
+    date: () => new Date().toString(),
+    echo: a => esc(a || ''),
+    exit: () => { close(); return ''; },
+  };
+  C.dir = C.ls; C.quit = C.exit; C.logout = C.exit; C.cat = () => 'cat: try <span class="t-acc">whoami</span>, <span class="t-acc">projects</span> or <span class="t-acc">skills</span>';
+
+  function run(line) {
+    print('<span class="t-ok">paula@otero:~$</span> ' + esc(line));
+    const m = line.trim().match(/^(\S+)\s*(.*)$/); if (!m) return;
+    const name = m[1].toLowerCase();
+    if (name === 'clear') { out.innerHTML = ''; return; }
+    if (C[name]) { const r = C[name](m[2]); if (r) print(r); }
+    else print('bash: ' + esc(m[1]) + ': command not found <span class="t-dim">(try help)</span>');
+  }
+
+  inp.addEventListener('keydown', e => {
+    if (e.key === 'Enter') { const v = inp.value; inp.value = ''; if (v.trim()) { hist.push(v); hi = hist.length; } run(v); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); if (hi > 0) inp.value = hist[--hi]; }
+    else if (e.key === 'ArrowDown') { e.preventDefault(); inp.value = hi < hist.length - 1 ? hist[++hi] : (hi = hist.length, ''); }
+    else if (e.key === 'Tab') {
+      e.preventDefault(); const v = inp.value.trim(); if (!v) return;
+      const parts = v.split(/\s+/);
+      const pool = parts.length > 1 && parts[0] === 'cd' ? DIRS : Object.keys(C);
+      const hit = pool.filter(c => c.startsWith(parts[parts.length - 1]));
+      if (hit.length === 1) { parts[parts.length - 1] = hit[0]; inp.value = parts.join(' '); }
+    }
+  });
+  root.addEventListener('mousedown', e => { if (e.target === root || e.target.id === 'term-x') close(); });
+  root.addEventListener('click', e => { if (e.target.closest('.term-out') && !window.getSelection().toString()) inp.focus(); });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && root.classList.contains('open')) { close(); return; }
+    const typing = /^(INPUT|TEXTAREA|SELECT)$/.test((e.target.tagName || '')) || e.target.isContentEditable;
+    if (!typing && !e.ctrlKey && !e.metaKey && !e.altKey && (e.key === '~' || e.key === '`') && !root.classList.contains('open')) { e.preventDefault(); open(); }
+  });
+
+  // Konami code
+  const K = ['ArrowUp','ArrowUp','ArrowDown','ArrowDown','ArrowLeft','ArrowRight','ArrowLeft','ArrowRight','b','a']; let ki = 0;
+  document.addEventListener('keydown', e => {
+    if (root.classList.contains('open')) return;
+    const k = e.key.length === 1 ? e.key.toLowerCase() : e.key;
+    ki = k === K[ki] ? ki + 1 : (k === K[0] ? 1 : 0);
+    if (ki === K.length) { ki = 0; open(); }
+  });
+
+  // Touch: triple-tap the logo
+  const logo = document.querySelector('.nav-logo'); let taps = [];
+  if (logo) logo.addEventListener('click', e => {
+    const now = Date.now(); taps = taps.filter(t => now - t < 700); taps.push(now);
+    if (taps.length >= 3) { taps = []; e.preventDefault(); open(); }
+  });
+})();
+</script>
 </body>
 </html>
