@@ -1,0 +1,117 @@
+{
+  "common": {
+    "back": "Volver al portfolio",
+    "lang": "Idioma",
+    "themeAria": "Cambiar entre tema claro y oscuro",
+    "themeTitle": "Cambiar tema",
+    "overview": "Resumen",
+    "resources": "Recursos",
+    "team": "Equipo",
+    "reflection": "Reflexión",
+    "demo": "Demo",
+    "features": "Funcionalidades",
+    "architecture": "Arquitectura",
+    "testing": "Pruebas",
+    "context": "Contexto",
+    "methodology": "Metodología",
+    "results": "Resultados",
+    "conclusions": "Conclusiones",
+    "authors": "Autores",
+    "challenges": "Retos de ingeniería",
+    "honestAssessment": "Valoración honesta",
+    "honestReflection": "Reflexión honesta",
+    "designDecisions": "Decisiones de diseño",
+    "technicalStack": "Stack técnico",
+    "toolsStack": "Herramientas y stack",
+    "userFlow": "Flujo de usuario",
+    "protocol": "Protocolo",
+    "supportingResources": "Recursos de apoyo",
+    "resourcesTeam": "Recursos y equipo",
+    "teamResources": "Equipo y recursos",
+    "keyResult": "Resultado clave",
+    "userTool": "Herramienta para el usuario",
+    "predefMelodies": "Melodías predefinidas",
+    "spiffsSetup": "Configuración de SPIFFS",
+    "myRole": "Mi papel",
+    "theTeam": "El equipo",
+    "theShortFilm": "El cortometraje",
+    "course": "Asignatura",
+    "institution": "Institución",
+    "year": "Año",
+    "role": "Rol",
+    "tools": "Herramientas",
+    "platform": "Plataforma",
+    "dataset": "Conjunto de datos",
+    "language": "Lenguaje",
+    "conference": "Congreso",
+    "dates": "Fechas",
+    "competition": "Concurso",
+    "premieredAt": "Estreno en",
+    "upvSchool": "UPV - Escuela de Ingeniería de Telecomunicación",
+    "seeAction": "Míralo en acción",
+    "whatLearned": "Lo que aprendimos",
+    "problemsSolved": "Problemas encontrados y cómo los resolvimos",
+    "documentation": "Documentación",
+    "keyTakeaways": "Ideas clave",
+    "whyMatters": "Por qué importa",
+    "howMeasured": "Cómo lo medimos",
+    "whatFound": "Qué encontramos",
+    "builtWith": "Hecho con",
+    "individual": "Proyecto individual",
+    "problem": "Problema",
+    "solution": "Solución",
+    "backAll": "Volver a todos los proyectos",
+    "dlPresentation": "Descargar presentación (PDF)",
+    "dlReport": "Descargar informe (PDF)",
+    "dlDocs": "Descargar documentación (PDF)",
+    "dlPortfolio": "Descargar portfolio completo (PDF)",
+    "dlAnimation": "Descargar animación (mp4)",
+    "dlFiles": "Descargar archivos (.zip)",
+    "dlShortFilm": "Descargar cortometraje (mp4)",
+    "watchDemo": "Ver vídeo de la demo",
+    "watchYoutube": "Ver DEMO en YouTube",
+    "srcMicropython": "Código MicroPython (.py)",
+    "blendFile": "Archivo de Blender (.blend)",
+    "toscLayout": "Diseño de TouchOSC (.tosc)"
+  },
+  "streamcarbon": {
+    "title": "<em>E2E-StreamCarbon:</em><br>Medición de la huella de carbono del streaming de vídeo",
+    "subtitle": "Un marco de medición de extremo a extremo para evaluar el consumo energético y la huella de carbono del streaming de vídeo, desde la transcodificación en el servidor hasta la reproducción en el cliente, con una extensión de navegador que hace visible este impacto a los usuarios del día a día."
+  },
+  "blender": {
+    "title": "Cueva secreta -<br><em>Del boceto al rayo láser</em>",
+    "subtitle": "Un proyecto de flujo completo, desde el concept art 2D del personaje (boceto → entintado → pintura digital → hoja de modelo) hasta una escena de Blender totalmente animada: la cueva secreta de un superhéroe con ciclos de caminata, trayectorias de cámara cinematográficas, simulación de agua, hierba procedural y un rayo láser en tiempo real que cambia la iluminación de la cueva al dispararse."
+  },
+  "cafebill": {
+    "title": "Café Bill -<br><em>App Android de pedidos</em>",
+    "subtitle": "Una aplicación Android totalmente funcional para la gestión de pedidos de una cafetería. El personal registra a un nuevo cliente, compone su pedido desde un menú con desplazamiento, revisa en pantalla el ticket generado y, opcionalmente, lo exporta como PDF, todo en una interfaz limpia de tema oscuro. Desarrollada en Java por un equipo de cuatro."
+  },
+  "embeddedmusic": {
+    "title": "Generador musical<br><em>embebido inalámbrico</em>",
+    "subtitle": "Un sistema embebido de doble microcontrolador para crear, almacenar y reproducir melodías de forma remota en tiempo real. Un Arduino Mega 2560 gestiona la interacción física mediante un encoder rotatorio y una pantalla LCD RGB, mientras que un ESP32 aloja un punto de acceso WiFi y un servidor web que permite seleccionar y reproducir las melodías guardadas desde cualquier navegador de la red."
+  },
+  "drm": {
+    "title": "Sistema DRM -<br><em>Distribución multimedia segura</em>",
+    "subtitle": "Una plataforma completa de gestión de derechos digitales construida en Python, con cifrado híbrido RSA+AES, arquitectura de servidor de licencias, marcas de agua en el cliente y una cadena de distribución de contenido en tres niveles diseñada en torno a un modelo de amenazas DRM realista."
+  },
+  "m5stack": {
+    "title": "Controlador de objetos de Blender<br><em>con M5Stack y OSC</em>",
+    "subtitle": "Un sistema interactivo hardware-software que usa el giroscopio y los botones físicos del M5Stack-FIRE para controlar un objeto 3D de Blender en tiempo real. Al inclinar el dispositivo cambian el color, el tamaño o la rotación del objeto, transmitidos en directo por OSC, con TouchOSC como panel de respuesta visual."
+  },
+  "xray": {
+    "title": "Detección de objetos<br><em>en equipaje por rayos X</em>",
+    "subtitle": "Pipeline de preprocesamiento y evaluación comparativa de modelos YOLOv11 (n, m, l, x) sobre el conjunto de datos HiXray para control de seguridad, con un 90,8 % de mAP@0.5, superando todas las referencias previas específicas de HiXray, incluidas SSD, FPN, PANet y MuBo."
+  },
+  "promu": {
+    "title": "Super Jump World -<br><em>La física se une a Python</em>",
+    "subtitle": "Un proyecto interdisciplinar de primer curso (PROMU) que integra programación, arquitectura de redes, matemáticas y física en una única aplicación de escritorio: un analizador de saltos que mide saltos humanos reales con el acelerómetro del móvil, procesa los datos con métodos numéricos y sincroniza los resultados mediante una red TCP propia."
+  },
+  "passwordtool": {
+    "title": "Generador de contraseñas<br><em>y herramienta de cifrado de archivos</em>",
+    "subtitle": "Una aplicación de línea de comandos en Python que combina la generación segura de contraseñas, su validación y el cifrado y descifrado de archivos a nivel de carácter. Proyecto de Programación de primer curso que cubre todo el flujo de seguridad: generar una contraseña válida, comprobarla, usarla como clave para cifrar un archivo de texto y recuperar el original mediante descifrado."
+  },
+  "shortfilm": {
+    "title": "Cortometraje Polireto -<br><em>Guion, montaje y Poligala</em>",
+    "subtitle": "Primer cortometraje realizado para el concurso interno de cine de POLIWOOD UPV. Responsable del guion y de todo el montaje; se estrenó en la gala Poligala en el auditorio de la ETSIT, en Valencia."
+  }
+}

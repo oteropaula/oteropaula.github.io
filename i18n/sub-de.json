@@ -1,0 +1,117 @@
+{
+  "common": {
+    "back": "Zurück zum Portfolio",
+    "lang": "Sprache",
+    "themeAria": "Zwischen hellem und dunklem Design wechseln",
+    "themeTitle": "Design wechseln",
+    "overview": "Überblick",
+    "resources": "Ressourcen",
+    "team": "Team",
+    "reflection": "Reflexion",
+    "demo": "Demo",
+    "features": "Funktionen",
+    "architecture": "Architektur",
+    "testing": "Tests",
+    "context": "Kontext",
+    "methodology": "Methodik",
+    "results": "Ergebnisse",
+    "conclusions": "Fazit",
+    "authors": "Autoren",
+    "challenges": "Technische Herausforderungen",
+    "honestAssessment": "Ehrliche Einschätzung",
+    "honestReflection": "Ehrliche Reflexion",
+    "designDecisions": "Designentscheidungen",
+    "technicalStack": "Technischer Stack",
+    "toolsStack": "Werkzeuge &amp; Stack",
+    "userFlow": "Benutzerfluss",
+    "protocol": "Protokoll",
+    "supportingResources": "Weitere Ressourcen",
+    "resourcesTeam": "Ressourcen und Team",
+    "teamResources": "Team und Ressourcen",
+    "keyResult": "Kernergebnis",
+    "userTool": "Nutzerorientiertes Tool",
+    "predefMelodies": "Vordefinierte Melodien",
+    "spiffsSetup": "SPIFFS-Einrichtung",
+    "myRole": "Meine Rolle",
+    "theTeam": "Das Team",
+    "theShortFilm": "Der Kurzfilm",
+    "course": "Kurs",
+    "institution": "Institution",
+    "year": "Jahr",
+    "role": "Rolle",
+    "tools": "Werkzeuge",
+    "platform": "Plattform",
+    "dataset": "Datensatz",
+    "language": "Sprache",
+    "conference": "Konferenz",
+    "dates": "Datum",
+    "competition": "Wettbewerb",
+    "premieredAt": "Uraufführung bei",
+    "upvSchool": "UPV - Fakultät für Telekommunikationstechnik",
+    "seeAction": "In Aktion",
+    "whatLearned": "Was wir gelernt haben",
+    "problemsSolved": "Aufgetretene Probleme und wie wir sie gelöst haben",
+    "documentation": "Dokumentation",
+    "keyTakeaways": "Kernaussagen",
+    "whyMatters": "Warum das wichtig ist",
+    "howMeasured": "Wie wir gemessen haben",
+    "whatFound": "Was wir herausgefunden haben",
+    "builtWith": "Entstanden mit",
+    "individual": "Einzelprojekt",
+    "problem": "Problem",
+    "solution": "Lösung",
+    "backAll": "Zurück zu allen Projekten",
+    "dlPresentation": "Präsentation herunterladen (PDF)",
+    "dlReport": "Bericht herunterladen (PDF)",
+    "dlDocs": "Dokumentation herunterladen (PDF)",
+    "dlPortfolio": "Vollständiges Portfolio herunterladen (PDF)",
+    "dlAnimation": "Animation herunterladen (mp4)",
+    "dlFiles": "Dateien herunterladen (.zip)",
+    "dlShortFilm": "Kurzfilm herunterladen (mp4)",
+    "watchDemo": "Demo-Video ansehen",
+    "watchYoutube": "DEMO auf YouTube ansehen",
+    "srcMicropython": "MicroPython-Quellcode (.py)",
+    "blendFile": "Blender-Datei (.blend)",
+    "toscLayout": "TouchOSC-Layout (.tosc)"
+  },
+  "streamcarbon": {
+    "title": "<em>E2E-StreamCarbon:</em><br>Messung des CO₂-Fußabdrucks von Video-Streaming",
+    "subtitle": "Ein durchgängiges Messframework zur Bewertung von Energieverbrauch und CO₂-Fußabdruck von Video-Streaming – vom serverseitigen Transcoding bis zur clientseitigen Wiedergabe – mit einer Browser-Erweiterung, die diese Auswirkungen für alltägliche Nutzer sichtbar macht."
+  },
+  "blender": {
+    "title": "Geheimhöhle -<br><em>Von der Skizze zum Laserstrahl</em>",
+    "subtitle": "Ein Projekt über die gesamte Pipeline: vom 2D-Charakter-Concept-Art (Skizze → Tusche → digitale Malerei → Modelsheet) bis zu einer vollständig animierten Blender-Szene: die Geheimhöhle eines Superhelden mit Laufzyklen, filmischen Kamerafahrten, Wassersimulation, prozeduralem Gras und einem Echtzeit-Laserstrahl, der beim Abfeuern die Beleuchtung der Höhle verändert."
+  },
+  "cafebill": {
+    "title": "Café Bill -<br><em>Android-Bestell-App</em>",
+    "subtitle": "Eine voll funktionsfähige Android-App zur Bestellverwaltung einer Cafeteria. Das Personal registriert einen neuen Kunden, stellt die Bestellung aus einem scrollbaren Menü zusammen, prüft den erzeugten Beleg auf dem Bildschirm und exportiert ihn optional als PDF – alles in einer aufgeräumten Oberfläche im Dunkelmodus. In Java von einem Vierer-Team entwickelt."
+  },
+  "embeddedmusic": {
+    "title": "Drahtloser eingebetteter<br><em>Musikgenerator</em>",
+    "subtitle": "Ein eingebettetes System mit zwei Mikrocontrollern zum Erstellen, Speichern und Fernabspielen von Melodien in Echtzeit. Ein Arduino Mega 2560 übernimmt die physische Bedienung über Drehencoder und RGB-LCD, während ein ESP32 einen WLAN-Zugangspunkt und einen Webserver bereitstellt, über den gespeicherte Melodien von jedem Browser im Netzwerk ausgewählt und abgespielt werden können."
+  },
+  "drm": {
+    "title": "DRM-System -<br><em>Sichere Multimedia-Verteilung</em>",
+    "subtitle": "Eine vollständige DRM-Plattform (Digital Rights Management) in Python mit hybrider RSA+AES-Verschlüsselung, Lizenzserver-Architektur, clientseitigen Wasserzeichen und einer dreistufigen Content-Delivery-Pipeline, ausgelegt auf ein realistisches DRM-Bedrohungsmodell."
+  },
+  "m5stack": {
+    "title": "Blender-Objektsteuerung<br><em>mit M5Stack &amp; OSC</em>",
+    "subtitle": "Ein interaktives Hardware-Software-System, das Gyroskop und Tasten des M5Stack-FIRE nutzt, um ein 3D-Objekt in Blender in Echtzeit zu steuern. Durch Neigen des Geräts ändern sich Farbe, Größe oder Rotation des Objekts – live über OSC übertragen, mit TouchOSC als visuellem Rückmelde-Dashboard."
+  },
+  "xray": {
+    "title": "Objekterkennung<br><em>in Röntgenbildern von Gepäck</em>",
+    "subtitle": "Preprocessing-Pipeline und vergleichende Evaluierung von YOLOv11-Modellen (n, m, l, x) auf dem HiXray-Datensatz für die Sicherheitskontrolle – mit 90,8 % mAP@0.5 und damit besser als alle bisherigen HiXray-spezifischen Baselines wie SSD, FPN, PANet und MuBo."
+  },
+  "promu": {
+    "title": "Super Jump World -<br><em>Physik trifft auf Python</em>",
+    "subtitle": "Ein interdisziplinäres Projekt im ersten Studienjahr (PROMU), das Programmierung, Netzwerkarchitektur, Mathematik und Physik in einer Desktop-Anwendung vereint: ein Sprunganalysator, der reale menschliche Sprünge mit dem Smartphone-Beschleunigungssensor misst, die Daten mit numerischen Methoden verarbeitet und die Ergebnisse über ein eigenes TCP-Netzwerk synchronisiert."
+  },
+  "passwordtool": {
+    "title": "Passwortgenerator<br><em>&amp; Dateiverschlüsselungstool</em>",
+    "subtitle": "Eine Python-Kommandozeilenanwendung, die sichere Passworterzeugung, Passwortvalidierung sowie zeichenweise Datei-Ver- und -Entschlüsselung kombiniert. Programmierprojekt im ersten Studienjahr, das den gesamten Sicherheits-Workflow abdeckt: ein konformes Passwort erzeugen, prüfen, als Schlüssel zum Verschlüsseln einer Textdatei verwenden und das Original durch Entschlüsselung wiederherstellen."
+  },
+  "shortfilm": {
+    "title": "Polireto-Kurzfilm -<br><em>Drehbuch, Schnitt &amp; Poligala</em>",
+    "subtitle": "Erster Kurzfilm im Rahmen des internen Filmwettbewerbs von POLIWOOD UPV. Verantwortlich für Drehbuch und kompletten Videoschnitt; uraufgeführt bei der Poligala-Zeremonie im Auditorium der ETSIT in Valencia."
+  }
+}

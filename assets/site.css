@@ -1,0 +1,129 @@
+/* ═══════════════════════════════════════════════════════════
+   Shared styles for project sub-pages.
+   Loaded AFTER each page's inline <style>, so it overrides the
+   old fonts / palette / nav and aligns them with index.html.
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── Palette (same values as index.html) ─────────────────── */
+:root {
+  --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
+  --surface-2: #EFEDE7;
+  --muted-dim: #8A8880;
+  --subtle-strong: #D3D1C9;
+  --accent-text: #1B3FAB;
+  --on-accent: #FFFFFF;
+}
+[data-theme="dark"] {
+  --bg: #17181C;
+  --surface: #1F2126;
+  --surface-2: #272A31;
+  --text: #EDEEF0;
+  --muted: #9B9DA6;
+  --muted-dim: #6D707A;
+  --subtle: #32353F;
+  --subtle-strong: #40444F;
+  --accent: #2FD566;
+  --accent-light: #13241A;
+  --accent-mid: #1D5A33;
+  --accent-text: #6BF08F;
+  --on-accent: #06140B;
+  --nav-bg: rgba(23,24,28,0.82);
+}
+
+/* Non-English visitors: hide the page until the translation is applied */
+html.i18n-pending body { visibility: hidden; }
+
+::selection { background: var(--accent-mid); color: var(--text); }
+body { font-weight: 300; }
+
+/* ── Nav: shell-prompt logo, language switcher, theme toggle ── */
+nav {
+  background: var(--nav-bg);
+  border-bottom: 1px solid var(--subtle);
+}
+.nav-logo {
+  font-family: var(--mono); font-size: 0.86rem; font-weight: 500; letter-spacing: -0.02em;
+  display: inline-flex; align-items: center; white-space: nowrap; color: var(--text); text-decoration: none;
+}
+.nav-logo::before {
+  content: ''; flex-shrink: 0; width: 8px; height: 8px; margin-right: 40px; border-radius: 50%;
+  background: var(--subtle-strong); box-shadow: 14px 0 0 var(--subtle-strong), 28px 0 0 var(--subtle-strong);
+}
+.nav-logo .nl-u { color: var(--accent-text); }
+.nav-logo .nl-s { color: var(--muted-dim); }
+.nav-logo .nl-p { color: var(--green); }
+@media (max-width: 900px) { .nav-logo::before { display: none; } }
+
+.nav-right { display: flex; align-items: center; gap: 1.25rem; }
+.nav-back { font-size: 0.82rem; color: var(--muted); text-decoration: none; display: flex; align-items: center; gap: 0.4rem; letter-spacing: 0.03em; transition: color 0.2s; }
+.nav-back:hover { color: var(--accent-text); }
+.nav-back svg { width: 14px; height: 14px; flex-shrink: 0; }
+
+.theme-toggle { border-color: var(--subtle-strong); }
+.theme-toggle:hover { border-color: var(--accent); color: var(--accent-text); }
+
+/* language switcher */
+.lang-switch { position: relative; flex-shrink: 0; }
+.lang-toggle {
+  height: 30px; padding: 0 0.6rem; border-radius: 2px; border: 1px solid var(--subtle-strong);
+  background: transparent; color: var(--muted); cursor: pointer;
+  display: flex; align-items: center; gap: 0.4rem;
+  font-family: 'DM Sans', sans-serif; font-size: 0.7rem; font-weight: 500; letter-spacing: 0.08em;
+  transition: border-color 0.2s, color 0.2s;
+}
+.lang-toggle:hover, .lang-toggle[aria-expanded="true"] { border-color: var(--accent); color: var(--accent-text); }
+.lang-toggle svg { width: 14px; height: 14px; flex-shrink: 0; }
+.lang-menu {
+  position: absolute; top: calc(100% + 10px); right: 0; min-width: 160px; list-style: none;
+  background: var(--surface); border: 1px solid var(--subtle-strong); border-radius: 2px;
+  padding: 0.3rem; display: none; z-index: 120; box-shadow: 0 10px 28px rgba(0,0,0,0.14);
+}
+.lang-switch.open .lang-menu { display: block; }
+.lang-menu button {
+  width: 100%; display: flex; justify-content: space-between; align-items: center; gap: 1rem;
+  background: none; border: none; border-radius: 2px; padding: 0.5rem 0.7rem; cursor: pointer; text-align: left;
+  font-family: 'DM Sans', sans-serif; font-size: 0.82rem; color: var(--muted); transition: background 0.15s, color 0.15s;
+}
+.lang-menu button:hover { background: var(--accent-light); color: var(--accent-text); }
+.lang-menu button[aria-current="true"] { color: var(--accent-text); font-weight: 500; }
+.lang-menu .code { font-size: 0.66rem; letter-spacing: 0.1em; opacity: 0.6; }
+
+@media (max-width: 620px) {
+  nav { padding: 0 1.25rem; }
+  .nav-right { gap: 0.6rem; }
+  .nav-back span { display: none; }
+  .lang-menu { right: -0.25rem; }
+}
+
+/* ── Typography ──────────────────────────────────────────── */
+.page h2 { font-style: italic; font-weight: 400; }
+.project-title em { color: var(--accent-text); }
+
+/* section labels: "> LABEL" in mono (colour variants stay per page) */
+.label { font-family: var(--mono); letter-spacing: 0.12em; }
+.label::before { content: '> '; opacity: 0.7; }
+
+/* monospace for the "data" layer */
+.badge, .tag, .meta-key, .screenshot-label, .diagram-label, .pipeline-step-label,
+.contrib-badge, .team-chip, .role-tag, .stack-key, .problem-col-label, .phase-num,
+.req-label, .algo-block-label, .metric-key, .result-codec, .result-card-label, .result-hero-key {
+  font-family: var(--mono);
+}
+.badge { font-size: 0.68rem; letter-spacing: 0; }
+.badge::before { content: '['; opacity: 0.6; margin-right: 0.15em; }
+.badge::after  { content: ']'; opacity: 0.6; margin-left: 0.15em; }
+.tag { font-size: 0.72rem; letter-spacing: 0; }
+.meta-key { font-size: 0.62rem; letter-spacing: 0.1em; }
+
+/* buttons */
+.btn-primary { background: var(--accent); color: var(--on-accent); }
+.btn-secondary { border-color: var(--subtle-strong); }
+.btn-secondary:hover { border-color: var(--text); }
+
+/* ── Footer (same on every page) ─────────────────────────── */
+footer {
+  border-top: 1px solid var(--subtle); padding: 2rem; text-align: center;
+  font-family: var(--mono); font-size: 0.7rem; color: var(--muted-dim); letter-spacing: 0.04em;
+}
+footer a { color: inherit; text-decoration: none; transition: color 0.2s; }
+footer a:hover { color: var(--accent-text); }
